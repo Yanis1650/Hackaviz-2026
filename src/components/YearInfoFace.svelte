@@ -139,7 +139,7 @@
   <div class="insight-stack">
     {#key staggerGen}
       <div class="heatmap-stagger" in:fade={fadeStagger(320)}>
-        <RatioVariationHeatmap {statsStore} {year} compact={embedded} />
+        <RatioVariationHeatmap {statsStore} {year} compact={embedded} {countryNames} />
       </div>
 
       <div class="scatter-section">

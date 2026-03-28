@@ -19,15 +19,20 @@ export const HEATMAP_EVENT_MARKERS = [
 const HEATMAP_LABELED_YEARS = new Set([2008, 2014, 2022]);
 
 /**
+ * @typedef {{ iso3: string, year: number, variation: number|null, ratio: number|null }} HeatmapCellDatum
+ */
+
+/**
  * @param {SVGSVGElement} svgEl
  * @param {object} p
  * @param {number} p.width
- * @param {{ years: number[], countries: string[], cells: Array<{ iso3: string, year: number, variation: number|null }>, maxAbs: number }} p.matrix
+ * @param {{ years: number[], countries: string[], cells: Array<{ iso3: string, year: number, variation: number|null, ratio: number|null }>, maxAbs: number }} p.matrix
  * @param {boolean} [p.compact]
  * @param {number} [p.activeYear] — colonne surlignée (année timeline / slide).
+ * @param {{ show: (ev: PointerEvent, d: HeatmapCellDatum) => void, move: (ev: PointerEvent, d: HeatmapCellDatum) => void, hide: () => void }|undefined} [p.onHeatmapTooltip]
  */
 export function renderRatioVariationHeatmap(svgEl, p) {
-  const { width, matrix, compact = false, activeYear } = p;
+  const { width, matrix, compact = false, activeYear, onHeatmapTooltip } = p;
   const { years, countries, cells, maxAbs } = matrix;
   const nY = countries.length;
   const margin = compact
@@ -102,34 +107,57 @@ export function renderRatioVariationHeatmap(svgEl, p) {
     }
   }
 
-  const cellMap = new Map(cells.map((c) => [`${c.iso3}|${c.year}`, c.variation]));
+  const cellByKey = new Map(cells.map((c) => [`${c.iso3}|${c.year}`, c]));
+  /** @type {HeatmapCellDatum[]} */
+  const cellData = countries.flatMap((iso) =>
+    years.map((yr) => {
+      const c = cellByKey.get(`${iso}|${yr}`);
+      return {
+        iso3: iso,
+        year: yr,
+        variation: c?.variation ?? null,
+        ratio: c?.ratio ?? null
+      };
+    })
+  );
 
   const cellG = root.select('.hm-cells');
   cellG
     .selectAll('rect.hm-cell')
-    .data(
-      countries.flatMap((iso) => years.map((yr) => ({ iso3: iso, year: yr }))),
-      (d) => `${d.iso3}|${d.year}`
-    )
+    .data(cellData, (d) => `${d.iso3}|${d.year}`)
     .join(
       (enter) =>
         enter
           .append('rect')
           .attr('class', 'hm-cell')
           .attr('rx', 1)
-          .attr('ry', 1),
-      (update) => update,
+          .attr('ry', 1)
+          .attr('pointer-events', 'all'),
+      (update) => update.attr('pointer-events', 'all'),
       (exit) => exit.remove()
     )
     .attr('x', (d) => x(String(d.year)) ?? 0)
     .attr('y', (d) => y(d.iso3) ?? 0)
     .attr('width', x.bandwidth())
     .attr('height', y.bandwidth())
+    .style('cursor', 'default')
     .attr('fill', (d) => {
-      const v = cellMap.get(`${d.iso3}|${d.year}`);
+      const v = d.variation;
       if (v == null || !isFinite(v)) return MISSING_FILL;
       return color(v);
     });
+
+  const hmRects = cellG.selectAll('rect.hm-cell');
+  hmRects.on('pointerenter.heatmaptip', null);
+  hmRects.on('pointermove.heatmaptip', null);
+  hmRects.on('pointerleave.heatmaptip', null);
+
+  if (onHeatmapTooltip) {
+    hmRects
+      .on('pointerenter.heatmaptip', (ev, d) => onHeatmapTooltip.show(ev, d))
+      .on('pointermove.heatmaptip', (ev, d) => onHeatmapTooltip.move(ev, d))
+      .on('pointerleave.heatmaptip', () => onHeatmapTooltip.hide());
+  }
 
   const cursorG = root.select('.hm-cursor');
   cursorG.selectAll('rect.hm-year-highlight').remove();

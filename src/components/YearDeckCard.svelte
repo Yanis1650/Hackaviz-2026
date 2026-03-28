@@ -9,8 +9,14 @@
   /** Contour carte (sélection scatter / légende) : jaune chaud sur fond sombre. */
   const MAP_OUTLINE_HIGHLIGHT = '#ffe066';
 
-  let { year, activeYear, geoData, statsStore, countryNames, ratioColorScale } =
-    $props();
+  let {
+    year,
+    activeYear,
+    geoData,
+    statsStore,
+    countryNames,
+    ratioColorScale
+  } = $props();
 
   /** Région (légende), pays (point scatter ou clic carte) → contours sur la carte. */
   let mapOutline = $state(

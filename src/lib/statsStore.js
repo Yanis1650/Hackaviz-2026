@@ -236,8 +236,8 @@ export function createStatsStore(statsData) {
   }
 
   /**
-   * Matrice heatmap : variation (ratio_annee / ratio_2002) - 1.
-   * @returns {{ years: number[], countries: string[], cells: Array<{ iso3: string, year: number, variation: number|null }>, maxAbs: number }}
+   * Matrice heatmap : variation (ratio_annee / ratio_2002) - 1, ratio courant def_pc/soc_pc.
+   * @returns {{ years: number[], countries: string[], cells: Array<{ iso3: string, year: number, variation: number|null, ratio: number|null }>, maxAbs: number }}
    */
   function getRatioVariationMatrix() {
     const years = Object.keys(statsData)
@@ -251,7 +251,7 @@ export function createStatsStore(statsData) {
     const ratio2002 = new Map(
       countries.map((iso) => [iso, ratioDefenseSurSocial(base[iso])])
     );
-    /** @type {Array<{ iso3: string, year: number, variation: number|null }>} */
+    /** @type {Array<{ iso3: string, year: number, variation: number|null, ratio: number|null }>} */
     const cells = [];
     let maxAbs = 0;
     for (const yr of years) {
@@ -259,15 +259,13 @@ export function createStatsStore(statsData) {
       for (const iso of countries) {
         const r0 = ratio2002.get(iso);
         const row = annee[iso];
+        const ry = row ? ratioDefenseSurSocial(row) : null;
         let variation = null;
-        if (r0 != null && r0 > 0 && row) {
-          const ry = ratioDefenseSurSocial(row);
-          if (ry != null) {
-            variation = ry / r0 - 1;
-            if (isFinite(variation)) maxAbs = Math.max(maxAbs, Math.abs(variation));
-          }
+        if (r0 != null && r0 > 0 && ry != null) {
+          variation = ry / r0 - 1;
+          if (isFinite(variation)) maxAbs = Math.max(maxAbs, Math.abs(variation));
         }
-        cells.push({ iso3: iso, year: yr, variation });
+        cells.push({ iso3: iso, year: yr, variation, ratio: ry });
       }
     }
     return { years, countries, cells, maxAbs };

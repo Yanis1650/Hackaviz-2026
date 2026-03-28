@@ -102,7 +102,6 @@
     border: none;
     background: rgba(14, 16, 26, 0.97);
     box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
-    border-top: 3px solid #c0392b;
   }
 
   .chapter-flash__chapitre {

@@ -74,7 +74,6 @@
     box-sizing: border-box;
     border-radius: 10px;
     border: none;
-    border-top: 3px solid #c0392b;
     background: rgba(12, 14, 24, 0.58);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
