@@ -5,7 +5,7 @@
   import { onMount } from 'svelte';
   import { renderRatioVariationHeatmap, HEATMAP_EVENT_MARKERS } from '../lib/ratioVariationHeatmap.js';
 
-  let { statsStore } = $props();
+  let { statsStore, year, compact = false } = $props();
 
   let rootEl = $state(null);
   let svgEl;
@@ -26,24 +26,31 @@
 
   $effect(() => {
     if (!svgEl || !matrix) return;
-    renderRatioVariationHeatmap(svgEl, { width: containerW, matrix });
+    renderRatioVariationHeatmap(svgEl, {
+      width: containerW,
+      matrix,
+      compact,
+      activeYear: year
+    });
   });
 </script>
 
-<div class="heatmap-wrap">
+<div class="heatmap-wrap" class:heatmap-wrap--compact={compact}>
   <h4 class="section-heading">Variation du ratio Défense / Social (réf. 2002)</h4>
   <p class="heatmap-legend-line">
     <span class="leg leg--down">Baisse du ratio</span>
     <span class="leg leg--mid">Stable</span>
     <span class="leg leg--up">Hausse</span>
   </p>
-  <p class="heatmap-events" aria-hidden="true">
-    Repères :
-    {#each HEATMAP_EVENT_MARKERS as ev, i}
-      {ev.year}{i < HEATMAP_EVENT_MARKERS.length - 1 ? ' · ' : ''}
-    {/each}
-    (UE, crise, Crimée, Ukraine)
-  </p>
+  {#if !compact}
+    <p class="heatmap-events" aria-hidden="true">
+      Repères :
+      {#each HEATMAP_EVENT_MARKERS as ev, i}
+        {ev.year}{i < HEATMAP_EVENT_MARKERS.length - 1 ? ' · ' : ''}
+      {/each}
+      (UE, crise, Crimée, Ukraine)
+    </p>
+  {/if}
   <div id="heatmap-container" class="heatmap-container" bind:this={rootEl}>
     <svg bind:this={svgEl} class="heatmap-svg" aria-label="Heatmap variation ratio par pays et année"
     ></svg>
@@ -52,9 +59,23 @@
 
 <style>
   .heatmap-wrap {
-    flex: 1 1 auto;
+    flex: 0 1 auto;
     width: 100%;
     min-height: 0;
+  }
+
+  .heatmap-wrap--compact .section-heading {
+    font-size: 0.65rem;
+    margin-bottom: 0.08rem;
+  }
+
+  .heatmap-wrap--compact .heatmap-legend-line {
+    margin-bottom: 0.12rem;
+    font-size: 0.62rem;
+  }
+
+  .heatmap-wrap--compact .heatmap-container {
+    overflow-x: hidden;
   }
 
   .section-heading {

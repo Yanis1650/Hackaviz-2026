@@ -10,7 +10,7 @@ import { formatPctAxisX, formatPctAxisY } from './scatterPibFormat.js';
 export const SCATTER_MARGIN = { top: 10, right: 6, bottom: 36, left: 54 };
 export const SCATTER_MARGIN_EMBED = { top: 16, right: 4, bottom: 34, left: 56 };
 export const SCATTER_SVG_H = 200;
-export const SCATTER_SVG_H_EMBED = 220;
+export const SCATTER_SVG_H_EMBED = 228;
 
 const GRID_STROKE = 'rgba(255,255,255,0.08)';
 const AXIS_TEXT = '#a1a9bb';
@@ -57,15 +57,19 @@ export function renderMacroScatterChart(svgEl, p) {
 
   const m = embedded ? SCATTER_MARGIN_EMBED : SCATTER_MARGIN;
   const H = embedded ? SCATTER_SVG_H_EMBED : SCATTER_SVG_H;
-  const dotR = embedded ? 9 : 10;
+  const dotR = embedded ? 11.5 : 10;
   const axisFs = '11px';
   const innerW = Math.max(40, width - m.left - m.right);
   const innerH = H - m.top - m.bottom;
 
+  /** Marge interne X pour que le premier gradué (ex. 0,0 %) ne soit pas rogné au bord du tracé. */
+  const xRangePadL = 12;
+  const xRangePadR = 4;
+
   const x = d3
     .scaleLinear()
     .domain([domains.minDef, domains.maxDef])
-    .range([0, innerW]);
+    .range([xRangePadL, Math.max(xRangePadL + 8, innerW - xRangePadR)]);
   const y = d3
     .scaleLinear()
     .domain([domains.minSoc, domains.maxSoc])
@@ -85,6 +89,10 @@ export function renderMacroScatterChart(svgEl, p) {
     root.append('g').attr('class', 'scatter-axis-x');
     root.append('g').attr('class', 'scatter-axis-y');
     root.append('g').attr('class', 'scatter-dots');
+    root.append('g').attr('class', 'scatter-ann');
+  }
+  if (root.select('g.scatter-ann').empty()) {
+    root.append('g').attr('class', 'scatter-ann');
   }
 
   root.select('.scatter-labels').remove();
@@ -186,4 +194,44 @@ export function renderMacroScatterChart(svgEl, p) {
     c.selectAll('title').remove();
     c.append('title').text(ligneLabelScatter(d, countryNames));
   });
+
+  /** Libellés directs : Grèce (extrême défense), Estonie (Baltes), Luxembourg (isolé). */
+  const annSpecs = [
+    { iso3: 'GRC', dx: -10, dy: -14, anchor: 'end' },
+    { iso3: 'EST', dx: 12, dy: -10, anchor: 'start' },
+    { iso3: 'LUX', dx: 0, dy: 20, anchor: 'middle' }
+  ];
+  const annData = annSpecs
+    .map((s) => {
+      const row = rows.find((r) => r.iso3 === s.iso3);
+      return row ? { ...s, row } : null;
+    })
+    .filter(Boolean);
+
+  const annG = root.select('g.scatter-ann');
+  const annFs = embedded ? '9px' : '10px';
+  annG
+    .selectAll('text.sc-ann')
+    .data(annData, (d) => d.iso3)
+    .join(
+      (enter) =>
+        enter
+          .append('text')
+          .attr('class', 'sc-ann')
+          .attr('fill', 'rgba(236, 240, 250, 0.95)')
+          .attr('font-size', annFs)
+          .attr('font-weight', '700')
+          .attr('stroke', 'rgba(6, 8, 16, 0.65)')
+          .attr('stroke-width', 0.45)
+          .attr('paint-order', 'stroke fill')
+          .attr('pointer-events', 'none'),
+      (update) => update,
+      (exit) => exit.remove()
+    )
+    .attr('text-anchor', (d) => d.anchor)
+    .text((d) => countryNames?.get?.(d.iso3) ?? d.row.code2)
+    .call((sel) => {
+      const u = t ? sel.transition(t) : sel;
+      u.attr('x', (d) => x(d.row.def_pib) + d.dx).attr('y', (d) => y(d.row.soc_pib) + d.dy);
+    });
 }

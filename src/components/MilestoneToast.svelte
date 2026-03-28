@@ -67,19 +67,18 @@
   }
 
   .milestone-toast {
-    --toast-accent: #4a6fa5;
     max-width: min(22rem, 100%);
     width: 100%;
     padding: 0.5rem 0.65rem 0.55rem;
-    pointer-events: auto;
+    pointer-events: none;
     box-sizing: border-box;
     border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-left: 3px solid var(--toast-accent);
-    background: rgba(12, 14, 24, 0.96);
-    box-shadow:
-      0 8px 28px rgba(0, 0, 0, 0.45),
-      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    border: none;
+    border-top: 3px solid #c0392b;
+    background: rgba(12, 14, 24, 0.58);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
   }
 
   .milestone-toast__top {
@@ -100,7 +99,10 @@
 
   .milestone-toast__close {
     margin: 0;
+    position: relative;
+    z-index: 1;
     padding: 0.15rem 0.35rem;
+    pointer-events: auto;
     border: none;
     border-radius: 6px;
     background: rgba(255, 255, 255, 0.06);
@@ -119,28 +121,33 @@
   }
 
   .milestone-toast__identity {
-    margin: 0 0 0.32rem;
+    margin: 0;
+    padding-bottom: 7px;
+    border-bottom: 0.5px solid #1a1d24;
     font-family: var(--font-main, system-ui, sans-serif);
     font-size: 0.58rem;
     font-weight: 600;
     letter-spacing: 0.03em;
     line-height: 1.35;
-    color: rgba(200, 210, 230, 0.88);
+    color: rgba(200, 210, 230, 0.72);
   }
 
   .milestone-toast__une {
     margin: 0;
+    padding-top: 7px;
     font-family: Georgia, serif;
     font-size: clamp(0.78rem, 2.2vw, 0.9rem);
     font-weight: 600;
     line-height: 1.35;
-    color: #e8e4dc;
+    color: #f5f0e8;
     text-wrap: balance;
   }
 
   @media (prefers-reduced-motion: reduce) {
     .milestone-toast {
       transition: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
     }
   }
 </style>

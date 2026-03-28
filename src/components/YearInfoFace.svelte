@@ -2,13 +2,20 @@
   /**
    * Face infos — narration, KPIs UE, ratio agrégé, heatmap, scatter (année via timeline).
    */
+  import { onMount } from 'svelte';
+  import { fly, fade } from 'svelte/transition';
+  import { cubicOut } from 'svelte/easing';
   import { obtenirPeriode } from '../lib/narration.js';
   import MacroScatterChart from './MacroScatterChart.svelte';
+  import ScatterBottomInsights from './ScatterBottomInsights.svelte';
   import RatioVariationHeatmap from './RatioVariationHeatmap.svelte';
+  import KpiTweenedValue from './KpiTweenedValue.svelte';
   import { metricMode } from '../lib/metricMode.js';
 
   let {
     year,
+    /** Année sélectionnée sur la timeline (pour stagger à l’arrivée sur cette slide). */
+    timelineYear = undefined,
     statsStore,
     embedded = false,
     scatterLegendRegionKey = null,
@@ -19,10 +26,37 @@
     countryNames = null
   } = $props();
 
+  const tl = $derived(timelineYear ?? year);
+
+  let reduceMotion = $state(false);
+  onMount(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    reduceMotion = mq.matches;
+    const fn = () => {
+      reduceMotion = mq.matches;
+    };
+    mq.addEventListener('change', fn);
+    return () => mq.removeEventListener('change', fn);
+  });
+
+  let staggerGen = $state(0);
+  let prevTl = $state(/** @type {number | null} */ (null));
+
+  $effect(() => {
+    const t = tl;
+    const y = year;
+    if (t === y && prevTl !== t) {
+      staggerGen += 1;
+    }
+    prevTl = t;
+  });
+
   /** Mode courant synchronisé depuis le store global. */
   let mode = $state('per_capita');
   $effect(() => {
-    return metricMode.subscribe((v) => { mode = v; });
+    return metricMode.subscribe((v) => {
+      mode = v;
+    });
   });
 
   const periode = $derived(obtenirPeriode(year));
@@ -40,14 +74,24 @@
     return `À l’échelle UE, la protection sociale totalise environ ${nStr}× la défense cette année.`;
   });
 
-  /** Formate la valeur KPI selon le mode actif. */
-  function fmtKpi(kpiData, cle) {
-    if (kpiData.mode === 'pib_pct') {
-      const v = cle === 'def' ? kpiData.defensePct : kpiData.socialPct;
-      return `${v.toFixed(2)} % PIB`;
-    }
-    const v = cle === 'def' ? kpiData.defenseMd : kpiData.socialMd;
-    return `${v.toFixed(1)} Md€`;
+  const defNumeric = $derived(kpi.mode === 'pib_pct' ? kpi.defensePct : kpi.defenseMd);
+  const socNumeric = $derived(kpi.mode === 'pib_pct' ? kpi.socialPct : kpi.socialMd);
+  const kpiDecimals = $derived(kpi.mode === 'pib_pct' ? 2 : 1);
+  const kpiSuffix = $derived(kpi.mode === 'pib_pct' ? ' % PIB' : ' Md€');
+  const kpiModeKey = $derived(kpi.mode);
+
+  function fadeStagger(/** @type {number} */ delay) {
+    return reduceMotion ? { duration: 0 } : { duration: 340, delay };
+  }
+
+  function flyStaggerKpi() {
+    return reduceMotion
+      ? { duration: 0 }
+      : { y: 6, duration: 420, delay: 180, easing: cubicOut };
+  }
+
+  function flyStaggerBars(/** @type {number} */ delay) {
+    return reduceMotion ? { duration: 0 } : { y: 5, duration: 400, delay, easing: cubicOut };
   }
 </script>
 
@@ -58,39 +102,68 @@
 >
   <div
     class="narration"
-    style:border-top-color={periode.accent}
     style:--narration-accent={periode.accent}
+    style:box-shadow={`inset 0 3px 0 ${periode.accent}`}
   >
     <h3 class="narration-title">{periode.titre}</h3>
     <p class="narration-text">{periode.texte}</p>
   </div>
 
-  <div id="kpi-container" class="kpi-container">
-    <div class="kpi kpi--defense">
-      <span class="kpi-label">Total UE Défense</span>
-      <span class="kpi-value">{fmtKpi(kpi, 'def')}</span>
+  {#key staggerGen}
+    <div
+      id="kpi-container"
+      class="kpi-container"
+      in:fly={flyStaggerKpi()}
+    >
+      <div class="kpi kpi--defense">
+        <span class="kpi-label">Total UE Défense</span>
+        <KpiTweenedValue
+          value={defNumeric}
+          decimals={kpiDecimals}
+          suffix={kpiSuffix}
+          metricMode={kpiModeKey}
+          {reduceMotion}
+        />
+      </div>
+      <div class="kpi kpi--social">
+        <span class="kpi-label">Total UE Social</span>
+        <KpiTweenedValue
+          value={socNumeric}
+          decimals={kpiDecimals}
+          suffix={kpiSuffix}
+          metricMode={kpiModeKey}
+          {reduceMotion}
+        />
+      </div>
     </div>
-    <div class="kpi kpi--social">
-      <span class="kpi-label">Total UE Social</span>
-      <span class="kpi-value">{fmtKpi(kpi, 'soc')}</span>
-    </div>
-  </div>
+  {/key}
 
   <p class="kpi-narrative">{kpiRatioPhrase}</p>
 
-  <RatioVariationHeatmap {statsStore} />
+  <div class="insight-stack">
+    {#key staggerGen}
+      <div class="heatmap-stagger" in:fade={fadeStagger(320)}>
+        <RatioVariationHeatmap {statsStore} {year} compact={embedded} />
+      </div>
 
-  <div class="scatter-section">
-    <MacroScatterChart
-      {year}
-      {statsStore}
-      embedded
-      {countryNames}
-      selectedRegion={scatterLegendRegionKey}
-      onLegendRegionClick={onScatterLegendRegion}
-      selectedDotIso3={scatterSelectedCountryIso3}
-      onDotClick={onScatterDotClick}
-    />
+      <div class="scatter-section">
+        <div class="scatter-section__plot" in:fade={fadeStagger(480)}>
+          <MacroScatterChart
+            {year}
+            {statsStore}
+            embedded
+            {countryNames}
+            selectedRegion={scatterLegendRegionKey}
+            onLegendRegionClick={onScatterLegendRegion}
+            selectedDotIso3={scatterSelectedCountryIso3}
+            onDotClick={onScatterDotClick}
+          />
+        </div>
+        <div class="bars-stagger" in:fly={flyStaggerBars(620)}>
+          <ScatterBottomInsights {year} {statsStore} {countryNames} />
+        </div>
+      </div>
+    {/key}
   </div>
 </article>
 
@@ -102,7 +175,7 @@
     flex-direction: column;
     gap: 0.5rem;
     padding: 0.85rem 1rem;
-    overflow-y: auto;
+    overflow: hidden;
     min-height: 0;
     background: var(--color-bg-card);
     border: 1px solid var(--color-border);
@@ -111,9 +184,8 @@
   }
 
   .narration {
-    background: var(--color-bg-panel);
-    border: 1px solid var(--color-border);
-    border-top: 3px solid var(--color-accent);
+    border: none;
+    background: var(--color-bg-insight);
     border-radius: 8px;
     padding: 0.65rem 0.9rem;
     flex-shrink: 0;
@@ -151,8 +223,8 @@
     min-width: 0;
     padding: 0.5rem 0.65rem;
     border-radius: 8px;
-    background: var(--color-bg-panel);
-    border: 1px solid var(--color-border);
+    background: var(--color-bg-insight);
+    border: 0.5px solid var(--color-kpi-border);
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
@@ -166,18 +238,29 @@
     color: var(--color-text-muted);
   }
 
-  .kpi-value {
+  .heatmap-stagger {
+    width: 100%;
+    min-height: 0;
+    flex-shrink: 0;
+  }
+
+  .bars-stagger {
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  :global(.kpi-value) {
     font-size: clamp(1.05rem, 2.9vw, 1.38rem);
     font-weight: 600;
     line-height: 1.15;
     font-variant-numeric: tabular-nums;
   }
 
-  .kpi--defense .kpi-value {
+  .kpi--defense :global(.kpi-value) {
     color: var(--color-defense);
   }
 
-  .kpi--social .kpi-value {
+  .kpi--social :global(.kpi-value) {
     color: var(--color-social);
   }
 
@@ -189,23 +272,45 @@
     flex-shrink: 0;
   }
 
+  .insight-stack {
+    flex: 1 1 0;
+    min-height: 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 0.4rem 0.45rem 0.42rem;
+    border: none;
+    border-radius: 8px;
+    background: var(--color-bg-insight);
+  }
+
   .scatter-section {
-    flex: 2 1 240px;
+    flex: 1 1 0;
     min-height: 0;
     width: 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .scatter-section__plot {
+    flex: 1 1 0;
+    min-height: 0;
+    min-width: 0;
     display: flex;
     flex-direction: column;
   }
 
-  .scatter-section :global(#scatter-container) {
+  .scatter-section__plot :global(#scatter-container) {
+    flex: 1 1 0;
     min-height: 0;
+    display: flex;
+    flex-direction: column;
   }
 
-  .scatter-section :global(.scatter-wrap) {
-    flex-shrink: 0;
-  }
-
-  .info-face-card :global(#heatmap-container) {
+  .insight-stack :global(#heatmap-container) {
     width: 100%;
     min-height: 0;
   }
@@ -228,11 +333,34 @@
     border-radius: 0;
     box-shadow: none;
     background: transparent;
-    padding: 0.38rem 0.4rem;
-    gap: 0.4rem;
+    padding: 0.28rem 0.32rem;
+    gap: 0.28rem;
     flex: 1;
     min-height: 0;
     width: 100%;
     min-width: 0;
+    overflow: hidden;
+  }
+
+  .info-face-card--embedded .narration {
+    padding: 0.5rem 0.65rem;
+  }
+
+  .info-face-card--embedded .narration-text {
+    font-size: 0.76rem;
+    line-height: 1.45;
+  }
+
+  .info-face-card--embedded .kpi-container {
+    gap: 0.35rem 0.5rem;
+  }
+
+  .info-face-card--embedded .kpi {
+    padding: 0.38rem 0.5rem;
+  }
+
+  .info-face-card--embedded .kpi-narrative {
+    font-size: 0.68rem;
+    line-height: 1.35;
   }
 </style>

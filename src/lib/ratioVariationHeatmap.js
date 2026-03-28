@@ -15,20 +15,30 @@ export const HEATMAP_EVENT_MARKERS = [
   { year: 2022, short: '2022' }
 ];
 
+/** Années avec ligne + libellé en tête (crises / chocs). */
+const HEATMAP_LABELED_YEARS = new Set([2008, 2014, 2022]);
+
 /**
  * @param {SVGSVGElement} svgEl
  * @param {object} p
  * @param {number} p.width
  * @param {{ years: number[], countries: string[], cells: Array<{ iso3: string, year: number, variation: number|null }>, maxAbs: number }} p.matrix
+ * @param {boolean} [p.compact]
+ * @param {number} [p.activeYear] — colonne surlignée (année timeline / slide).
  */
 export function renderRatioVariationHeatmap(svgEl, p) {
-  const { width, matrix } = p;
+  const { width, matrix, compact = false, activeYear } = p;
   const { years, countries, cells, maxAbs } = matrix;
   const nY = countries.length;
-  const innerW = Math.max(60, width - MARGIN.left - MARGIN.right);
-  const cellH = Math.min(18, Math.max(8, 280 / Math.max(nY, 1)));
+  const margin = compact
+    ? { top: 20, right: 4, bottom: 22, left: 30 }
+    : MARGIN;
+  const innerW = Math.max(60, width - margin.left - margin.right);
+  const cellH = compact
+    ? Math.min(11, Math.max(6, 200 / Math.max(nY, 1)))
+    : Math.min(18, Math.max(8, 280 / Math.max(nY, 1)));
   const innerH = nY * cellH;
-  const H = MARGIN.top + innerH + MARGIN.bottom;
+  const H = margin.top + innerH + margin.bottom;
 
   const x = d3.scaleBand().domain(years.map(String)).range([0, innerW]).paddingInner(0.08);
   const y = d3.scaleBand().domain(countries).range([0, innerH]).paddingInner(0.06);
@@ -47,27 +57,49 @@ export function renderRatioVariationHeatmap(svgEl, p) {
     root = svg.append('g').attr('class', 'hm-root');
     root.append('g').attr('class', 'hm-events');
     root.append('g').attr('class', 'hm-cells');
+    root.append('g').attr('class', 'hm-cursor');
     root.append('g').attr('class', 'hm-axis-x');
     root.append('g').attr('class', 'hm-axis-y');
   }
-  root.attr('transform', `translate(${MARGIN.left},${MARGIN.top})`);
+  root.attr('transform', `translate(${margin.left},${margin.top})`);
+
+  if (root.select('.hm-cursor').empty()) {
+    root.append('g').attr('class', 'hm-cursor');
+  }
 
   const evG = root.select('.hm-events');
-  evG.selectAll('line.hm-ev').remove();
+  evG.selectAll('g.hm-ev-group').remove();
+  const labelFs = compact ? '7px' : '8px';
   for (const ev of HEATMAP_EVENT_MARKERS) {
     const xi = x(String(ev.year));
     if (xi == null) continue;
     const cx = xi + x.bandwidth() / 2;
-    evG
-      .append('line')
+    const labeled = HEATMAP_LABELED_YEARS.has(ev.year);
+    const g = evG.append('g').attr('class', 'hm-ev-group');
+    g.append('line')
       .attr('class', 'hm-ev')
       .attr('x1', cx)
       .attr('x2', cx)
-      .attr('y1', -4)
+      .attr('y1', labeled ? -2 : -4)
       .attr('y2', innerH + 2)
-      .attr('stroke', 'rgba(255,255,255,0.12)')
+      .attr(
+        'stroke',
+        labeled ? 'rgba(255, 255, 255, 0.22)' : 'rgba(255, 255, 255, 0.1)'
+      )
       .attr('stroke-dasharray', '3,3')
       .attr('pointer-events', 'none');
+    if (labeled) {
+      g.append('text')
+        .attr('x', cx)
+        .attr('y', -9)
+        .attr('text-anchor', 'middle')
+        .attr('fill', AXIS_TEXT)
+        .attr('font-size', labelFs)
+        .attr('font-weight', '600')
+        .attr('opacity', 0.88)
+        .attr('pointer-events', 'none')
+        .text(ev.short);
+    }
   }
 
   const cellMap = new Map(cells.map((c) => [`${c.iso3}|${c.year}`, c.variation]));
@@ -98,6 +130,27 @@ export function renderRatioVariationHeatmap(svgEl, p) {
       if (v == null || !isFinite(v)) return MISSING_FILL;
       return color(v);
     });
+
+  const cursorG = root.select('.hm-cursor');
+  cursorG.selectAll('rect.hm-year-highlight').remove();
+  if (activeYear != null && years.includes(activeYear)) {
+    const xi = x(String(activeYear));
+    if (xi != null) {
+      cursorG
+        .append('rect')
+        .attr('class', 'hm-year-highlight')
+        .attr('x', xi)
+        .attr('y', 0)
+        .attr('width', x.bandwidth())
+        .attr('height', innerH)
+        .attr('fill', 'rgba(255, 224, 102, 0.14)')
+        .attr('stroke', 'rgba(255, 224, 102, 0.5)')
+        .attr('stroke-width', compact ? 0.75 : 1)
+        .attr('pointer-events', 'none')
+        .attr('rx', 1)
+        .attr('ry', 1);
+    }
+  }
 
   const axX = root.select('.hm-axis-x').attr('transform', `translate(0,${innerH})`);
   const tickYears = years.filter((_, i) => i % 4 === 0 || i === years.length - 1);

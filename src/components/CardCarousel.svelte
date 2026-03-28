@@ -2,6 +2,7 @@
   /**
    * Piste verticale 23 × une slide — translation pilotée par le slider (scroll-jacking).
    */
+  import { onMount } from 'svelte';
   import YearSlideCard from './YearSlideCard.svelte';
 
   let {
@@ -12,6 +13,17 @@
     countryNames,
     ratioColorScale
   } = $props();
+
+  let reduceMotion = $state(false);
+  onMount(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    reduceMotion = mq.matches;
+    const fn = () => {
+      reduceMotion = mq.matches;
+    };
+    mq.addEventListener('change', fn);
+    return () => mq.removeEventListener('change', fn);
+  });
 
   const MIN_YEAR = 2002;
   const MAX_YEAR = 2024;
@@ -25,7 +37,7 @@
   const offsetY = $derived(slideHeightPx > 0 ? slideIndex * slideHeightPx : 0);
 </script>
 
-<div class="carousel-viewport">
+<div class="carousel-viewport" class:carousel-viewport--reduce-motion={reduceMotion}>
   <div
     id="cards-track"
     class="cards-track"
@@ -65,6 +77,10 @@
     align-items: stretch;
     width: 100%;
     will-change: transform;
-    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.55s cubic-bezier(0.32, 1.04, 0.58, 1);
+  }
+
+  .carousel-viewport--reduce-motion .cards-track {
+    transition: none;
   }
 </style>

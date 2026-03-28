@@ -1,8 +1,8 @@
 <script>
   /**
    * Nuage défense / protection sociale (% PIB), repère 2 % OTAN — légende par zone.
+   * En embedded : légende à droite du tracé pour gagner en hauteur.
    */
-  import { onMount } from 'svelte';
   import { renderMacroScatterChart, ligneLabelScatter } from '../lib/macroScatterChart.js';
   import { REGION_COLORS, REGION_LABELS_FR } from '../lib/countryRegions.js';
 
@@ -20,15 +20,15 @@
   } = $props();
 
   let rootEl = $state(null);
-  /** Pile du graphique (position relative) pour le tooltip HTML. */
+  /** Colonne tracé uniquement (embedded) — largeur pour le SVG. */
+  let plotColEl = $state(/** @type {HTMLDivElement | null} */ (null));
   let plotStackEl = $state(/** @type {HTMLDivElement | null} */ (null));
-  let svgEl;
+  let svgEl = $state(/** @type {SVGSVGElement | null} */ (null));
   let containerW = $state(260);
   let scatterTip = $state({ show: false, text: '', x: 0, y: 0 });
   /** @type {number|undefined} */
   let scatterPrevYear = undefined;
 
-  /** Ordre d’affichage lisible pour la légende. */
   const legendKeys = [
     'coeur',
     'nordiques',
@@ -39,18 +39,21 @@
     'autre'
   ];
 
-  onMount(() => {
-    if (!rootEl) return () => {};
+  $effect(() => {
+    const obsEl = embedded && plotColEl ? plotColEl : rootEl;
+    if (!obsEl) return;
     const ro = new ResizeObserver((entries) => {
       const cr = entries[0]?.contentRect?.width;
-      if (cr != null && cr > 40) containerW = Math.max(embedded ? 160 : 240, cr);
+      if (cr != null && cr > 40) {
+        containerW = Math.max(embedded ? 120 : 240, cr);
+      }
     });
-    ro.observe(rootEl);
-    containerW = Math.max(embedded ? 160 : 240, rootEl.getBoundingClientRect().width);
+    ro.observe(obsEl);
+    const w0 = obsEl.getBoundingClientRect().width;
+    if (w0 > 40) containerW = Math.max(embedded ? 120 : 240, w0);
     return () => ro.disconnect();
   });
 
-  /** Coordonnées pointeur → locales à `.scatter-plot-stack`. */
   function pointerInPlotStack(clientX, clientY) {
     const el = plotStackEl;
     if (!el) return { x: clientX, y: clientY };
@@ -111,62 +114,130 @@
   bind:this={rootEl}
 >
   <span class="scatter-title">Scatter défense × social (% PIB)</span>
-  <div class="scatter-plot-stack" bind:this={plotStackEl}>
-    <div class="scatter-plot-container">
-      <svg bind:this={svgEl} class="scatter-svg" aria-label="Nuage de points par pays"></svg>
-    </div>
-    {#if scatterTip.show}
-      <div
-        class="scatter-tooltip"
-        style:left="{scatterTip.x}px"
-        style:top="{scatterTip.y}px"
-        role="tooltip"
-      >
-        {scatterTip.text}
+
+  {#if embedded}
+    <div class="scatter-embed-body">
+      <div class="scatter-plot-col" bind:this={plotColEl}>
+        <div class="scatter-plot-stack" bind:this={plotStackEl}>
+          <div class="scatter-plot-container">
+            <svg bind:this={svgEl} class="scatter-svg" aria-label="Nuage de points par pays"></svg>
+          </div>
+          {#if scatterTip.show}
+            <div
+              class="scatter-tooltip"
+              style:left="{scatterTip.x}px"
+              style:top="{scatterTip.y}px"
+              role="tooltip"
+            >
+              {scatterTip.text}
+            </div>
+          {/if}
+        </div>
       </div>
-    {/if}
-  </div>
-  <ul class="scatter-legend" aria-label="Zones géographiques">
-    {#each legendKeys as key}
-      <li class="scatter-legend__item">
-        {#if onLegendRegionClick}
-          <button
-            type="button"
-            class="scatter-legend__btn"
-            class:scatter-legend__btn--active={selectedRegion === key}
-            aria-pressed={selectedRegion === key}
-            aria-label="Surligner {REGION_LABELS_FR[key]} sur la carte"
-            onclick={() => onLegendRegionClick(key)}
-          >
-            <span class="scatter-legend__swatch" style:background={REGION_COLORS[key]}></span>
-            <span>{REGION_LABELS_FR[key]}</span>
-          </button>
-        {:else}
-          <span class="scatter-legend__static">
-            <span class="scatter-legend__swatch" style:background={REGION_COLORS[key]}></span>
-            <span>{REGION_LABELS_FR[key]}</span>
-          </span>
-        {/if}
-      </li>
-    {/each}
-  </ul>
+      <ul class="scatter-legend scatter-legend--aside" aria-label="Zones géographiques">
+        {#each legendKeys as key}
+          <li class="scatter-legend__item">
+            {#if onLegendRegionClick}
+              <button
+                type="button"
+                class="scatter-legend__btn"
+                class:scatter-legend__btn--active={selectedRegion === key}
+                aria-pressed={selectedRegion === key}
+                aria-label="Surligner {REGION_LABELS_FR[key]} sur la carte"
+                onclick={() => onLegendRegionClick(key)}
+              >
+                <span class="scatter-legend__swatch" style:background={REGION_COLORS[key]}></span>
+                <span>{REGION_LABELS_FR[key]}</span>
+              </button>
+            {:else}
+              <span class="scatter-legend__static">
+                <span class="scatter-legend__swatch" style:background={REGION_COLORS[key]}></span>
+                <span>{REGION_LABELS_FR[key]}</span>
+              </span>
+            {/if}
+          </li>
+        {/each}
+      </ul>
+    </div>
+  {:else}
+    <div class="scatter-plot-stack" bind:this={plotStackEl}>
+      <div class="scatter-plot-container">
+        <svg bind:this={svgEl} class="scatter-svg" aria-label="Nuage de points par pays"></svg>
+      </div>
+      {#if scatterTip.show}
+        <div
+          class="scatter-tooltip"
+          style:left="{scatterTip.x}px"
+          style:top="{scatterTip.y}px"
+          role="tooltip"
+        >
+          {scatterTip.text}
+        </div>
+      {/if}
+    </div>
+    <ul class="scatter-legend" aria-label="Zones géographiques">
+      {#each legendKeys as key}
+        <li class="scatter-legend__item">
+          {#if onLegendRegionClick}
+            <button
+              type="button"
+              class="scatter-legend__btn"
+              class:scatter-legend__btn--active={selectedRegion === key}
+              aria-pressed={selectedRegion === key}
+              aria-label="Surligner {REGION_LABELS_FR[key]} sur la carte"
+              onclick={() => onLegendRegionClick(key)}
+            >
+              <span class="scatter-legend__swatch" style:background={REGION_COLORS[key]}></span>
+              <span>{REGION_LABELS_FR[key]}</span>
+            </button>
+          {:else}
+            <span class="scatter-legend__static">
+              <span class="scatter-legend__swatch" style:background={REGION_COLORS[key]}></span>
+              <span>{REGION_LABELS_FR[key]}</span>
+            </span>
+          {/if}
+        </li>
+      {/each}
+    </ul>
+  {/if}
 </div>
 
 <style>
   .scatter-wrap {
-    flex-shrink: 0;
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     min-height: 0;
+    min-width: 0;
   }
 
   .scatter-wrap--embedded {
-    margin-top: 0.35rem;
-    padding-top: 0.4rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 0;
+    padding-top: 0;
+    border: none;
   }
 
   .scatter-wrap--embedded .scatter-title {
     text-align: left;
+    flex-shrink: 0;
+  }
+
+  .scatter-embed-body {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0.4rem;
+    flex: 1 1 0;
+    min-height: 0;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .scatter-plot-col {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 0;
   }
 
   .scatter-wrap--overlay {
@@ -188,16 +259,15 @@
     box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.35);
   }
 
-  /* Réactiver le pointeur sur le tracé (le wrap overlay est en none pour ne pas masquer la carte). */
   .scatter-wrap--overlay .scatter-plot-stack {
     pointer-events: auto;
   }
 
   .scatter-title {
     display: block;
-    margin-bottom: 0.15rem;
+    margin-bottom: 0.12rem;
     padding-left: 1px;
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -219,21 +289,34 @@
   .scatter-tooltip {
     position: absolute;
     z-index: 5;
-    max-width: min(16rem, 92vw);
-    padding: 0.28rem 0.4rem;
-    font-size: 0.7rem;
-    line-height: 1.35;
-    color: var(--color-text);
-    background: rgba(12, 14, 24, 0.94);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 6px;
+    max-width: min(17rem, 92vw);
+    padding: 0.42rem 0.55rem;
+    font-size: 0.78rem;
+    line-height: 1.42;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: #eef1f8;
+    background: rgba(10, 12, 22, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
     pointer-events: none;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    box-shadow:
+      0 4px 6px rgba(0, 0, 0, 0.25),
+      0 12px 28px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
   }
 
   .scatter-svg {
     display: block;
     width: 100%;
+  }
+
+  /* Libellé axe Y : texte horizontal puis rotation (évite l’empilement vertical des glyphes). */
+  .scatter-svg :global(text.scatter-cap-y) {
+    writing-mode: horizontal-tb;
+    transform: rotate(-90deg);
+    transform-origin: center;
+    white-space: nowrap;
   }
 
   .scatter-legend {
@@ -248,10 +331,34 @@
     line-height: 1.2;
   }
 
+  .scatter-legend--aside {
+    flex: 0 0 min(7.2rem, 32%);
+    max-width: 8rem;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 0.18rem;
+    font-size: 0.62rem;
+  }
+
+  .scatter-legend--aside .scatter-legend__btn {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0.1rem 0.22rem 0.1rem 0.14rem;
+  }
+
   .scatter-legend__item {
     display: inline-flex;
     align-items: center;
     gap: 0.15rem;
+  }
+
+  .scatter-legend--aside .scatter-legend__item {
+    display: block;
   }
 
   .scatter-legend__static {
@@ -267,25 +374,23 @@
     margin: 0;
     padding: 0.12rem 0.28rem 0.12rem 0.18rem;
     border-radius: 6px;
-    border: 1px solid transparent;
-    background: rgba(255, 255, 255, 0.04);
+    border: none;
+    background: rgba(255, 255, 255, 0.05);
     color: inherit;
     font: inherit;
     font-size: inherit;
     line-height: 1.2;
     cursor: pointer;
-    transition:
-      background 0.15s ease,
-      border-color 0.15s ease;
+    transition: background 0.15s ease;
   }
 
   .scatter-legend__btn:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.1);
   }
 
   .scatter-legend__btn--active {
-    border-color: rgba(255, 255, 255, 0.35);
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.14);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
   }
 
   .scatter-legend__swatch {

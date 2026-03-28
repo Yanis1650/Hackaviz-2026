@@ -122,9 +122,9 @@
     /* visible : le tooltip (absolute dans la pile) n’est pas coupé sous le transform du carrousel. */
     overflow: visible;
     border-radius: 12px;
-    background: linear-gradient(180deg, rgba(14, 18, 32, 0.92) 0%, rgba(6, 8, 16, 0.88) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    background: var(--color-bg-insight, #131720);
+    border: none;
+    box-shadow: none;
   }
 
   .map-face-stack {
@@ -154,8 +154,8 @@
     max-width: min(14rem, 92%);
     padding: 0.35rem 0.45rem;
     border-radius: 6px;
-    background: rgba(8, 10, 20, 0.72);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--color-bg-insight, #131720);
+    border: none;
     pointer-events: none;
     z-index: 2;
   }

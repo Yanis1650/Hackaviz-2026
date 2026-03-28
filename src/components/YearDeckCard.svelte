@@ -1,6 +1,6 @@
 <script>
   /**
-   * Tapis commun + deux cartes (carte + graphiques), pleine hauteur utile.
+   * Grille carte + graphiques, pleine hauteur utile.
    */
   import YearMapFace from './YearMapFace.svelte';
   import YearInfoFace from './YearInfoFace.svelte';
@@ -53,9 +53,6 @@
   <div class="deck-spread__mat">
     <div class="dual-cards">
       <article class="surface-card surface-card--map" aria-label="Carte">
-        <header class="card-head">
-          <span class="card-title card-title--map">Carte</span>
-        </header>
         <div class="card-body card-body--map">
           <YearMapFace
             embedded
@@ -72,13 +69,11 @@
       </article>
 
       <article class="surface-card surface-card--charts" aria-label="Graphiques">
-        <header class="card-head">
-          <span class="card-title card-title--charts">Graphiques</span>
-        </header>
         <div class="card-body card-body--charts">
           <YearInfoFace
             embedded
             {year}
+            timelineYear={activeYear ?? year}
             {statsStore}
             {countryNames}
             scatterLegendRegionKey={mapOutline?.type === 'region' ? mapOutline.key : null}
@@ -96,37 +91,30 @@
   .deck-spread {
     display: flex;
     flex-direction: column;
+    width: 100%;
     height: 100%;
     min-height: 0;
     min-width: 0;
     box-sizing: border-box;
   }
 
-  /* Tapis : relie les deux cartes au même socle que les lames */
   .deck-spread__mat {
     flex: 1 1 0;
     min-height: 0;
     position: relative;
     z-index: 2;
-    padding: 5px 6px 5px;
-    border-radius: 16px;
-    background: linear-gradient(
-      175deg,
-      rgba(14, 16, 28, 0.72) 0%,
-      rgba(6, 8, 16, 0.88) 100%
-    );
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.06) inset,
-      0 20px 46px rgba(0, 0, 0, 0.58),
-      0 6px 0 rgba(0, 0, 0, 0.2);
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
   }
 
   .dual-cards {
     display: grid;
-    grid-template-columns: minmax(0, 1.14fr) minmax(16rem, 0.86fr);
+    grid-template-columns: minmax(0, 1.52fr) minmax(24rem, 1.88fr);
     align-items: stretch;
-    gap: clamp(0.4rem, 1.2vw, 0.75rem);
+    gap: clamp(0.22rem, 0.65vw, 0.4rem);
     width: 100%;
     height: 100%;
     min-height: 0;
@@ -147,15 +135,12 @@
     min-height: 0;
     display: flex;
     flex-direction: column;
-    padding: 0.35rem 0.4rem 0.45rem;
+    padding: 0.3rem 0.32rem 0.38rem;
     border-radius: 12px;
     box-sizing: border-box;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow:
-      0 2px 0 rgba(255, 255, 255, 0.04),
-      0 10px 28px rgba(0, 0, 0, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    box-shadow: none;
   }
 
   .surface-card--map {
@@ -176,31 +161,6 @@
       rgba(12, 10, 22, 0.96) 100%
     );
     border-color: rgba(228, 26, 28, 0.18);
-  }
-
-  .card-head {
-    flex-shrink: 0;
-    width: 100%;
-    margin-bottom: 0.2rem;
-  }
-
-  .card-title {
-    display: block;
-    width: 100%;
-    font-size: 0.58rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    text-align: center;
-    opacity: 0.85;
-  }
-
-  .card-title--map {
-    color: rgba(140, 190, 255, 0.95);
-  }
-
-  .card-title--charts {
-    color: rgba(255, 170, 175, 0.9);
   }
 
   .card-body {

@@ -56,19 +56,13 @@
     min-height: 0;
     overflow: hidden;
     position: relative;
-    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.5);
-    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-    transform-origin: 50% 50%;
   }
 
   /*
-   * Les 5 slides « lourdes » (±2 ans) se chevauchent en z-order.
-   * `pointer-events: none` sur le parent ne suffit pas : canvas MapLibre / SVG ont
-   * `pointer-events: auto` par défaut et continuent à recevoir le survol → tooltip
-   * de la mauvaise année (souvent la plus ancienne encore montée).
+   * Les slides hors année active restent dans le DOM (piste verticale) mais ne
+   * reçoivent pas les interactions : MapLibre / SVG ont pointer-events: auto.
    */
   .year-card:not(.year-card--active) {
-    transform: scale(0.98);
     pointer-events: none;
     z-index: 0;
   }
@@ -88,21 +82,24 @@
     width: 100%;
     display: flex;
     align-items: stretch;
-    justify-content: center;
-    padding: 0.12rem 0.3rem 0.05rem;
+    justify-content: stretch;
+    /* Marge par rapport aux bords de la fenêtre (carte + graphiques ne collent pas au viewport). */
+    padding: clamp(0.45rem, 1.1vh, 0.85rem) clamp(0.65rem, 1.75vw, 1.35rem);
     box-sizing: border-box;
   }
 
   .year-card-inner > :global(.deck-spread) {
-    width: min(99.5vw, 1520px);
+    width: 100%;
     max-width: 100%;
     height: 100%;
     max-height: 100%;
     min-height: 0;
+    flex: 1;
+    min-width: 0;
   }
 
   .year-card-placeholder {
-    width: min(99.5vw, 1520px);
+    width: 100%;
     max-width: 100%;
     height: 100%;
     max-height: 100%;

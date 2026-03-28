@@ -99,11 +99,9 @@
     overflow-y: auto;
     padding: 1.1rem 1.2rem 1rem;
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: none;
     background: rgba(14, 16, 26, 0.97);
-    box-shadow:
-      0 24px 64px rgba(0, 0, 0, 0.55),
-      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
     border-top: 3px solid #c0392b;
   }
 
@@ -114,7 +112,7 @@
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: #c0392b;
+    color: rgba(255, 255, 255, 0.42);
   }
 
   .chapter-flash__chapeau {
@@ -138,18 +136,17 @@
     margin: 0 0 1rem;
     padding: 0;
     list-style: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 0.5px solid #1a1d24;
   }
 
   .chapter-flash__cite {
     margin: 0;
-    padding: 0.62rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 7px 0;
+    border-bottom: 0.5px solid #1a1d24;
   }
 
   .chapter-flash__cite:last-child {
     border-bottom: none;
-    padding-bottom: 0.15rem;
   }
 
   .chapter-flash__cite-row {
@@ -183,7 +180,7 @@
     font-size: 0.78rem;
     font-weight: 600;
     line-height: 1.45;
-    color: #dcd8cf;
+    color: #f5f0e8;
   }
 
   .chapter-flash__actions {
@@ -193,7 +190,7 @@
     justify-content: space-between;
     gap: 0.65rem;
     padding-top: 0.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 0.5px solid #1a1d24;
   }
 
   .chapter-flash__footnote {

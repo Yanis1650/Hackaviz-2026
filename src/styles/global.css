@@ -1,6 +1,10 @@
 /* Variables CSS */
 :root {
   --color-bg: #0a0a0f;
+  /* Blocs intérieurs (sans bordure) : léger relief sur #0d1117 */
+  --color-bg-chrome: #0d1117;
+  --color-bg-insight: #131720;
+  --color-kpi-border: #1e2230;
   --color-bg-card: rgba(10, 10, 20, 0.92);
   --color-bg-panel: rgba(8, 10, 22, 0.65);
   --color-text: #e0e0e0;

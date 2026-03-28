@@ -36,12 +36,12 @@ export function updateScatterAxisCaptions(svg, opts) {
       .attr('fill', axisText)
       .attr('font-size', axisFs);
   }
-  gY.attr('transform', `translate(${cx},${cy}) rotate(-90)`);
+  gY.attr('transform', `translate(${cx},${cy})`);
   gY
     .select('text.scatter-cap-y')
     .attr('x', 0)
     .attr('y', 0)
     .attr('text-anchor', 'middle')
     .attr('dominant-baseline', 'middle')
-    .text('Protection sociale (% PIB)');
+    .text('Social (% PIB)');
 }

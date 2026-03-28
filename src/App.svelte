@@ -243,11 +243,12 @@
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
+    height: 28px;
     min-height: 28px;
     padding: 0.32rem 0.8rem;
     box-sizing: border-box;
     background: rgba(255, 255, 255, 0.06);
-    border: 0.5px solid #333;
+    border: 0.5px solid #444;
     border-radius: 20px;
     color: var(--color-text-muted);
     font-size: 0.72rem;
