@@ -56,7 +56,11 @@
   class="info-face-card"
   class:info-face-card--embedded={embedded}
 >
-  <div class="narration" style="border-top-color: {periode.accent}">
+  <div
+    class="narration"
+    style:border-top-color={periode.accent}
+    style:--narration-accent={periode.accent}
+  >
     <h3 class="narration-title">{periode.titre}</h3>
     <p class="narration-text">{periode.texte}</p>
   </div>
@@ -116,12 +120,13 @@
   }
 
   .narration-title {
-    margin: 0 0 0.25rem;
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: #ffffff;
-    letter-spacing: 0.08em;
+    margin: 0 0 0.38rem;
+    font-size: clamp(0.88rem, 2.4vw, 0.95rem);
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    line-height: 1.25;
     text-transform: uppercase;
+    color: var(--narration-accent, #e8eaf0);
   }
 
   .narration-text {

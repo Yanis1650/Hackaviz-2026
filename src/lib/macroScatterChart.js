@@ -7,8 +7,8 @@ import { updateScatterAxisCaptions } from './macroScatterCaptions.js';
 import { updateNatoReferenceLine } from './macroScatterNato.js';
 import { formatPctAxisX, formatPctAxisY } from './scatterPibFormat.js';
 
-export const SCATTER_MARGIN = { top: 10, right: 6, bottom: 36, left: 48 };
-export const SCATTER_MARGIN_EMBED = { top: 16, right: 4, bottom: 34, left: 44 };
+export const SCATTER_MARGIN = { top: 10, right: 6, bottom: 36, left: 54 };
+export const SCATTER_MARGIN_EMBED = { top: 16, right: 4, bottom: 34, left: 56 };
 export const SCATTER_SVG_H = 200;
 export const SCATTER_SVG_H_EMBED = 220;
 

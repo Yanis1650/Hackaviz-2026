@@ -22,20 +22,26 @@ export function updateScatterAxisCaptions(svg, opts) {
     .attr('text-anchor', 'middle')
     .text('Dépense défense (% PIB)');
 
-  const yLabX = Math.max(10, m.left - 20);
-  const yLabY = m.top + innerH / 2;
-  let capY = svg.select('text.scatter-cap-y');
-  if (capY.empty()) {
-    capY = svg
+  svg.select('text.scatter-cap-y').remove();
+
+  const cx = Math.max(14, m.left - 8);
+  const cy = m.top + innerH / 2;
+
+  let gY = svg.select('g.scatter-cap-y-wrap');
+  if (gY.empty()) {
+    gY = svg.append('g').attr('class', 'scatter-cap-y-wrap');
+    gY
       .append('text')
       .attr('class', 'scatter-cap-y')
       .attr('fill', axisText)
       .attr('font-size', axisFs);
   }
-  capY
-    .attr('transform', `rotate(-90,${yLabX},${yLabY})`)
-    .attr('x', yLabX)
-    .attr('y', yLabY)
+  gY.attr('transform', `translate(${cx},${cy}) rotate(-90)`);
+  gY
+    .select('text.scatter-cap-y')
+    .attr('x', 0)
+    .attr('y', 0)
     .attr('text-anchor', 'middle')
+    .attr('dominant-baseline', 'middle')
     .text('Protection sociale (% PIB)');
 }

@@ -6,9 +6,12 @@
   import { createStatsStore } from './lib/statsStore.js';
   import { createRatioScale } from './lib/scales.js';
   import CardCarousel from './components/CardCarousel.svelte';
+  import ChapterFlash from './components/ChapterFlash.svelte';
+  import MilestoneToast from './components/MilestoneToast.svelte';
   import Timeline from './components/Timeline.svelte';
   import { translateCountryNameEnToFr } from './lib/paysEnToFr.js';
   import { metricMode, basculerMetrique } from './lib/metricMode.js';
+  import { NARRATION, obtenirPeriode, obtenirReperesAnnee } from './lib/narration.js';
 
   let geoData = $state(null);
   let statsStore = $state(null);
@@ -19,6 +22,76 @@
   /** Hauteur mesurée de #view-window (une slide = cette hauteur). */
   let viewWindowH = $state(0);
   let timelineZoneH = $state(0);
+
+  /** Année précédente (hors réactivité) pour détecter les transitions sans relancer l’effet. */
+  let prevYearPress = /** @type {number | null} */ (null);
+  let flashNonce = $state(0);
+  let flashData = $state(
+    /** @type {null | { transition: { chapitreLigne: string, chapeau: string, corps: string, citations: { media: string, date: string, une: string }[] }}} */ (null)
+  );
+  let toastNonce = $state(0);
+  let toastData = $state(
+    /** @type {null | { une: string, annee: number, media: string, dateLigne: string, rubrique: string }} */ (null)
+  );
+
+  /** Toast reporté après la fin du flash (un seul objet visible à la fois). */
+  let deferredToastPayload =
+    /** @type {null | { une: string, annee: number, media: string, dateLigne: string, rubrique: string }} */ (null);
+
+  /** @param {{ une: string, media: string, dateLigne: string, rubrique: string }} rep */
+  function payloadToast(rep, y) {
+    return {
+      une: rep.une,
+      annee: y,
+      media: rep.media,
+      dateLigne: rep.dateLigne,
+      rubrique: rep.rubrique
+    };
+  }
+
+  function onFlashDone() {
+    flashData = null;
+    if (deferredToastPayload != null) {
+      const p = deferredToastPayload;
+      deferredToastPayload = null;
+      toastNonce += 1;
+      toastData = p;
+    }
+  }
+
+  $effect(() => {
+    const y = year;
+    if (prevYearPress === null) {
+      prevYearPress = y;
+      return;
+    }
+    const prev = prevYearPress;
+    prevYearPress = y;
+
+    const periodeNow = obtenirPeriode(y);
+    const periodeWas = obtenirPeriode(prev);
+    const rep = obtenirReperesAnnee(y);
+    const milestone = rep != null && y !== prev;
+    const chapterChanged = periodeNow.id !== periodeWas.id;
+
+    if (chapterChanged) {
+      const entry = NARRATION.find((p) => p.id === periodeNow.id);
+      if (entry?.transitionFlash) {
+        deferredToastPayload = null;
+        flashNonce += 1;
+        flashData = { transition: entry.transitionFlash };
+        if (milestone) {
+          deferredToastPayload = payloadToast(rep, y);
+        }
+      } else if (milestone) {
+        toastNonce += 1;
+        toastData = payloadToast(rep, y);
+      }
+    } else if (milestone) {
+      toastNonce += 1;
+      toastData = payloadToast(rep, y);
+    }
+  });
 
   /** Tant que bind:clientHeight n’a pas réagi, estimer pour éviter des slides à hauteur nulle. */
   const slideHeightPx = $derived(
@@ -80,7 +153,26 @@
           {countryNames}
           {ratioColorScale}
         />
+        {#key flashNonce}
+          {#if flashData}
+            <ChapterFlash transition={flashData.transition} ondone={onFlashDone} />
+          {/if}
+        {/key}
       </div>
+      {#key toastNonce}
+        {#if toastData && !flashData}
+          <MilestoneToast
+            une={toastData.une}
+            annee={toastData.annee}
+            media={toastData.media}
+            dateLigne={toastData.dateLigne}
+            rubrique={toastData.rubrique}
+            ondone={() => {
+              toastData = null;
+            }}
+          />
+        {/if}
+      {/key}
       <div class="timeline-zone" bind:clientHeight={timelineZoneH}>
         <div class="metric-toggle-row">
           <button
@@ -151,9 +243,11 @@
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    padding: 0.28rem 0.75rem;
-    background: rgba(20, 24, 40, 0.82);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    min-height: 28px;
+    padding: 0.32rem 0.8rem;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.06);
+    border: 0.5px solid #333;
     border-radius: 20px;
     color: var(--color-text-muted);
     font-size: 0.72rem;
@@ -164,15 +258,15 @@
   }
 
   .metric-toggle:hover {
-    border-color: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.28);
     color: var(--color-text);
-    background: rgba(30, 36, 58, 0.9);
+    background: rgba(255, 255, 255, 0.1);
   }
 
   .metric-toggle--active {
-    border-color: rgba(100, 160, 255, 0.45);
+    border-color: rgba(100, 160, 255, 0.55);
     color: #7ab4ff;
-    background: rgba(20, 30, 60, 0.88);
+    background: rgba(255, 255, 255, 0.08);
   }
 
   .metric-toggle__badge {

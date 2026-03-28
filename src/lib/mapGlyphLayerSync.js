@@ -55,10 +55,11 @@ export function syncGlyphLayerFull(opts) {
   );
 
   const maxTotal = maxTotalPerCapitaForYear(features, statsData, year, mode);
+  const domainMax = maxTotal > 0 ? maxTotal * 1.05 : 1;
   const radiusScale = d3
     .scaleSqrt()
-    .domain([0, maxTotal])
-    .range([11, 20])
+    .domain([0, domainMax])
+    .range([8, 26])
     .clamp(true);
 
   const t = d3.transition().duration(transitionMs).ease(d3.easeCubicOut);
