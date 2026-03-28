@@ -1,0 +1,8 @@
+services:
+  hackaviz-yanis:
+    build: .
+    image: hackaviz-yanis:latest
+    container_name: hackaviz-yanis
+    ports:
+      - "127.0.0.1:8080:80"
+    restart: unless-stopped

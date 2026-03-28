@@ -1,0 +1,54 @@
+---
+description: Hackaviz 2026 — viz carte COFOG Défense/Social ; pas de données externes ; modules ≤200 lignes ; architecture SOLID (Python + JS).
+alwaysApply: true
+---
+
+# Contexte du Projet : Hackaviz 2026
+Projet de data visualisation cartographique interactive.
+Objectif : Analyser la bascule géopolitique européenne entre les dépenses de Défense (COFOG 02) et de Protection Sociale (COFOG 10) de 2002 à 2024.
+Règle stricte du concours : Interdiction absolue d'utiliser des sources de données externes (API, autres datasets), à l'exception des fonds de carte spatiaux (GeoJSON/TopoJSON).
+
+# Stack Technique
+- Data Wrangling : Python 3.10+, Pandas, DuckDB (si besoin de SQL sur Parquet).
+- Front-end : HTML5, CSS3, JavaScript (ES6+).
+- Visualisation : MapLibre GL JS (pour le fond de carte géospatial), D3.js (v7+) pour la génération et l'animation des glyphs complexes (Boucliers géopolitiques).
+
+# Limite de taille des fichiers source
+- Chaque module `.py` et `.js` ne dépasse pas **200 lignes** (fichier réellement maintenu ; pas de remplissage vide pour contourner la règle).
+- Optionnel : appliquer la même limite aux fichiers `.css` pour cohérence du projet.
+- Si une fonctionnalité dépasse ce plafond : **extraire** vers un nouveau fichier (`public/js/` pour le front, package ou modules Python `load` / `transform` / `export` pour le pipeline).
+- Tout **nouveau** fichier doit respecter la limite. Les fichiers existants qui la dépassent constituent une **dette** à refactoriser par étapes (pas obligatoirement dans le même changement que la fonctionnalité en cours).
+
+# Architecture SOLID (Python et JavaScript vanilla)
+- **S — Responsabilité unique** : un fichier = un rôle (chargement des données, échelles D3, rendu des glyphs, câblage MapLibre). Éviter les « god files » qui mélangent fetch, géométrie, DOM et événements.
+- **O — Ouvert / fermé** : étendre par de nouvelles fonctions ou modules et des paramètres, plutôt qu'en empilant des conditions dans un seul bloc d'initialisation.
+- **L — Substitution de Liskov** : toute abstraction (ex. source de statistiques) doit respecter le **même contrat** (structure des objets, clés JSON attendues par le front).
+- **I — Ségrégation des interfaces** : exposer des API **petites et ciblées** entre modules (ex. `getStatsForYear(iso3, year)` plutôt qu'un accès global non structuré à tout le jeu de données).
+- **D — Inversion des dépendances** : la présentation ne dépend pas du détail du pipeline Python ; côté JS, **injecter** ou passer en argument les dépendances (loaders, `fetch`) lorsque c'est raisonnable, plutôt que tout coupler à des globales.
+
+# Règles de Génération de Code (Python)
+- Écrire un code modulaire, typé (`typing`) et documenté (docstrings).
+- Utiliser des chemins de fichiers relatifs.
+- Traiter les valeurs manquantes (NaN) explicitement avant l'export JSON.
+- Découper le pipeline en modules (`load`, `transform`, `export`) si un fichier dépasse 200 lignes ; privilégier une **fonction pure** par étape métier lorsque c'est possible.
+- Les commentaires dans le code doivent être rédigés en français.
+
+# Règles de Génération de Code (JavaScript / Front-end)
+- Séparer la logique métier (calculs, échelles D3) de la manipulation du DOM.
+- Utiliser des **modules ES** (`type="module"` sur le script d'entrée dans `index.html`, imports/exports) pour appliquer SRP et la limite de 200 lignes sans un seul script monolithique.
+- Pour l'intégration D3 + MapLibre : utiliser une couche SVG superposée à MapLibre ou l'API Canvas pour des raisons de performances si le nombre d'éléments DOM devient trop important.
+- Privilégier les transitions D3 fluides (`d3.transition()`) pour animer la ligne de temps.
+- Ne pas utiliser de bibliothèques UI lourdes (ex: Bootstrap, MaterialUI) ; écrire du CSS personnalisé et concis centré sur le thème visuel (fond sombre, couleurs divergentes rouge/bleu).
+- Les commentaires dans le code doivent être rédigés en français.
+
+# Règles de Conception Visuelle (Glyphs)
+- Les glyphs "Boucliers" doivent être générés dynamiquement en SVG via D3.js.
+- Ils doivent encoder 3 dimensions de données :
+  1. Ratio Défense/Social (couleur de bordure).
+  2. Volume per capita (remplissage intérieur).
+  3. Variation temporelle (halo externe animé).
+
+# Ton et Format des Réponses de l'IA
+- Fournir uniquement le code nécessaire et les explications techniques strictes.
+- Éviter les introductions inutiles, les exagérations ou les formulations subjectives.
+- Respecter l'architecture de fichiers proposée par l'utilisateur.

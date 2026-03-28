@@ -1,0 +1,2880 @@
+{
+  "2002": {
+    "SVK": {
+      "def_pc": 100.57,
+      "soc_pc": 1014.06,
+      "def_pib": 1.07,
+      "soc_pib": 10.77,
+      "ratio": 0.0902,
+      "pop": 5378809
+    },
+    "ESP": {
+      "def_pc": 196.48,
+      "soc_pc": 2283.82,
+      "def_pib": 0.82,
+      "soc_pib": 9.53,
+      "ratio": 0.0792,
+      "pop": 41423520
+    },
+    "LVA": {
+      "def_pc": 39.67,
+      "soc_pc": 408.9,
+      "def_pib": 0.52,
+      "soc_pib": 5.33,
+      "ratio": 0.0884,
+      "pop": 2310176
+    },
+    "LTU": {
+      "def_pc": 62.59,
+      "soc_pc": 468.07,
+      "def_pib": 0.83,
+      "soc_pib": 6.19,
+      "ratio": 0.118,
+      "pop": 3443067
+    },
+    "LUX": {
+      "def_pc": 144.39,
+      "soc_pc": 9222.8,
+      "def_pib": 0.15,
+      "soc_pib": 9.86,
+      "ratio": 0.0154,
+      "pop": 446166
+    },
+    "IRL": {
+      "def_pc": 155.06,
+      "soc_pc": 3775.63,
+      "def_pib": 0.36,
+      "soc_pib": 8.75,
+      "ratio": 0.0394,
+      "pop": 3917203
+    },
+    "ITA": {
+      "def_pc": 271.61,
+      "soc_pc": 3843.87,
+      "def_pib": 0.86,
+      "soc_pib": 12.12,
+      "ratio": 0.066,
+      "pop": 57089823
+    },
+    "AUT": {
+      "def_pc": 221.26,
+      "soc_pc": 5800.59,
+      "def_pib": 0.57,
+      "soc_pib": 15.03,
+      "ratio": 0.0367,
+      "pop": 8080292
+    },
+    "BEL": {
+      "def_pc": 314.43,
+      "soc_pc": 4522.78,
+      "def_pib": 0.87,
+      "soc_pib": 12.53,
+      "ratio": 0.065,
+      "pop": 10332786
+    },
+    "NLD": {
+      "def_pc": 442.82,
+      "soc_pc": 4862.86,
+      "def_pib": 1.08,
+      "soc_pib": 11.87,
+      "ratio": 0.0835,
+      "pop": 16148921
+    },
+    "FRA": {
+      "def_pc": 503.7,
+      "soc_pc": 5451.98,
+      "def_pib": 1.55,
+      "soc_pib": 16.77,
+      "ratio": 0.0846,
+      "pop": 61604550
+    },
+    "DEU": {
+      "def_pc": 282.9,
+      "soc_pc": 5477.16,
+      "def_pib": 0.81,
+      "soc_pib": 15.76,
+      "ratio": 0.0491,
+      "pop": 82488493
+    },
+    "EST": {
+      "def_pc": 76.78,
+      "soc_pc": 554.1,
+      "def_pib": 0.64,
+      "soc_pib": 4.6,
+      "ratio": 0.1217,
+      "pop": 1379350
+    },
+    "FIN": {
+      "def_pc": 371.11,
+      "soc_pc": 5690.11,
+      "def_pib": 0.99,
+      "soc_pib": 15.12,
+      "ratio": 0.0612,
+      "pop": 5200598
+    },
+    "GRC": {
+      "def_pc": 433.13,
+      "soc_pc": 2059.16,
+      "def_pib": 2.47,
+      "soc_pib": 11.76,
+      "ratio": 0.1738,
+      "pop": 10902022
+    },
+    "PRT": {
+      "def_pc": 183.64,
+      "soc_pc": 1837.37,
+      "def_pib": 0.97,
+      "soc_pib": 9.75,
+      "ratio": 0.0909,
+      "pop": 10419631
+    }
+  },
+  "2003": {
+    "SVK": {
+      "def_pc": 69.08,
+      "soc_pc": 1052.65,
+      "def_pib": 0.7,
+      "soc_pib": 10.66,
+      "ratio": 0.0616,
+      "pop": 5378950
+    },
+    "ESP": {
+      "def_pc": 197.53,
+      "soc_pc": 2416.35,
+      "def_pib": 0.82,
+      "soc_pib": 9.98,
+      "ratio": 0.0756,
+      "pop": 42196231
+    },
+    "LVA": {
+      "def_pc": 45.1,
+      "soc_pc": 434.18,
+      "def_pib": 0.54,
+      "soc_pib": 5.17,
+      "ratio": 0.0941,
+      "pop": 2287955
+    },
+    "LTU": {
+      "def_pc": 64.83,
+      "soc_pc": 498.55,
+      "def_pib": 0.77,
+      "soc_pib": 5.91,
+      "ratio": 0.1151,
+      "pop": 3415213
+    },
+    "LUX": {
+      "def_pc": 153.62,
+      "soc_pc": 10069.26,
+      "def_pib": 0.16,
+      "soc_pib": 10.62,
+      "ratio": 0.015,
+      "pop": 451626
+    },
+    "IRL": {
+      "def_pc": 153.25,
+      "soc_pc": 3998.75,
+      "def_pib": 0.35,
+      "soc_pib": 9.12,
+      "ratio": 0.0369,
+      "pop": 3979853
+    },
+    "ITA": {
+      "def_pc": 304.29,
+      "soc_pc": 4147.57,
+      "def_pib": 0.96,
+      "soc_pib": 13.14,
+      "ratio": 0.0684,
+      "pop": 57399187
+    },
+    "AUT": {
+      "def_pc": 236.83,
+      "soc_pc": 5950.19,
+      "def_pib": 0.61,
+      "soc_pib": 15.3,
+      "ratio": 0.0383,
+      "pop": 8114402
+    },
+    "BEL": {
+      "def_pc": 309.73,
+      "soc_pc": 4720.86,
+      "def_pib": 0.85,
+      "soc_pib": 13.01,
+      "ratio": 0.0616,
+      "pop": 10376131
+    },
+    "NLD": {
+      "def_pc": 447.14,
+      "soc_pc": 5127.3,
+      "def_pib": 1.1,
+      "soc_pib": 12.57,
+      "ratio": 0.0802,
+      "pop": 16225303
+    },
+    "FRA": {
+      "def_pc": 461.95,
+      "soc_pc": 5684.16,
+      "def_pib": 1.42,
+      "soc_pib": 17.42,
+      "ratio": 0.0752,
+      "pop": 62037544
+    },
+    "DEU": {
+      "def_pc": 288.33,
+      "soc_pc": 5628.95,
+      "def_pib": 0.83,
+      "soc_pib": 16.3,
+      "ratio": 0.0487,
+      "pop": 82534175
+    },
+    "EST": {
+      "def_pc": 84.7,
+      "soc_pc": 622.01,
+      "def_pib": 0.65,
+      "soc_pib": 4.77,
+      "ratio": 0.1199,
+      "pop": 1370720
+    },
+    "FIN": {
+      "def_pc": 407.06,
+      "soc_pc": 5919.8,
+      "def_pib": 1.06,
+      "soc_pib": 15.45,
+      "ratio": 0.0643,
+      "pop": 5213010
+    },
+    "GRC": {
+      "def_pc": 596.81,
+      "soc_pc": 2340.21,
+      "def_pib": 3.23,
+      "soc_pib": 12.67,
+      "ratio": 0.2032,
+      "pop": 10928072
+    },
+    "PRT": {
+      "def_pc": 179.7,
+      "soc_pc": 2015.46,
+      "def_pib": 0.97,
+      "soc_pib": 10.83,
+      "ratio": 0.0819,
+      "pop": 10458821
+    }
+  },
+  "2004": {
+    "SVK": {
+      "def_pc": 72.13,
+      "soc_pc": 1190.82,
+      "def_pib": 0.69,
+      "soc_pib": 11.44,
+      "ratio": 0.0571,
+      "pop": 5382574
+    },
+    "ESP": {
+      "def_pc": 215.36,
+      "soc_pc": 2562.25,
+      "def_pib": 0.88,
+      "soc_pib": 10.42,
+      "ratio": 0.0775,
+      "pop": 42859172
+    },
+    "LVA": {
+      "def_pc": 60.32,
+      "soc_pc": 493.21,
+      "def_pib": 0.65,
+      "soc_pib": 5.33,
+      "ratio": 0.109,
+      "pop": 2263123
+    },
+    "LTU": {
+      "def_pc": 72.23,
+      "soc_pc": 551.86,
+      "def_pib": 0.8,
+      "soc_pib": 6.08,
+      "ratio": 0.1157,
+      "pop": 3377075
+    },
+    "LUX": {
+      "def_pc": 159.62,
+      "soc_pc": 10548.77,
+      "def_pib": 0.16,
+      "soc_pib": 10.83,
+      "ratio": 0.0149,
+      "pop": 458098
+    },
+    "IRL": {
+      "def_pc": 169.97,
+      "soc_pc": 4229.77,
+      "def_pib": 0.37,
+      "soc_pib": 9.19,
+      "ratio": 0.0386,
+      "pop": 4045188
+    },
+    "ITA": {
+      "def_pc": 320.67,
+      "soc_pc": 4301.54,
+      "def_pib": 1.01,
+      "soc_pib": 13.53,
+      "ratio": 0.0694,
+      "pop": 57828178
+    },
+    "AUT": {
+      "def_pc": 248.53,
+      "soc_pc": 6062.8,
+      "def_pib": 0.63,
+      "soc_pib": 15.3,
+      "ratio": 0.0394,
+      "pop": 8166432
+    },
+    "BEL": {
+      "def_pc": 312.17,
+      "soc_pc": 4918.66,
+      "def_pib": 0.83,
+      "soc_pib": 13.14,
+      "ratio": 0.0597,
+      "pop": 10421136
+    },
+    "NLD": {
+      "def_pc": 446.57,
+      "soc_pc": 5230.94,
+      "def_pib": 1.08,
+      "soc_pib": 12.61,
+      "ratio": 0.0787,
+      "pop": 16281777
+    },
+    "FRA": {
+      "def_pc": 480.19,
+      "soc_pc": 5889.67,
+      "def_pib": 1.44,
+      "soc_pib": 17.68,
+      "ratio": 0.0754,
+      "pop": 62490800
+    },
+    "DEU": {
+      "def_pc": 279.51,
+      "soc_pc": 5663.31,
+      "def_pib": 0.8,
+      "soc_pib": 16.2,
+      "ratio": 0.047,
+      "pop": 82516268
+    },
+    "EST": {
+      "def_pc": 97.39,
+      "soc_pc": 718.36,
+      "def_pib": 0.69,
+      "soc_pib": 5.12,
+      "ratio": 0.1194,
+      "pop": 1362550
+    },
+    "FIN": {
+      "def_pc": 449.49,
+      "soc_pc": 6159.32,
+      "def_pib": 1.13,
+      "soc_pib": 15.52,
+      "ratio": 0.068,
+      "pop": 5228173
+    },
+    "GRC": {
+      "def_pc": 520.76,
+      "soc_pc": 2480.75,
+      "def_pib": 2.68,
+      "soc_pib": 12.77,
+      "ratio": 0.1735,
+      "pop": 10955142
+    },
+    "PRT": {
+      "def_pc": 194.65,
+      "soc_pc": 2140.7,
+      "def_pib": 1.03,
+      "soc_pib": 11.33,
+      "ratio": 0.0833,
+      "pop": 10483861
+    }
+  },
+  "2005": {
+    "SVK": {
+      "def_pc": 73.91,
+      "soc_pc": 1338.63,
+      "def_pib": 0.67,
+      "soc_pib": 12.1,
+      "ratio": 0.0523,
+      "pop": 5387285
+    },
+    "ESP": {
+      "def_pc": 228.46,
+      "soc_pc": 2701.35,
+      "def_pib": 0.91,
+      "soc_pib": 10.81,
+      "ratio": 0.078,
+      "pop": 43662613
+    },
+    "LVA": {
+      "def_pc": 70.66,
+      "soc_pc": 564.41,
+      "def_pib": 0.68,
+      "soc_pib": 5.41,
+      "ratio": 0.1113,
+      "pop": 2238799
+    },
+    "LTU": {
+      "def_pc": 86.4,
+      "soc_pc": 625.7,
+      "def_pib": 0.87,
+      "soc_pib": 6.3,
+      "ratio": 0.1213,
+      "pop": 3322528
+    },
+    "LUX": {
+      "def_pc": 159.8,
+      "soc_pc": 11172.2,
+      "def_pib": 0.16,
+      "soc_pib": 11.36,
+      "ratio": 0.0141,
+      "pop": 465152
+    },
+    "IRL": {
+      "def_pc": 156.81,
+      "soc_pc": 4859.63,
+      "def_pib": 0.33,
+      "soc_pib": 10.2,
+      "ratio": 0.0313,
+      "pop": 4133839
+    },
+    "ITA": {
+      "def_pc": 325.15,
+      "soc_pc": 4415.05,
+      "def_pib": 1.02,
+      "soc_pib": 13.87,
+      "ratio": 0.0686,
+      "pop": 58166684
+    },
+    "AUT": {
+      "def_pc": 245.82,
+      "soc_pc": 6196.87,
+      "def_pib": 0.61,
+      "soc_pib": 15.38,
+      "ratio": 0.0382,
+      "pop": 8222090
+    },
+    "BEL": {
+      "def_pc": 316.31,
+      "soc_pc": 5057.01,
+      "def_pib": 0.83,
+      "soc_pib": 13.27,
+      "ratio": 0.0589,
+      "pop": 10478620
+    },
+    "NLD": {
+      "def_pc": 411.71,
+      "soc_pc": 5283.38,
+      "def_pib": 0.98,
+      "soc_pib": 12.52,
+      "ratio": 0.0723,
+      "pop": 16319871
+    },
+    "FRA": {
+      "def_pc": 506.13,
+      "soc_pc": 6062.75,
+      "def_pib": 1.5,
+      "soc_pib": 17.99,
+      "ratio": 0.077,
+      "pop": 62958328
+    },
+    "DEU": {
+      "def_pc": 292.99,
+      "soc_pc": 5757.36,
+      "def_pib": 0.83,
+      "soc_pib": 16.32,
+      "ratio": 0.0484,
+      "pop": 82469421
+    },
+    "EST": {
+      "def_pc": 115.37,
+      "soc_pc": 804.71,
+      "def_pib": 0.75,
+      "soc_pib": 5.21,
+      "ratio": 0.1254,
+      "pop": 1354775
+    },
+    "FIN": {
+      "def_pc": 478.26,
+      "soc_pc": 6300.11,
+      "def_pib": 1.18,
+      "soc_pib": 15.48,
+      "ratio": 0.0706,
+      "pop": 5246100
+    },
+    "GRC": {
+      "def_pc": 486.74,
+      "soc_pc": 2702.93,
+      "def_pib": 2.48,
+      "soc_pib": 13.79,
+      "ratio": 0.1526,
+      "pop": 10987316
+    },
+    "PRT": {
+      "def_pc": 202.33,
+      "soc_pc": 2280.82,
+      "def_pib": 1.06,
+      "soc_pib": 12.0,
+      "ratio": 0.0815,
+      "pop": 10503330
+    }
+  },
+  "2006": {
+    "SVK": {
+      "def_pc": 90.97,
+      "soc_pc": 1359.19,
+      "def_pib": 0.75,
+      "soc_pib": 11.28,
+      "ratio": 0.0627,
+      "pop": 5391184
+    },
+    "ESP": {
+      "def_pc": 231.17,
+      "soc_pc": 2869.67,
+      "def_pib": 0.9,
+      "soc_pib": 11.21,
+      "ratio": 0.0746,
+      "pop": 44360521
+    },
+    "LVA": {
+      "def_pc": 111.01,
+      "soc_pc": 684.15,
+      "def_pib": 0.94,
+      "soc_pib": 5.76,
+      "ratio": 0.1396,
+      "pop": 2218351
+    },
+    "LTU": {
+      "def_pc": 113.42,
+      "soc_pc": 778.73,
+      "def_pib": 1.05,
+      "soc_pib": 7.18,
+      "ratio": 0.1271,
+      "pop": 3269909
+    },
+    "LUX": {
+      "def_pc": 163.53,
+      "soc_pc": 11633.67,
+      "def_pib": 0.16,
+      "soc_pib": 11.34,
+      "ratio": 0.0139,
+      "pop": 472641
+    },
+    "IRL": {
+      "def_pc": 161.95,
+      "soc_pc": 5251.72,
+      "def_pib": 0.33,
+      "soc_pib": 10.76,
+      "ratio": 0.0299,
+      "pop": 4232929
+    },
+    "ITA": {
+      "def_pc": 322.19,
+      "soc_pc": 4589.91,
+      "def_pib": 1.0,
+      "soc_pib": 14.22,
+      "ratio": 0.0656,
+      "pop": 58399863
+    },
+    "AUT": {
+      "def_pc": 233.85,
+      "soc_pc": 6372.51,
+      "def_pib": 0.57,
+      "soc_pib": 15.41,
+      "ratio": 0.0354,
+      "pop": 8265675
+    },
+    "BEL": {
+      "def_pc": 309.81,
+      "soc_pc": 5259.41,
+      "def_pib": 0.8,
+      "soc_pib": 13.55,
+      "ratio": 0.0556,
+      "pop": 10547956
+    },
+    "NLD": {
+      "def_pc": 455.09,
+      "soc_pc": 5428.33,
+      "def_pib": 1.04,
+      "soc_pib": 12.45,
+      "ratio": 0.0774,
+      "pop": 16346096
+    },
+    "FRA": {
+      "def_pc": 534.16,
+      "soc_pc": 6340.39,
+      "def_pib": 1.56,
+      "soc_pib": 18.46,
+      "ratio": 0.0777,
+      "pop": 63393406
+    },
+    "DEU": {
+      "def_pc": 310.23,
+      "soc_pc": 5768.93,
+      "def_pib": 0.85,
+      "soc_pib": 15.72,
+      "ratio": 0.051,
+      "pop": 82376447
+    },
+    "EST": {
+      "def_pc": 130.53,
+      "soc_pc": 927.6,
+      "def_pib": 0.77,
+      "soc_pib": 5.44,
+      "ratio": 0.1234,
+      "pop": 1346810
+    },
+    "FIN": {
+      "def_pc": 466.74,
+      "soc_pc": 6439.1,
+      "def_pib": 1.11,
+      "soc_pib": 15.28,
+      "ratio": 0.0676,
+      "pop": 5266266
+    },
+    "GRC": {
+      "def_pc": 509.69,
+      "soc_pc": 2989.65,
+      "def_pib": 2.45,
+      "soc_pib": 14.38,
+      "ratio": 0.1457,
+      "pop": 11020366
+    },
+    "PRT": {
+      "def_pc": 202.82,
+      "soc_pc": 2391.65,
+      "def_pib": 1.05,
+      "soc_pib": 12.41,
+      "ratio": 0.0782,
+      "pop": 10522288
+    }
+  },
+  "2007": {
+    "SVK": {
+      "def_pc": 96.09,
+      "soc_pc": 1516.71,
+      "def_pib": 0.72,
+      "soc_pib": 11.38,
+      "ratio": 0.0596,
+      "pop": 5397766
+    },
+    "ESP": {
+      "def_pc": 239.12,
+      "soc_pc": 3053.21,
+      "def_pib": 0.92,
+      "soc_pib": 11.75,
+      "ratio": 0.0726,
+      "pop": 45236004
+    },
+    "LVA": {
+      "def_pc": 144.56,
+      "soc_pc": 815.78,
+      "def_pib": 1.09,
+      "soc_pib": 6.17,
+      "ratio": 0.1505,
+      "pop": 2200325
+    },
+    "LTU": {
+      "def_pc": 159.19,
+      "soc_pc": 1031.29,
+      "def_pib": 1.31,
+      "soc_pib": 8.46,
+      "ratio": 0.1337,
+      "pop": 3231294
+    },
+    "LUX": {
+      "def_pc": 185.71,
+      "soc_pc": 11810.24,
+      "def_pib": 0.17,
+      "soc_pib": 10.81,
+      "ratio": 0.0155,
+      "pop": 479992
+    },
+    "IRL": {
+      "def_pc": 170.28,
+      "soc_pc": 5765.82,
+      "def_pib": 0.34,
+      "soc_pib": 11.6,
+      "ratio": 0.0287,
+      "pop": 4375842
+    },
+    "ITA": {
+      "def_pc": 328.97,
+      "soc_pc": 4786.08,
+      "def_pib": 1.01,
+      "soc_pib": 14.69,
+      "ratio": 0.0643,
+      "pop": 58756247
+    },
+    "AUT": {
+      "def_pc": 263.53,
+      "soc_pc": 6569.31,
+      "def_pib": 0.62,
+      "soc_pib": 15.35,
+      "ratio": 0.0386,
+      "pop": 8293654
+    },
+    "BEL": {
+      "def_pc": 328.04,
+      "soc_pc": 5434.47,
+      "def_pib": 0.82,
+      "soc_pib": 13.61,
+      "ratio": 0.0569,
+      "pop": 10624835
+    },
+    "NLD": {
+      "def_pc": 481.27,
+      "soc_pc": 5622.86,
+      "def_pib": 1.06,
+      "soc_pib": 12.44,
+      "ratio": 0.0788,
+      "pop": 16381696
+    },
+    "FRA": {
+      "def_pc": 534.98,
+      "soc_pc": 6649.77,
+      "def_pib": 1.53,
+      "soc_pib": 19.0,
+      "ratio": 0.0745,
+      "pop": 63781275
+    },
+    "DEU": {
+      "def_pc": 277.31,
+      "soc_pc": 5731.8,
+      "def_pib": 0.73,
+      "soc_pib": 15.17,
+      "ratio": 0.0461,
+      "pop": 82266373
+    },
+    "EST": {
+      "def_pc": 153.58,
+      "soc_pc": 1103.77,
+      "def_pib": 0.83,
+      "soc_pib": 5.99,
+      "ratio": 0.1221,
+      "pop": 1340680
+    },
+    "FIN": {
+      "def_pc": 478.0,
+      "soc_pc": 6733.39,
+      "def_pib": 1.08,
+      "soc_pib": 15.23,
+      "ratio": 0.0663,
+      "pop": 5288719
+    },
+    "GRC": {
+      "def_pc": 582.52,
+      "soc_pc": 3308.88,
+      "def_pib": 2.71,
+      "soc_pib": 15.41,
+      "ratio": 0.1497,
+      "pop": 11048466
+    },
+    "PRT": {
+      "def_pc": 194.64,
+      "soc_pc": 2479.84,
+      "def_pib": 0.99,
+      "soc_pib": 12.58,
+      "ratio": 0.0728,
+      "pop": 10542964
+    }
+  },
+  "2008": {
+    "SVK": {
+      "def_pc": 98.93,
+      "soc_pc": 1577.47,
+      "def_pib": 0.71,
+      "soc_pib": 11.25,
+      "ratio": 0.059,
+      "pop": 5406972
+    },
+    "ESP": {
+      "def_pc": 244.5,
+      "soc_pc": 3330.48,
+      "def_pib": 0.95,
+      "soc_pib": 12.93,
+      "ratio": 0.0684,
+      "pop": 45983169
+    },
+    "LVA": {
+      "def_pc": 164.18,
+      "soc_pc": 1011.99,
+      "def_pib": 1.27,
+      "soc_pib": 7.84,
+      "ratio": 0.1396,
+      "pop": 2177324
+    },
+    "LTU": {
+      "def_pc": 134.37,
+      "soc_pc": 1319.0,
+      "def_pib": 1.06,
+      "soc_pib": 10.44,
+      "ratio": 0.0925,
+      "pop": 3198231
+    },
+    "LUX": {
+      "def_pc": 207.37,
+      "soc_pc": 12688.44,
+      "def_pib": 0.19,
+      "soc_pib": 11.85,
+      "ratio": 0.0161,
+      "pop": 488647
+    },
+    "IRL": {
+      "def_pc": 185.38,
+      "soc_pc": 6319.4,
+      "def_pib": 0.4,
+      "soc_pib": 13.65,
+      "ratio": 0.0285,
+      "pop": 4485070
+    },
+    "ITA": {
+      "def_pc": 362.21,
+      "soc_pc": 4974.9,
+      "def_pib": 1.13,
+      "soc_pib": 15.55,
+      "ratio": 0.0679,
+      "pop": 59211183
+    },
+    "AUT": {
+      "def_pc": 319.74,
+      "soc_pc": 6833.36,
+      "def_pib": 0.74,
+      "soc_pib": 15.78,
+      "ratio": 0.0447,
+      "pop": 8319388
+    },
+    "BEL": {
+      "def_pc": 348.33,
+      "soc_pc": 5751.12,
+      "def_pib": 0.88,
+      "soc_pib": 14.45,
+      "ratio": 0.0571,
+      "pop": 10709108
+    },
+    "NLD": {
+      "def_pc": 491.32,
+      "soc_pc": 5981.85,
+      "def_pib": 1.07,
+      "soc_pib": 13.01,
+      "ratio": 0.0759,
+      "pop": 16445590
+    },
+    "FRA": {
+      "def_pc": 559.91,
+      "soc_pc": 6836.6,
+      "def_pib": 1.6,
+      "soc_pib": 19.56,
+      "ratio": 0.0757,
+      "pop": 64133174
+    },
+    "DEU": {
+      "def_pc": 291.96,
+      "soc_pc": 5829.73,
+      "def_pib": 0.76,
+      "soc_pib": 15.26,
+      "ratio": 0.0477,
+      "pop": 82110097
+    },
+    "EST": {
+      "def_pc": 210.76,
+      "soc_pc": 1400.58,
+      "def_pib": 1.2,
+      "soc_pib": 7.99,
+      "ratio": 0.1308,
+      "pop": 1337090
+    },
+    "FIN": {
+      "def_pc": 525.09,
+      "soc_pc": 7052.93,
+      "def_pib": 1.18,
+      "soc_pib": 15.9,
+      "ratio": 0.0693,
+      "pop": 5313398
+    },
+    "GRC": {
+      "def_pc": 653.65,
+      "soc_pc": 3722.75,
+      "def_pib": 3.05,
+      "soc_pib": 17.37,
+      "ratio": 0.1494,
+      "pop": 11077839
+    },
+    "PRT": {
+      "def_pc": 200.01,
+      "soc_pc": 2584.29,
+      "def_pib": 1.01,
+      "soc_pib": 13.08,
+      "ratio": 0.0718,
+      "pop": 10558177
+    }
+  },
+  "2009": {
+    "SVK": {
+      "def_pc": 109.11,
+      "soc_pc": 1782.96,
+      "def_pib": 0.82,
+      "soc_pib": 13.48,
+      "ratio": 0.0577,
+      "pop": 5418374
+    },
+    "ESP": {
+      "def_pc": 236.07,
+      "soc_pc": 3725.58,
+      "def_pib": 0.96,
+      "soc_pib": 15.15,
+      "ratio": 0.0596,
+      "pop": 46367550
+    },
+    "LVA": {
+      "def_pc": 104.41,
+      "soc_pc": 1229.82,
+      "def_pib": 0.95,
+      "soc_pib": 11.17,
+      "ratio": 0.0783,
+      "pop": 2141668
+    },
+    "LTU": {
+      "def_pc": 107.81,
+      "soc_pc": 1514.24,
+      "def_pib": 0.99,
+      "soc_pib": 13.91,
+      "ratio": 0.0665,
+      "pop": 3162916
+    },
+    "LUX": {
+      "def_pc": 234.12,
+      "soc_pc": 13875.28,
+      "def_pib": 0.23,
+      "soc_pib": 13.66,
+      "ratio": 0.0166,
+      "pop": 497783
+    },
+    "IRL": {
+      "def_pc": 155.96,
+      "soc_pc": 6622.44,
+      "def_pib": 0.36,
+      "soc_pib": 15.21,
+      "ratio": 0.023,
+      "pop": 4533395
+    },
+    "ITA": {
+      "def_pc": 396.86,
+      "soc_pc": 5236.25,
+      "def_pib": 1.32,
+      "soc_pib": 17.39,
+      "ratio": 0.0705,
+      "pop": 59555456
+    },
+    "AUT": {
+      "def_pc": 246.82,
+      "soc_pc": 7247.16,
+      "def_pib": 0.59,
+      "soc_pib": 17.4,
+      "ratio": 0.0329,
+      "pop": 8338752
+    },
+    "BEL": {
+      "def_pc": 322.7,
+      "soc_pc": 6170.45,
+      "def_pib": 0.83,
+      "soc_pib": 15.93,
+      "ratio": 0.0497,
+      "pop": 10796498
+    },
+    "NLD": {
+      "def_pc": 516.38,
+      "soc_pc": 6381.82,
+      "def_pib": 1.17,
+      "soc_pib": 14.49,
+      "ratio": 0.0749,
+      "pop": 16530387
+    },
+    "FRA": {
+      "def_pc": 578.89,
+      "soc_pc": 7145.07,
+      "def_pib": 1.71,
+      "soc_pib": 21.13,
+      "ratio": 0.0749,
+      "pop": 64458715
+    },
+    "DEU": {
+      "def_pc": 315.36,
+      "soc_pc": 6185.75,
+      "def_pib": 0.87,
+      "soc_pib": 17.09,
+      "ratio": 0.0485,
+      "pop": 81902308
+    },
+    "EST": {
+      "def_pc": 236.19,
+      "soc_pc": 1590.47,
+      "def_pib": 1.58,
+      "soc_pib": 10.61,
+      "ratio": 0.1293,
+      "pop": 1334515
+    },
+    "FIN": {
+      "def_pc": 540.0,
+      "soc_pc": 7668.11,
+      "def_pib": 1.33,
+      "soc_pib": 18.91,
+      "ratio": 0.0658,
+      "pop": 5338867
+    },
+    "GRC": {
+      "def_pc": 709.73,
+      "soc_pc": 3987.03,
+      "def_pib": 3.46,
+      "soc_pib": 19.46,
+      "ratio": 0.1511,
+      "pop": 11107017
+    },
+    "PRT": {
+      "def_pc": 237.75,
+      "soc_pc": 2858.82,
+      "def_pib": 1.24,
+      "soc_pib": 14.95,
+      "ratio": 0.0768,
+      "pop": 10568247
+    }
+  },
+  "2010": {
+    "SVK": {
+      "def_pc": 160.05,
+      "soc_pc": 1653.46,
+      "def_pib": 1.13,
+      "soc_pib": 11.73,
+      "ratio": 0.0883,
+      "pop": 5431024
+    },
+    "ESP": {
+      "def_pc": 242.32,
+      "soc_pc": 3859.97,
+      "def_pib": 0.99,
+      "soc_pib": 15.74,
+      "ratio": 0.0591,
+      "pop": 46562483
+    },
+    "LVA": {
+      "def_pc": 90.38,
+      "soc_pc": 1215.12,
+      "def_pib": 0.83,
+      "soc_pib": 11.21,
+      "ratio": 0.0692,
+      "pop": 2097553
+    },
+    "LTU": {
+      "def_pc": 98.67,
+      "soc_pc": 1437.05,
+      "def_pib": 0.88,
+      "soc_pib": 12.87,
+      "ratio": 0.0642,
+      "pop": 3097282
+    },
+    "LUX": {
+      "def_pc": 418.34,
+      "soc_pc": 14340.34,
+      "def_pib": 0.4,
+      "soc_pib": 13.85,
+      "ratio": 0.0283,
+      "pop": 506953
+    },
+    "IRL": {
+      "def_pc": 130.8,
+      "soc_pc": 6426.73,
+      "def_pib": 0.3,
+      "soc_pib": 14.61,
+      "ratio": 0.0199,
+      "pop": 4554763
+    },
+    "ITA": {
+      "def_pc": 370.97,
+      "soc_pc": 5318.58,
+      "def_pib": 1.22,
+      "soc_pib": 17.48,
+      "ratio": 0.0652,
+      "pop": 59819402
+    },
+    "AUT": {
+      "def_pc": 231.7,
+      "soc_pc": 7482.03,
+      "def_pib": 0.55,
+      "soc_pib": 17.7,
+      "ratio": 0.03,
+      "pop": 8357367
+    },
+    "BEL": {
+      "def_pc": 323.9,
+      "soc_pc": 6292.0,
+      "def_pib": 0.82,
+      "soc_pib": 15.96,
+      "ratio": 0.049,
+      "pop": 10895591
+    },
+    "NLD": {
+      "def_pc": 489.49,
+      "soc_pc": 6641.61,
+      "def_pib": 1.1,
+      "soc_pib": 14.96,
+      "ratio": 0.0686,
+      "pop": 16615390
+    },
+    "FRA": {
+      "def_pc": 607.64,
+      "soc_pc": 7308.88,
+      "def_pib": 1.77,
+      "soc_pib": 21.32,
+      "ratio": 0.0768,
+      "pop": 64773169
+    },
+    "DEU": {
+      "def_pc": 327.37,
+      "soc_pc": 6283.43,
+      "def_pib": 0.87,
+      "soc_pib": 16.66,
+      "ratio": 0.0495,
+      "pop": 81776936
+    },
+    "EST": {
+      "def_pc": 192.64,
+      "soc_pc": 1527.33,
+      "def_pib": 1.25,
+      "soc_pib": 9.92,
+      "ratio": 0.112,
+      "pop": 1331475
+    },
+    "FIN": {
+      "def_pc": 541.64,
+      "soc_pc": 7924.72,
+      "def_pib": 1.3,
+      "soc_pib": 19.03,
+      "ratio": 0.064,
+      "pop": 5363341
+    },
+    "GRC": {
+      "def_pc": 545.71,
+      "soc_pc": 3822.11,
+      "def_pib": 2.83,
+      "soc_pib": 19.81,
+      "ratio": 0.1249,
+      "pop": 11121344
+    },
+    "PRT": {
+      "def_pc": 323.5,
+      "soc_pc": 2957.85,
+      "def_pib": 1.66,
+      "soc_pib": 15.21,
+      "ratio": 0.0986,
+      "pop": 10573100
+    }
+  },
+  "2011": {
+    "SVK": {
+      "def_pc": 150.75,
+      "soc_pc": 1706.05,
+      "def_pib": 1.04,
+      "soc_pib": 11.74,
+      "ratio": 0.0812,
+      "pop": 5398384
+    },
+    "ESP": {
+      "def_pc": 238.68,
+      "soc_pc": 3868.39,
+      "def_pib": 0.98,
+      "soc_pib": 15.95,
+      "ratio": 0.0581,
+      "pop": 46736257
+    },
+    "LVA": {
+      "def_pc": 97.45,
+      "soc_pc": 1205.64,
+      "def_pib": 0.86,
+      "soc_pib": 10.61,
+      "ratio": 0.0748,
+      "pop": 2059710
+    },
+    "LTU": {
+      "def_pc": 99.36,
+      "soc_pc": 1449.15,
+      "def_pib": 0.82,
+      "soc_pib": 11.94,
+      "ratio": 0.0642,
+      "pop": 3028115
+    },
+    "LUX": {
+      "def_pc": 346.12,
+      "soc_pc": 14571.42,
+      "def_pib": 0.34,
+      "soc_pib": 14.25,
+      "ratio": 0.0232,
+      "pop": 518351
+    },
+    "IRL": {
+      "def_pc": 162.44,
+      "soc_pc": 6001.48,
+      "def_pib": 0.36,
+      "soc_pib": 13.47,
+      "ratio": 0.0264,
+      "pop": 4574888
+    },
+    "ITA": {
+      "def_pc": 375.83,
+      "soc_pc": 5382.14,
+      "def_pib": 1.23,
+      "soc_pib": 17.62,
+      "ratio": 0.0653,
+      "pop": 60026844
+    },
+    "AUT": {
+      "def_pc": 235.84,
+      "soc_pc": 7556.55,
+      "def_pib": 0.54,
+      "soc_pib": 17.41,
+      "ratio": 0.0303,
+      "pop": 8384901
+    },
+    "BEL": {
+      "def_pc": 323.92,
+      "soc_pc": 6538.81,
+      "def_pib": 0.81,
+      "soc_pib": 16.42,
+      "ratio": 0.0472,
+      "pop": 10993609
+    },
+    "NLD": {
+      "def_pc": 485.35,
+      "soc_pc": 6728.48,
+      "def_pib": 1.08,
+      "soc_pib": 14.96,
+      "ratio": 0.0673,
+      "pop": 16693074
+    },
+    "FRA": {
+      "def_pc": 563.7,
+      "soc_pc": 7509.91,
+      "def_pib": 1.61,
+      "soc_pib": 21.47,
+      "ratio": 0.0698,
+      "pop": 65087317
+    },
+    "DEU": {
+      "def_pc": 345.01,
+      "soc_pc": 6338.29,
+      "def_pib": 0.86,
+      "soc_pib": 15.89,
+      "ratio": 0.0516,
+      "pop": 80274981
+    },
+    "EST": {
+      "def_pc": 190.07,
+      "soc_pc": 1538.23,
+      "def_pib": 1.14,
+      "soc_pib": 9.25,
+      "ratio": 0.11,
+      "pop": 1327439
+    },
+    "FIN": {
+      "def_pc": 503.87,
+      "soc_pc": 8255.52,
+      "def_pib": 1.19,
+      "soc_pib": 19.44,
+      "ratio": 0.0575,
+      "pop": 5388272
+    },
+    "GRC": {
+      "def_pc": 446.2,
+      "soc_pc": 3768.25,
+      "def_pib": 2.56,
+      "soc_pib": 21.64,
+      "ratio": 0.1059,
+      "pop": 11104900
+    },
+    "PRT": {
+      "def_pc": 206.28,
+      "soc_pc": 2996.89,
+      "def_pib": 1.08,
+      "soc_pib": 15.69,
+      "ratio": 0.0644,
+      "pop": 10574536
+    }
+  },
+  "2012": {
+    "SVK": {
+      "def_pc": 152.54,
+      "soc_pc": 1752.43,
+      "def_pib": 1.03,
+      "soc_pib": 11.89,
+      "ratio": 0.0801,
+      "pop": 5407579
+    },
+    "ESP": {
+      "def_pc": 207.45,
+      "soc_pc": 3930.84,
+      "def_pib": 0.88,
+      "soc_pib": 16.69,
+      "ratio": 0.0501,
+      "pop": 46749303
+    },
+    "LVA": {
+      "def_pc": 96.68,
+      "soc_pc": 1223.1,
+      "def_pib": 0.78,
+      "soc_pib": 9.9,
+      "ratio": 0.0733,
+      "pop": 2034324
+    },
+    "LTU": {
+      "def_pc": 104.52,
+      "soc_pc": 1486.02,
+      "def_pib": 0.81,
+      "soc_pib": 11.58,
+      "ratio": 0.0657,
+      "pop": 2987773
+    },
+    "LUX": {
+      "def_pc": 312.01,
+      "soc_pc": 15126.32,
+      "def_pib": 0.31,
+      "soc_pib": 14.89,
+      "ratio": 0.0202,
+      "pop": 530952
+    },
+    "IRL": {
+      "def_pc": 153.78,
+      "soc_pc": 6046.4,
+      "def_pib": 0.35,
+      "soc_pib": 13.68,
+      "ratio": 0.0248,
+      "pop": 4593697
+    },
+    "ITA": {
+      "def_pc": 346.58,
+      "soc_pc": 5478.29,
+      "def_pib": 1.17,
+      "soc_pib": 18.56,
+      "ratio": 0.0595,
+      "pop": 60191243
+    },
+    "AUT": {
+      "def_pc": 227.3,
+      "soc_pc": 7814.4,
+      "def_pib": 0.52,
+      "soc_pib": 17.97,
+      "ratio": 0.0283,
+      "pop": 8420328
+    },
+    "BEL": {
+      "def_pc": 322.97,
+      "soc_pc": 6837.12,
+      "def_pib": 0.81,
+      "soc_pib": 17.25,
+      "ratio": 0.0451,
+      "pop": 11067748
+    },
+    "NLD": {
+      "def_pc": 448.52,
+      "soc_pc": 6805.57,
+      "def_pib": 1.01,
+      "soc_pib": 15.34,
+      "ratio": 0.0618,
+      "pop": 16754963
+    },
+    "FRA": {
+      "def_pc": 573.04,
+      "soc_pc": 7735.93,
+      "def_pib": 1.64,
+      "soc_pib": 22.18,
+      "ratio": 0.069,
+      "pop": 65402998
+    },
+    "DEU": {
+      "def_pc": 365.31,
+      "soc_pc": 6442.26,
+      "def_pib": 0.91,
+      "soc_pib": 16.11,
+      "ratio": 0.0537,
+      "pop": 80425826
+    },
+    "EST": {
+      "def_pc": 247.45,
+      "soc_pc": 1627.43,
+      "def_pib": 1.43,
+      "soc_pib": 9.41,
+      "ratio": 0.132,
+      "pop": 1322696
+    },
+    "FIN": {
+      "def_pc": 552.64,
+      "soc_pc": 8755.13,
+      "def_pib": 1.33,
+      "soc_pib": 21.04,
+      "ratio": 0.0594,
+      "pop": 5413967
+    },
+    "GRC": {
+      "def_pc": 417.38,
+      "soc_pc": 3642.28,
+      "def_pib": 2.6,
+      "soc_pib": 22.7,
+      "ratio": 0.1028,
+      "pop": 11045010
+    },
+    "PRT": {
+      "def_pc": 177.88,
+      "soc_pc": 2957.08,
+      "def_pib": 0.97,
+      "soc_pib": 16.07,
+      "ratio": 0.0567,
+      "pop": 10531420
+    }
+  },
+  "2013": {
+    "SVK": {
+      "def_pc": 149.83,
+      "soc_pc": 2051.13,
+      "def_pib": 1.01,
+      "soc_pib": 13.83,
+      "ratio": 0.0681,
+      "pop": 5413392
+    },
+    "ESP": {
+      "def_pc": 212.06,
+      "soc_pc": 3979.57,
+      "def_pib": 0.91,
+      "soc_pib": 17.08,
+      "ratio": 0.0506,
+      "pop": 46581124
+    },
+    "LVA": {
+      "def_pc": 102.44,
+      "soc_pc": 1303.03,
+      "def_pib": 0.8,
+      "soc_pib": 10.22,
+      "ratio": 0.0729,
+      "pop": 2012647
+    },
+    "LTU": {
+      "def_pc": 108.22,
+      "soc_pc": 1478.88,
+      "def_pib": 0.8,
+      "soc_pib": 10.96,
+      "ratio": 0.0682,
+      "pop": 2957689
+    },
+    "LUX": {
+      "def_pc": 297.28,
+      "soc_pc": 15981.25,
+      "def_pib": 0.29,
+      "soc_pib": 15.62,
+      "ratio": 0.0183,
+      "pop": 543358
+    },
+    "IRL": {
+      "def_pc": 148.9,
+      "soc_pc": 5828.89,
+      "def_pib": 0.33,
+      "soc_pib": 12.98,
+      "ratio": 0.0249,
+      "pop": 4614669
+    },
+    "ITA": {
+      "def_pc": 328.01,
+      "soc_pc": 5596.67,
+      "def_pib": 1.13,
+      "soc_pib": 19.36,
+      "ratio": 0.0554,
+      "pop": 60311616
+    },
+    "AUT": {
+      "def_pc": 243.47,
+      "soc_pc": 8052.61,
+      "def_pib": 0.56,
+      "soc_pib": 18.69,
+      "ratio": 0.0293,
+      "pop": 8472176
+    },
+    "BEL": {
+      "def_pc": 326.37,
+      "soc_pc": 7087.84,
+      "def_pib": 0.83,
+      "soc_pib": 17.92,
+      "ratio": 0.044,
+      "pop": 11125033
+    },
+    "NLD": {
+      "def_pc": 447.08,
+      "soc_pc": 6971.38,
+      "def_pib": 1.01,
+      "soc_pib": 15.76,
+      "ratio": 0.0603,
+      "pop": 16804430
+    },
+    "FRA": {
+      "def_pc": 575.48,
+      "soc_pc": 7884.92,
+      "def_pib": 1.65,
+      "soc_pib": 22.56,
+      "ratio": 0.068,
+      "pop": 65735961
+    },
+    "DEU": {
+      "def_pc": 354.48,
+      "soc_pc": 6605.69,
+      "def_pib": 0.89,
+      "soc_pib": 16.49,
+      "ratio": 0.0509,
+      "pop": 80645605
+    },
+    "EST": {
+      "def_pc": 263.13,
+      "soc_pc": 1669.43,
+      "def_pib": 1.49,
+      "soc_pib": 9.46,
+      "ratio": 0.1362,
+      "pop": 1317997
+    },
+    "FIN": {
+      "def_pc": 549.37,
+      "soc_pc": 9238.69,
+      "def_pib": 1.34,
+      "soc_pib": 22.52,
+      "ratio": 0.0561,
+      "pop": 5438975
+    },
+    "GRC": {
+      "def_pc": 353.76,
+      "soc_pc": 3228.21,
+      "def_pib": 2.24,
+      "soc_pib": 20.43,
+      "ratio": 0.0988,
+      "pop": 10965209
+    },
+    "PRT": {
+      "def_pc": 181.25,
+      "soc_pc": 3172.97,
+      "def_pib": 0.99,
+      "soc_pib": 17.31,
+      "ratio": 0.054,
+      "pop": 10473991
+    }
+  },
+  "2014": {
+    "SVK": {
+      "def_pc": 238.14,
+      "soc_pc": 2094.17,
+      "def_pib": 1.57,
+      "soc_pib": 13.77,
+      "ratio": 0.1021,
+      "pop": 5418649
+    },
+    "ESP": {
+      "def_pc": 192.75,
+      "soc_pc": 3991.6,
+      "def_pib": 0.81,
+      "soc_pib": 16.82,
+      "ratio": 0.0461,
+      "pop": 46433050
+    },
+    "LVA": {
+      "def_pc": 106.1,
+      "soc_pc": 1347.77,
+      "def_pib": 0.81,
+      "soc_pib": 10.26,
+      "ratio": 0.073,
+      "pop": 1993785
+    },
+    "LTU": {
+      "def_pc": 118.83,
+      "soc_pc": 1567.47,
+      "def_pib": 0.84,
+      "soc_pib": 11.1,
+      "ratio": 0.0705,
+      "pop": 2932367
+    },
+    "LUX": {
+      "def_pc": 271.35,
+      "soc_pc": 16282.31,
+      "def_pib": 0.26,
+      "soc_pib": 15.87,
+      "ratio": 0.0164,
+      "pop": 556322
+    },
+    "IRL": {
+      "def_pc": 163.7,
+      "soc_pc": 5671.28,
+      "def_pib": 0.34,
+      "soc_pib": 11.62,
+      "ratio": 0.0281,
+      "pop": 4645440
+    },
+    "ITA": {
+      "def_pc": 320.29,
+      "soc_pc": 5703.02,
+      "def_pib": 1.11,
+      "soc_pib": 19.73,
+      "ratio": 0.0532,
+      "pop": 60320708
+    },
+    "AUT": {
+      "def_pc": 229.44,
+      "soc_pc": 8269.13,
+      "def_pib": 0.53,
+      "soc_pib": 19.18,
+      "ratio": 0.027,
+      "pop": 8538350
+    },
+    "BEL": {
+      "def_pc": 315.75,
+      "soc_pc": 7131.23,
+      "def_pib": 0.79,
+      "soc_pib": 17.8,
+      "ratio": 0.0424,
+      "pop": 11179778
+    },
+    "NLD": {
+      "def_pc": 434.03,
+      "soc_pc": 7021.05,
+      "def_pib": 0.97,
+      "soc_pib": 15.68,
+      "ratio": 0.0582,
+      "pop": 16865008
+    },
+    "FRA": {
+      "def_pc": 542.78,
+      "soc_pc": 7967.9,
+      "def_pib": 1.55,
+      "soc_pib": 22.76,
+      "ratio": 0.0638,
+      "pop": 66276671
+    },
+    "DEU": {
+      "def_pc": 333.52,
+      "soc_pc": 6783.31,
+      "def_pib": 0.82,
+      "soc_pib": 16.65,
+      "ratio": 0.0469,
+      "pop": 80982495
+    },
+    "EST": {
+      "def_pc": 272.64,
+      "soc_pc": 1754.3,
+      "def_pib": 1.49,
+      "soc_pib": 9.59,
+      "ratio": 0.1345,
+      "pop": 1314545
+    },
+    "FIN": {
+      "def_pc": 524.21,
+      "soc_pc": 9553.04,
+      "def_pib": 1.29,
+      "soc_pib": 23.51,
+      "ratio": 0.052,
+      "pop": 5461507
+    },
+    "GRC": {
+      "def_pc": 436.73,
+      "soc_pc": 3318.55,
+      "def_pib": 2.72,
+      "soc_pib": 20.71,
+      "ratio": 0.1163,
+      "pop": 10892415
+    },
+    "PRT": {
+      "def_pc": 174.6,
+      "soc_pc": 3167.74,
+      "def_pib": 0.94,
+      "soc_pib": 17.07,
+      "ratio": 0.0522,
+      "pop": 10419607
+    }
+  },
+  "2015": {
+    "SVK": {
+      "def_pc": 149.24,
+      "soc_pc": 2157.08,
+      "def_pib": 0.93,
+      "soc_pib": 13.48,
+      "ratio": 0.0647,
+      "pop": 5423800
+    },
+    "ESP": {
+      "def_pc": 224.56,
+      "soc_pc": 3992.42,
+      "def_pib": 0.91,
+      "soc_pib": 16.14,
+      "ratio": 0.0533,
+      "pop": 46384379
+    },
+    "LVA": {
+      "def_pc": 126.19,
+      "soc_pc": 1454.78,
+      "def_pib": 0.92,
+      "soc_pib": 10.59,
+      "ratio": 0.0798,
+      "pop": 1977523
+    },
+    "LTU": {
+      "def_pc": 161.64,
+      "soc_pc": 1575.73,
+      "def_pib": 1.1,
+      "soc_pib": 10.75,
+      "ratio": 0.093,
+      "pop": 2904910
+    },
+    "LUX": {
+      "def_pc": 247.61,
+      "soc_pc": 16623.1,
+      "def_pib": 0.24,
+      "soc_pib": 16.22,
+      "ratio": 0.0147,
+      "pop": 569605
+    },
+    "IRL": {
+      "def_pc": 167.83,
+      "soc_pc": 5692.0,
+      "def_pib": 0.28,
+      "soc_pib": 9.43,
+      "ratio": 0.0286,
+      "pop": 4687787
+    },
+    "ITA": {
+      "def_pc": 327.45,
+      "soc_pc": 5852.27,
+      "def_pib": 1.12,
+      "soc_pib": 20.03,
+      "ratio": 0.053,
+      "pop": 60229599
+    },
+    "AUT": {
+      "def_pc": 225.33,
+      "soc_pc": 8443.9,
+      "def_pib": 0.52,
+      "soc_pib": 19.53,
+      "ratio": 0.026,
+      "pop": 8618709
+    },
+    "BEL": {
+      "def_pc": 306.94,
+      "soc_pc": 7193.11,
+      "def_pib": 0.76,
+      "soc_pib": 17.79,
+      "ratio": 0.0409,
+      "pop": 11238474
+    },
+    "NLD": {
+      "def_pc": 454.37,
+      "soc_pc": 7100.15,
+      "def_pib": 1.0,
+      "soc_pib": 15.6,
+      "ratio": 0.0601,
+      "pop": 16939925
+    },
+    "FRA": {
+      "def_pc": 570.9,
+      "soc_pc": 8047.15,
+      "def_pib": 1.62,
+      "soc_pib": 22.81,
+      "ratio": 0.0662,
+      "pop": 66512558
+    },
+    "DEU": {
+      "def_pc": 346.41,
+      "soc_pc": 7070.84,
+      "def_pib": 0.84,
+      "soc_pib": 17.22,
+      "ratio": 0.0467,
+      "pop": 81686608
+    },
+    "EST": {
+      "def_pc": 295.91,
+      "soc_pc": 1957.01,
+      "def_pib": 1.59,
+      "soc_pib": 10.51,
+      "ratio": 0.1313,
+      "pop": 1314608
+    },
+    "FIN": {
+      "def_pc": 503.69,
+      "soc_pc": 9770.0,
+      "def_pib": 1.24,
+      "soc_pib": 23.99,
+      "ratio": 0.049,
+      "pop": 5479528
+    },
+    "GRC": {
+      "def_pc": 410.59,
+      "soc_pc": 3328.01,
+      "def_pib": 2.55,
+      "soc_pib": 20.67,
+      "ratio": 0.1098,
+      "pop": 10820883
+    },
+    "PRT": {
+      "def_pc": 175.36,
+      "soc_pc": 3213.09,
+      "def_pib": 0.93,
+      "soc_pib": 16.98,
+      "ratio": 0.0518,
+      "pop": 10381838
+    }
+  },
+  "2016": {
+    "SVK": {
+      "def_pc": 152.53,
+      "soc_pc": 2220.89,
+      "def_pib": 0.94,
+      "soc_pib": 13.63,
+      "ratio": 0.0643,
+      "pop": 5430797
+    },
+    "ESP": {
+      "def_pc": 234.54,
+      "soc_pc": 4079.06,
+      "def_pib": 0.92,
+      "soc_pib": 16.05,
+      "ratio": 0.0544,
+      "pop": 46427100
+    },
+    "LVA": {
+      "def_pc": 209.59,
+      "soc_pc": 1520.2,
+      "def_pib": 1.47,
+      "soc_pib": 10.68,
+      "ratio": 0.1212,
+      "pop": 1959535
+    },
+    "LTU": {
+      "def_pc": 200.44,
+      "soc_pc": 1662.54,
+      "def_pib": 1.31,
+      "soc_pib": 10.9,
+      "ratio": 0.1076,
+      "pop": 2868231
+    },
+    "LUX": {
+      "def_pc": 300.91,
+      "soc_pc": 16518.32,
+      "def_pib": 0.29,
+      "soc_pib": 15.73,
+      "ratio": 0.0179,
+      "pop": 583459
+    },
+    "IRL": {
+      "def_pc": 173.51,
+      "soc_pc": 5665.78,
+      "def_pib": 0.29,
+      "soc_pib": 9.38,
+      "ratio": 0.0297,
+      "pop": 4739597
+    },
+    "ITA": {
+      "def_pc": 366.81,
+      "soc_pc": 5886.15,
+      "def_pib": 1.24,
+      "soc_pib": 19.86,
+      "ratio": 0.0587,
+      "pop": 60115220
+    },
+    "AUT": {
+      "def_pc": 248.16,
+      "soc_pc": 8586.64,
+      "def_pib": 0.57,
+      "soc_pib": 19.71,
+      "ratio": 0.0281,
+      "pop": 8737663
+    },
+    "BEL": {
+      "def_pc": 306.11,
+      "soc_pc": 7397.59,
+      "def_pib": 0.75,
+      "soc_pib": 18.16,
+      "ratio": 0.0397,
+      "pop": 11295003
+    },
+    "NLD": {
+      "def_pc": 460.3,
+      "soc_pc": 7220.71,
+      "def_pib": 0.99,
+      "soc_pib": 15.57,
+      "ratio": 0.0599,
+      "pop": 17030314
+    },
+    "FRA": {
+      "def_pc": 654.68,
+      "soc_pc": 8181.76,
+      "def_pib": 1.84,
+      "soc_pib": 23.05,
+      "ratio": 0.0741,
+      "pop": 66688563
+    },
+    "DEU": {
+      "def_pc": 360.41,
+      "soc_pc": 7423.18,
+      "def_pib": 0.87,
+      "soc_pib": 17.82,
+      "ratio": 0.0463,
+      "pop": 82348669
+    },
+    "EST": {
+      "def_pc": 390.94,
+      "soc_pc": 2116.6,
+      "def_pib": 2.04,
+      "soc_pib": 11.03,
+      "ratio": 0.1559,
+      "pop": 1315790
+    },
+    "FIN": {
+      "def_pc": 525.36,
+      "soc_pc": 10113.19,
+      "def_pib": 1.26,
+      "soc_pib": 24.29,
+      "ratio": 0.0494,
+      "pop": 5495297
+    },
+    "GRC": {
+      "def_pc": 343.91,
+      "soc_pc": 3356.17,
+      "def_pib": 2.13,
+      "soc_pib": 20.76,
+      "ratio": 0.0929,
+      "pop": 10775966
+    },
+    "PRT": {
+      "def_pc": 153.79,
+      "soc_pc": 3263.8,
+      "def_pib": 0.79,
+      "soc_pib": 16.86,
+      "ratio": 0.045,
+      "pop": 10356516
+    }
+  },
+  "2017": {
+    "SVK": {
+      "def_pc": 240.59,
+      "soc_pc": 2264.62,
+      "def_pib": 1.44,
+      "soc_pib": 13.53,
+      "ratio": 0.096,
+      "pop": 5439231
+    },
+    "ESP": {
+      "def_pc": 223.03,
+      "soc_pc": 4168.31,
+      "def_pib": 0.85,
+      "soc_pib": 15.97,
+      "ratio": 0.0508,
+      "pop": 46510461
+    },
+    "LVA": {
+      "def_pc": 229.66,
+      "soc_pc": 1611.96,
+      "def_pib": 1.55,
+      "soc_pib": 10.87,
+      "ratio": 0.1247,
+      "pop": 1942247
+    },
+    "LTU": {
+      "def_pc": 242.78,
+      "soc_pc": 1835.71,
+      "def_pib": 1.5,
+      "soc_pib": 11.35,
+      "ratio": 0.1168,
+      "pop": 2828403
+    },
+    "LUX": {
+      "def_pc": 328.12,
+      "soc_pc": 17220.8,
+      "def_pib": 0.32,
+      "soc_pib": 16.53,
+      "ratio": 0.0187,
+      "pop": 596337
+    },
+    "IRL": {
+      "def_pc": 167.04,
+      "soc_pc": 5802.19,
+      "def_pib": 0.25,
+      "soc_pib": 8.85,
+      "ratio": 0.028,
+      "pop": 4810895
+    },
+    "ITA": {
+      "def_pc": 371.89,
+      "soc_pc": 5989.66,
+      "def_pib": 1.23,
+      "soc_pib": 19.85,
+      "ratio": 0.0585,
+      "pop": 60002254
+    },
+    "AUT": {
+      "def_pc": 254.14,
+      "soc_pc": 8651.44,
+      "def_pib": 0.57,
+      "soc_pib": 19.53,
+      "ratio": 0.0285,
+      "pop": 8790624
+    },
+    "BEL": {
+      "def_pc": 310.2,
+      "soc_pc": 7579.45,
+      "def_pib": 0.75,
+      "soc_pib": 18.44,
+      "ratio": 0.0393,
+      "pop": 11349081
+    },
+    "NLD": {
+      "def_pc": 481.11,
+      "soc_pc": 7256.6,
+      "def_pib": 1.02,
+      "soc_pib": 15.31,
+      "ratio": 0.0622,
+      "pop": 17131295
+    },
+    "FRA": {
+      "def_pc": 599.68,
+      "soc_pc": 8328.98,
+      "def_pib": 1.66,
+      "soc_pib": 23.06,
+      "ratio": 0.0672,
+      "pop": 66883314
+    },
+    "DEU": {
+      "def_pc": 391.61,
+      "soc_pc": 7673.83,
+      "def_pib": 0.92,
+      "soc_pib": 18.0,
+      "ratio": 0.0486,
+      "pop": 82657000
+    },
+    "EST": {
+      "def_pc": 368.61,
+      "soc_pc": 2278.68,
+      "def_pib": 1.82,
+      "soc_pib": 11.26,
+      "ratio": 0.1392,
+      "pop": 1317384
+    },
+    "FIN": {
+      "def_pc": 510.87,
+      "soc_pc": 10121.08,
+      "def_pib": 1.19,
+      "soc_pib": 23.58,
+      "ratio": 0.0481,
+      "pop": 5508209
+    },
+    "GRC": {
+      "def_pc": 417.12,
+      "soc_pc": 3300.24,
+      "def_pib": 2.54,
+      "soc_pib": 20.08,
+      "ratio": 0.1122,
+      "pop": 10754679
+    },
+    "PRT": {
+      "def_pc": 164.47,
+      "soc_pc": 3274.09,
+      "def_pib": 0.82,
+      "soc_pib": 16.35,
+      "ratio": 0.0478,
+      "pop": 10340124
+    }
+  },
+  "2018": {
+    "SVK": {
+      "def_pc": 199.79,
+      "soc_pc": 2345.79,
+      "def_pib": 1.15,
+      "soc_pib": 13.49,
+      "ratio": 0.0785,
+      "pop": 5446770
+    },
+    "ESP": {
+      "def_pc": 220.21,
+      "soc_pc": 4355.52,
+      "def_pib": 0.83,
+      "soc_pib": 16.37,
+      "ratio": 0.0481,
+      "pop": 46715383
+    },
+    "LVA": {
+      "def_pc": 318.83,
+      "soc_pc": 1745.5,
+      "def_pib": 2.04,
+      "soc_pib": 11.19,
+      "ratio": 0.1544,
+      "pop": 1927170
+    },
+    "LTU": {
+      "def_pc": 279.29,
+      "soc_pc": 2124.95,
+      "def_pib": 1.63,
+      "soc_pib": 12.4,
+      "ratio": 0.1162,
+      "pop": 2801543
+    },
+    "LUX": {
+      "def_pc": 408.55,
+      "soc_pc": 17677.67,
+      "def_pib": 0.39,
+      "soc_pib": 17.04,
+      "ratio": 0.0226,
+      "pop": 607950
+    },
+    "IRL": {
+      "def_pc": 191.48,
+      "soc_pc": 5913.38,
+      "def_pib": 0.28,
+      "soc_pib": 8.51,
+      "ratio": 0.0314,
+      "pop": 4884896
+    },
+    "ITA": {
+      "def_pc": 367.34,
+      "soc_pc": 6117.69,
+      "def_pib": 1.2,
+      "soc_pib": 20.07,
+      "ratio": 0.0566,
+      "pop": 59877216
+    },
+    "AUT": {
+      "def_pc": 257.87,
+      "soc_pc": 8791.57,
+      "def_pib": 0.57,
+      "soc_pib": 19.47,
+      "ratio": 0.0285,
+      "pop": 8833192
+    },
+    "BEL": {
+      "def_pc": 305.27,
+      "soc_pc": 7783.19,
+      "def_pib": 0.73,
+      "soc_pib": 18.67,
+      "ratio": 0.0377,
+      "pop": 11403740
+    },
+    "NLD": {
+      "def_pc": 502.8,
+      "soc_pc": 7395.13,
+      "def_pib": 1.04,
+      "soc_pib": 15.34,
+      "ratio": 0.0637,
+      "pop": 17231622
+    },
+    "FRA": {
+      "def_pc": 615.09,
+      "soc_pc": 8435.53,
+      "def_pib": 1.68,
+      "soc_pib": 23.06,
+      "ratio": 0.068,
+      "pop": 67125071
+    },
+    "DEU": {
+      "def_pc": 429.45,
+      "soc_pc": 7818.1,
+      "def_pib": 1.0,
+      "soc_pib": 18.18,
+      "ratio": 0.0521,
+      "pop": 82905788
+    },
+    "EST": {
+      "def_pc": 400.76,
+      "soc_pc": 2506.47,
+      "def_pib": 1.92,
+      "soc_pib": 11.98,
+      "ratio": 0.1379,
+      "pop": 1321977
+    },
+    "FIN": {
+      "def_pc": 504.39,
+      "soc_pc": 10309.26,
+      "def_pib": 1.16,
+      "soc_pib": 23.77,
+      "ratio": 0.0466,
+      "pop": 5515525
+    },
+    "GRC": {
+      "def_pc": 379.21,
+      "soc_pc": 3321.38,
+      "def_pib": 2.26,
+      "soc_pib": 19.76,
+      "ratio": 0.1025,
+      "pop": 10732877
+    },
+    "PRT": {
+      "def_pc": 171.4,
+      "soc_pc": 3376.18,
+      "def_pib": 0.83,
+      "soc_pib": 16.37,
+      "ratio": 0.0483,
+      "pop": 10334633
+    }
+  },
+  "2019": {
+    "SVK": {
+      "def_pc": 195.99,
+      "soc_pc": 2497.79,
+      "def_pib": 1.1,
+      "soc_pib": 14.06,
+      "ratio": 0.0728,
+      "pop": 5454147
+    },
+    "ESP": {
+      "def_pc": 223.77,
+      "soc_pc": 4602.74,
+      "def_pib": 0.83,
+      "soc_pib": 17.09,
+      "ratio": 0.0464,
+      "pop": 47087778
+    },
+    "LVA": {
+      "def_pc": 303.45,
+      "soc_pc": 1919.09,
+      "def_pib": 1.92,
+      "soc_pib": 12.13,
+      "ratio": 0.1365,
+      "pop": 1913826
+    },
+    "LTU": {
+      "def_pc": 287.29,
+      "soc_pc": 2344.26,
+      "def_pib": 1.6,
+      "soc_pib": 13.03,
+      "ratio": 0.1092,
+      "pop": 2794137
+    },
+    "LUX": {
+      "def_pc": 382.51,
+      "soc_pc": 18428.49,
+      "def_pib": 0.37,
+      "soc_pib": 17.63,
+      "ratio": 0.0203,
+      "pop": 620003
+    },
+    "IRL": {
+      "def_pc": 169.94,
+      "soc_pc": 6256.58,
+      "def_pib": 0.24,
+      "soc_pib": 8.71,
+      "ratio": 0.0264,
+      "pop": 4958471
+    },
+    "ITA": {
+      "def_pc": 386.08,
+      "soc_pc": 6343.88,
+      "def_pib": 1.26,
+      "soc_pib": 20.68,
+      "ratio": 0.0574,
+      "pop": 59729077
+    },
+    "AUT": {
+      "def_pc": 273.8,
+      "soc_pc": 9031.27,
+      "def_pib": 0.6,
+      "soc_pib": 19.75,
+      "ratio": 0.0294,
+      "pop": 8872344
+    },
+    "BEL": {
+      "def_pc": 328.87,
+      "soc_pc": 8043.55,
+      "def_pib": 0.77,
+      "soc_pib": 18.93,
+      "ratio": 0.0393,
+      "pop": 11462023
+    },
+    "NLD": {
+      "def_pc": 585.24,
+      "soc_pc": 7677.25,
+      "def_pib": 1.19,
+      "soc_pib": 15.67,
+      "ratio": 0.0708,
+      "pop": 17344876
+    },
+    "FRA": {
+      "def_pc": 621.94,
+      "soc_pc": 8647.17,
+      "def_pib": 1.67,
+      "soc_pib": 23.26,
+      "ratio": 0.0671,
+      "pop": 67349922
+    },
+    "DEU": {
+      "def_pc": 439.12,
+      "soc_pc": 8181.15,
+      "def_pib": 1.01,
+      "soc_pib": 18.89,
+      "ratio": 0.0509,
+      "pop": 83092956
+    },
+    "EST": {
+      "def_pc": 442.93,
+      "soc_pc": 2730.74,
+      "def_pib": 2.05,
+      "soc_pib": 12.63,
+      "ratio": 0.1396,
+      "pop": 1326855
+    },
+    "FIN": {
+      "def_pc": 506.92,
+      "soc_pc": 10503.29,
+      "def_pib": 1.15,
+      "soc_pib": 23.91,
+      "ratio": 0.046,
+      "pop": 5521605
+    },
+    "GRC": {
+      "def_pc": 338.57,
+      "soc_pc": 3388.4,
+      "def_pib": 1.97,
+      "soc_pib": 19.69,
+      "ratio": 0.0908,
+      "pop": 10721584
+    },
+    "PRT": {
+      "def_pc": 169.3,
+      "soc_pc": 3510.33,
+      "def_pib": 0.8,
+      "soc_pib": 16.6,
+      "ratio": 0.046,
+      "pop": 10354446
+    }
+  },
+  "2020": {
+    "SVK": {
+      "def_pc": 202.49,
+      "soc_pc": 2722.1,
+      "def_pib": 1.17,
+      "soc_pib": 15.75,
+      "ratio": 0.0692,
+      "pop": 5458827
+    },
+    "ESP": {
+      "def_pc": 222.81,
+      "soc_pc": 5226.44,
+      "def_pib": 0.93,
+      "soc_pib": 21.91,
+      "ratio": 0.0409,
+      "pop": 47344852
+    },
+    "LVA": {
+      "def_pc": 391.4,
+      "soc_pc": 2088.55,
+      "def_pib": 2.55,
+      "soc_pib": 13.58,
+      "ratio": 0.1578,
+      "pop": 1900448
+    },
+    "LTU": {
+      "def_pc": 405.25,
+      "soc_pc": 2842.57,
+      "def_pib": 2.25,
+      "soc_pib": 15.81,
+      "ratio": 0.1248,
+      "pop": 2794885
+    },
+    "LUX": {
+      "def_pc": 739.86,
+      "soc_pc": 21121.92,
+      "def_pib": 0.72,
+      "soc_pib": 20.64,
+      "ratio": 0.0338,
+      "pop": 630413
+    },
+    "IRL": {
+      "def_pc": 181.34,
+      "soc_pc": 7308.29,
+      "def_pib": 0.24,
+      "soc_pib": 9.63,
+      "ratio": 0.0242,
+      "pop": 5029875
+    },
+    "ITA": {
+      "def_pc": 382.34,
+      "soc_pc": 7016.66,
+      "def_pib": 1.36,
+      "soc_pib": 24.97,
+      "ratio": 0.0517,
+      "pop": 59438845
+    },
+    "AUT": {
+      "def_pc": 267.0,
+      "soc_pc": 9725.47,
+      "def_pib": 0.63,
+      "soc_pib": 22.79,
+      "ratio": 0.0267,
+      "pop": 8912293
+    },
+    "BEL": {
+      "def_pc": 359.68,
+      "soc_pc": 9043.16,
+      "def_pib": 0.89,
+      "soc_pib": 22.44,
+      "ratio": 0.0383,
+      "pop": 11506938
+    },
+    "NLD": {
+      "def_pc": 620.42,
+      "soc_pc": 8105.38,
+      "def_pib": 1.33,
+      "soc_pib": 17.31,
+      "ratio": 0.0711,
+      "pop": 17441500
+    },
+    "FRA": {
+      "def_pc": 640.57,
+      "soc_pc": 9344.06,
+      "def_pib": 1.87,
+      "soc_pib": 27.23,
+      "ratio": 0.0642,
+      "pop": 67569466
+    },
+    "DEU": {
+      "def_pc": 454.46,
+      "soc_pc": 8878.21,
+      "def_pib": 1.1,
+      "soc_pib": 21.4,
+      "ratio": 0.0487,
+      "pop": 83160877
+    },
+    "EST": {
+      "def_pc": 495.38,
+      "soc_pc": 3036.08,
+      "def_pib": 2.36,
+      "soc_pib": 14.49,
+      "ratio": 0.1403,
+      "pop": 1329479
+    },
+    "FIN": {
+      "def_pc": 600.59,
+      "soc_pc": 11033.46,
+      "def_pib": 1.4,
+      "soc_pib": 25.81,
+      "ratio": 0.0516,
+      "pop": 5529545
+    },
+    "GRC": {
+      "def_pc": 396.69,
+      "soc_pc": 3490.55,
+      "def_pib": 2.53,
+      "soc_pib": 22.29,
+      "ratio": 0.102,
+      "pop": 10698597
+    },
+    "PRT": {
+      "def_pc": 159.97,
+      "soc_pc": 3671.86,
+      "def_pib": 0.83,
+      "soc_pib": 18.97,
+      "ratio": 0.0417,
+      "pop": 10384846
+    }
+  },
+  "2021": {
+    "SVK": {
+      "def_pc": 257.58,
+      "soc_pc": 2974.8,
+      "def_pib": 1.41,
+      "soc_pib": 16.24,
+      "ratio": 0.0797,
+      "pop": 5441991
+    },
+    "ESP": {
+      "def_pc": 247.45,
+      "soc_pc": 5252.11,
+      "def_pib": 0.97,
+      "soc_pib": 20.64,
+      "ratio": 0.045,
+      "pop": 47346836
+    },
+    "LVA": {
+      "def_pc": 425.72,
+      "soc_pc": 2388.72,
+      "def_pib": 2.57,
+      "soc_pib": 14.41,
+      "ratio": 0.1513,
+      "pop": 1884488
+    },
+    "LTU": {
+      "def_pc": 367.91,
+      "soc_pc": 2867.08,
+      "def_pib": 1.93,
+      "soc_pib": 15.06,
+      "ratio": 0.1137,
+      "pop": 2808380
+    },
+    "LUX": {
+      "def_pc": 485.2,
+      "soc_pc": 20819.71,
+      "def_pib": 0.45,
+      "soc_pib": 19.33,
+      "ratio": 0.0228,
+      "pop": 640064
+    },
+    "IRL": {
+      "def_pc": 174.11,
+      "soc_pc": 7259.12,
+      "def_pib": 0.2,
+      "soc_pib": 8.3,
+      "ratio": 0.0234,
+      "pop": 5074668
+    },
+    "ITA": {
+      "def_pc": 422.67,
+      "soc_pc": 7040.24,
+      "def_pib": 1.37,
+      "soc_pib": 22.89,
+      "ratio": 0.0566,
+      "pop": 59133173
+    },
+    "AUT": {
+      "def_pc": 271.76,
+      "soc_pc": 9938.54,
+      "def_pib": 0.61,
+      "soc_pib": 22.28,
+      "ratio": 0.0266,
+      "pop": 8945279
+    },
+    "BEL": {
+      "def_pc": 385.54,
+      "soc_pc": 9118.23,
+      "def_pib": 0.9,
+      "soc_pib": 21.37,
+      "ratio": 0.0406,
+      "pop": 11552615
+    },
+    "NLD": {
+      "def_pc": 637.48,
+      "soc_pc": 8355.08,
+      "def_pib": 1.29,
+      "soc_pib": 16.88,
+      "ratio": 0.0709,
+      "pop": 17533048
+    },
+    "FRA": {
+      "def_pc": 638.03,
+      "soc_pc": 9172.77,
+      "def_pib": 1.75,
+      "soc_pib": 25.12,
+      "ratio": 0.065,
+      "pop": 67878650
+    },
+    "DEU": {
+      "def_pc": 458.03,
+      "soc_pc": 9055.37,
+      "def_pib": 1.06,
+      "soc_pib": 21.01,
+      "ratio": 0.0481,
+      "pop": 83196076
+    },
+    "EST": {
+      "def_pc": 480.72,
+      "soc_pc": 3144.71,
+      "def_pib": 2.12,
+      "soc_pib": 13.87,
+      "ratio": 0.1326,
+      "pop": 1330932
+    },
+    "FIN": {
+      "def_pc": 539.97,
+      "soc_pc": 11239.45,
+      "def_pib": 1.23,
+      "soc_pib": 25.65,
+      "ratio": 0.0458,
+      "pop": 5541020
+    },
+    "GRC": {
+      "def_pc": 476.67,
+      "soc_pc": 3549.18,
+      "def_pib": 2.77,
+      "soc_pib": 20.6,
+      "ratio": 0.1184,
+      "pop": 10569211
+    },
+    "PRT": {
+      "def_pc": 171.34,
+      "soc_pc": 3772.93,
+      "def_pib": 0.84,
+      "soc_pib": 18.5,
+      "ratio": 0.0434,
+      "pop": 10407707
+    }
+  },
+  "2022": {
+    "SVK": {
+      "def_pc": 202.27,
+      "soc_pc": 3157.14,
+      "def_pib": 1.1,
+      "soc_pib": 17.12,
+      "ratio": 0.0602,
+      "pop": 5431752
+    },
+    "ESP": {
+      "def_pc": 321.19,
+      "soc_pc": 5276.35,
+      "def_pib": 1.2,
+      "soc_pib": 19.67,
+      "ratio": 0.0574,
+      "pop": 47781354
+    },
+    "LVA": {
+      "def_pc": 460.0,
+      "soc_pc": 2690.7,
+      "def_pib": 2.71,
+      "soc_pib": 15.87,
+      "ratio": 0.146,
+      "pop": 1879374
+    },
+    "LTU": {
+      "def_pc": 498.8,
+      "soc_pc": 3223.63,
+      "def_pib": 2.58,
+      "soc_pib": 16.66,
+      "ratio": 0.134,
+      "pop": 2831638
+    },
+    "LUX": {
+      "def_pc": 597.42,
+      "soc_pc": 22707.19,
+      "def_pib": 0.57,
+      "soc_pib": 21.73,
+      "ratio": 0.0256,
+      "pop": 653108
+    },
+    "IRL": {
+      "def_pc": 178.43,
+      "soc_pc": 7342.39,
+      "def_pib": 0.19,
+      "soc_pib": 7.98,
+      "ratio": 0.0237,
+      "pop": 5183966
+    },
+    "ITA": {
+      "def_pc": 406.87,
+      "soc_pc": 7242.68,
+      "def_pib": 1.26,
+      "soc_pib": 22.41,
+      "ratio": 0.0532,
+      "pop": 59013671
+    },
+    "AUT": {
+      "def_pc": 297.09,
+      "soc_pc": 10669.36,
+      "def_pib": 0.64,
+      "soc_pib": 23.0,
+      "ratio": 0.0271,
+      "pop": 9058407
+    },
+    "BEL": {
+      "def_pc": 467.4,
+      "soc_pc": 9700.75,
+      "def_pib": 1.06,
+      "soc_pib": 22.04,
+      "ratio": 0.046,
+      "pop": 11640788
+    },
+    "NLD": {
+      "def_pc": 724.14,
+      "soc_pc": 8818.61,
+      "def_pib": 1.41,
+      "soc_pib": 17.13,
+      "ratio": 0.0759,
+      "pop": 17700981
+    },
+    "FRA": {
+      "def_pc": 699.53,
+      "soc_pc": 9273.68,
+      "def_pib": 1.87,
+      "soc_pib": 24.83,
+      "ratio": 0.0701,
+      "pop": 68153150
+    },
+    "DEU": {
+      "def_pc": 484.24,
+      "soc_pc": 9431.52,
+      "def_pib": 1.11,
+      "soc_pib": 21.65,
+      "ratio": 0.0488,
+      "pop": 83797987
+    },
+    "EST": {
+      "def_pc": 586.36,
+      "soc_pc": 3392.84,
+      "def_pib": 2.66,
+      "soc_pib": 15.37,
+      "ratio": 0.1474,
+      "pop": 1348840
+    },
+    "FIN": {
+      "def_pc": 582.96,
+      "soc_pc": 11418.06,
+      "def_pib": 1.32,
+      "soc_pib": 25.93,
+      "ratio": 0.0486,
+      "pop": 5556108
+    },
+    "GRC": {
+      "def_pc": 516.53,
+      "soc_pc": 3745.18,
+      "def_pib": 2.81,
+      "soc_pib": 20.34,
+      "ratio": 0.1212,
+      "pop": 10436881
+    },
+    "PRT": {
+      "def_pc": 175.86,
+      "soc_pc": 4070.73,
+      "def_pib": 0.81,
+      "soc_pib": 18.78,
+      "ratio": 0.0414,
+      "pop": 10468869
+    }
+  },
+  "2023": {
+    "SVK": {
+      "def_pc": 276.99,
+      "soc_pc": 3991.93,
+      "def_pib": 1.47,
+      "soc_pib": 21.17,
+      "ratio": 0.0649,
+      "pop": 5426739
+    },
+    "ESP": {
+      "def_pc": 289.46,
+      "soc_pc": 5734.71,
+      "def_pib": 1.07,
+      "soc_pib": 21.1,
+      "ratio": 0.0481,
+      "pop": 48320520
+    },
+    "LVA": {
+      "def_pc": 652.98,
+      "soc_pc": 2826.29,
+      "def_pib": 3.9,
+      "soc_pib": 16.87,
+      "ratio": 0.1877,
+      "pop": 1883708
+    },
+    "LTU": {
+      "def_pc": 649.88,
+      "soc_pc": 3602.05,
+      "def_pib": 3.38,
+      "soc_pib": 18.74,
+      "ratio": 0.1528,
+      "pop": 2871585
+    },
+    "LUX": {
+      "def_pc": 651.37,
+      "soc_pc": 24124.65,
+      "def_pib": 0.64,
+      "soc_pib": 23.54,
+      "ratio": 0.0263,
+      "pop": 666428
+    },
+    "IRL": {
+      "def_pc": 235.09,
+      "soc_pc": 7793.37,
+      "def_pib": 0.27,
+      "soc_pib": 8.85,
+      "ratio": 0.0293,
+      "pop": 5281612
+    },
+    "ITA": {
+      "def_pc": 434.03,
+      "soc_pc": 7622.33,
+      "def_pib": 1.33,
+      "soc_pib": 23.35,
+      "ratio": 0.0539,
+      "pop": 58984217
+    },
+    "AUT": {
+      "def_pc": 313.16,
+      "soc_pc": 11096.06,
+      "def_pib": 0.69,
+      "soc_pib": 24.29,
+      "ratio": 0.0274,
+      "pop": 9125730
+    },
+    "BEL": {
+      "def_pc": 481.25,
+      "soc_pc": 10194.9,
+      "def_pib": 1.08,
+      "soc_pib": 22.94,
+      "ratio": 0.0451,
+      "pop": 11730606
+    },
+    "NLD": {
+      "def_pc": 802.98,
+      "soc_pc": 9697.98,
+      "def_pib": 1.6,
+      "soc_pib": 19.32,
+      "ratio": 0.0765,
+      "pop": 17877121
+    },
+    "FRA": {
+      "def_pc": 748.88,
+      "soc_pc": 9627.13,
+      "def_pib": 1.98,
+      "soc_pib": 25.48,
+      "ratio": 0.0722,
+      "pop": 68341348
+    },
+    "DEU": {
+      "def_pc": 556.71,
+      "soc_pc": 9875.16,
+      "def_pib": 1.28,
+      "soc_pib": 22.72,
+      "ratio": 0.0534,
+      "pop": 83287281
+    },
+    "EST": {
+      "def_pc": 765.39,
+      "soc_pc": 3772.13,
+      "def_pib": 3.62,
+      "soc_pib": 17.84,
+      "ratio": 0.1687,
+      "pop": 1370286
+    },
+    "FIN": {
+      "def_pc": 700.94,
+      "soc_pc": 12566.48,
+      "def_pib": 1.62,
+      "soc_pib": 29.07,
+      "ratio": 0.0528,
+      "pop": 5583901
+    },
+    "GRC": {
+      "def_pc": 484.18,
+      "soc_pc": 4003.42,
+      "def_pib": 2.57,
+      "soc_pib": 21.24,
+      "ratio": 0.1079,
+      "pop": 10407358
+    },
+    "PRT": {
+      "def_pc": 195.22,
+      "soc_pc": 4195.71,
+      "def_pib": 0.88,
+      "soc_pib": 18.97,
+      "ratio": 0.0445,
+      "pop": 10578174
+    }
+  },
+  "2024": {
+    "LUX": {
+      "def_pc": 877.48,
+      "soc_pc": 25355.28,
+      "def_pib": 0.87,
+      "soc_pib": 25.06,
+      "ratio": 0.0334,
+      "pop": 677010
+    },
+    "AUT": {
+      "def_pc": 363.98,
+      "soc_pc": 12261.27,
+      "def_pib": 0.81,
+      "soc_pib": 27.16,
+      "ratio": 0.0288,
+      "pop": 9174908
+    }
+  }
+}

@@ -1,0 +1,25 @@
+# Dépendances et build
+node_modules/
+dist/
+
+# Environnement
+.env
+.env.*
+!.env.example
+
+# OS / éditeurs
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Archives / brouillons locaux
+brute/
+
+# Python (pipeline local)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
