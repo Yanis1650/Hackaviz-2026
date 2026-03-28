@@ -100,11 +100,7 @@
   class="info-face-card"
   class:info-face-card--embedded={embedded}
 >
-  <div
-    class="narration"
-    style:--narration-accent={periode.accent}
-    style:box-shadow={`inset 0 3px 0 ${periode.accent}`}
-  >
+  <div class="narration" style:--narration-accent={periode.accent}>
     <h3 class="narration-title">{periode.titre}</h3>
     <p class="narration-text">{periode.texte}</p>
   </div>
