@@ -29,10 +29,11 @@ const HEATMAP_LABELED_YEARS = new Set([2008, 2014, 2022]);
  * @param {{ years: number[], countries: string[], cells: Array<{ iso3: string, year: number, variation: number|null, ratio: number|null }>, maxAbs: number }} p.matrix
  * @param {boolean} [p.compact]
  * @param {number} [p.activeYear] — colonne surlignée (année timeline / slide).
+ * @param {string|null|undefined} [p.highlightedIso3] — ligne pays (ex. clic carte).
  * @param {{ show: (ev: PointerEvent, d: HeatmapCellDatum) => void, move: (ev: PointerEvent, d: HeatmapCellDatum) => void, hide: () => void }|undefined} [p.onHeatmapTooltip]
  */
 export function renderRatioVariationHeatmap(svgEl, p) {
-  const { width, matrix, compact = false, activeYear, onHeatmapTooltip } = p;
+  const { width, matrix, compact = false, activeYear, highlightedIso3, onHeatmapTooltip } = p;
   const { years, countries, cells, maxAbs } = matrix;
   const nY = countries.length;
   const margin = compact
@@ -40,7 +41,7 @@ export function renderRatioVariationHeatmap(svgEl, p) {
     : MARGIN;
   const innerW = Math.max(60, width - margin.left - margin.right);
   const cellH = compact
-    ? Math.min(11, Math.max(6, 200 / Math.max(nY, 1)))
+    ? Math.min(13, Math.max(6, 200 / Math.max(nY, 1)))
     : Math.min(18, Math.max(8, 280 / Math.max(nY, 1)));
   const innerH = nY * cellH;
   const H = margin.top + innerH + margin.bottom;
@@ -161,6 +162,7 @@ export function renderRatioVariationHeatmap(svgEl, p) {
 
   const cursorG = root.select('.hm-cursor');
   cursorG.selectAll('rect.hm-year-highlight').remove();
+  cursorG.selectAll('rect.hm-country-highlight').remove();
   if (activeYear != null && years.includes(activeYear)) {
     const xi = x(String(activeYear));
     if (xi != null) {
@@ -174,6 +176,25 @@ export function renderRatioVariationHeatmap(svgEl, p) {
         .attr('fill', 'rgba(255, 224, 102, 0.14)')
         .attr('stroke', 'rgba(255, 224, 102, 0.5)')
         .attr('stroke-width', compact ? 0.75 : 1)
+        .attr('pointer-events', 'none')
+        .attr('rx', 1)
+        .attr('ry', 1);
+    }
+  }
+  if (highlightedIso3 && countries.includes(highlightedIso3)) {
+    const yi = y(highlightedIso3);
+    const bh = y.bandwidth();
+    if (yi != null && bh > 0) {
+      cursorG
+        .append('rect')
+        .attr('class', 'hm-country-highlight')
+        .attr('x', 0)
+        .attr('y', yi)
+        .attr('width', innerW)
+        .attr('height', bh)
+        .attr('fill', 'rgba(74, 158, 255, 0.1)')
+        .attr('stroke', 'rgba(74, 158, 255, 0.45)')
+        .attr('stroke-width', compact ? 0.85 : 1.1)
         .attr('pointer-events', 'none')
         .attr('rx', 1)
         .attr('ry', 1);

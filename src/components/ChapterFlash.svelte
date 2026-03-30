@@ -1,6 +1,6 @@
 <script>
   /**
-   * Transition de chapitre (modal plein cadre, ~4 s ou Passer).
+   * Transition de chapitre (panneau latéral droit, ~4 s ou Passer) — carte et graphiques restent visibles et utilisables à gauche.
    * Style presse : chapeau serif, corps sans, citations multiples.
    */
   import { onMount } from 'svelte';
@@ -24,19 +24,26 @@
 
   onMount(() => {
     timer = setTimeout(fermer, DURATION_MS);
+    /** @param {KeyboardEvent} e */
+    function onKey(e) {
+      if (e.key === 'Escape') fermer();
+    }
+    window.addEventListener('keydown', onKey);
     return () => {
       if (timer != null) clearTimeout(timer);
+      window.removeEventListener('keydown', onKey);
     };
   });
 </script>
 
-<div class="chapter-flash" in:fade={{ duration: 180 }}
-  role="dialog"
-  aria-modal="true"
+<div
+  class="chapter-flash"
+  in:fade={{ duration: 180 }}
+  role="region"
   aria-labelledby="chapter-flash-title"
   aria-describedby="chapter-flash-desc"
 >
-  <div class="chapter-flash__backdrop" aria-hidden="true"></div>
+  <div class="chapter-flash__spacer" aria-hidden="true"></div>
   <div class="chapter-flash__modal" aria-live="polite">
     <p id="chapter-flash-title" class="chapter-flash__chapitre">{transition.chapitreLigne}</p>
     <h2 class="chapter-flash__chapeau">{transition.chapeau}</h2>
@@ -76,32 +83,48 @@
     inset: 0;
     z-index: 30;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: clamp(0.5rem, 3vw, 1.25rem);
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: flex-end;
+    padding: clamp(0.35rem, 1.5vw, 0.85rem);
     box-sizing: border-box;
-    pointer-events: auto;
+    pointer-events: none;
   }
 
-  .chapter-flash__backdrop {
-    position: absolute;
-    inset: 0;
-    background: rgba(4, 6, 12, 0.72);
-    backdrop-filter: blur(6px);
+  .chapter-flash__spacer {
+    flex: 1 1 auto;
+    min-width: 0;
+    pointer-events: none;
   }
 
   .chapter-flash__modal {
     position: relative;
     z-index: 1;
-    width: 100%;
-    max-width: min(34rem, 100%);
-    max-height: min(88vh, 42rem);
+    flex: 0 0 auto;
+    width: min(22rem, 42vw);
+    min-width: min(16rem, 100%);
+    max-width: calc(100% - 0.5rem);
+    max-height: 100%;
+    overflow-x: hidden;
     overflow-y: auto;
-    padding: 1.1rem 1.2rem 1rem;
-    border-radius: 12px;
-    border: none;
-    background: rgba(14, 16, 26, 0.97);
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
+    padding: 1rem 1.05rem 0.95rem;
+    border-radius: 12px 0 0 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: none;
+    background: rgba(14, 16, 26, 0.96);
+    box-shadow:
+      -12px 0 40px rgba(0, 0, 0, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    pointer-events: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @media (max-width: 520px) {
+    .chapter-flash__modal {
+      width: min(20rem, 94vw);
+      border-radius: 10px 0 0 10px;
+      max-height: min(78vh, 36rem);
+    }
   }
 
   .chapter-flash__chapitre {
@@ -246,9 +269,4 @@
     border-color: rgba(255, 255, 255, 0.22);
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .chapter-flash__backdrop {
-      backdrop-filter: none;
-    }
-  }
 </style>

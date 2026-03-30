@@ -82,6 +82,7 @@
             timelineYear={activeYear ?? year}
             {statsStore}
             {countryNames}
+            heatmapHighlightedIso3={mapOutline?.type === 'country' ? mapOutline.iso3 : null}
             scatterLegendRegionKey={mapOutline?.type === 'region' ? mapOutline.key : null}
             scatterSelectedCountryIso3={mapOutline?.type === 'country' ? mapOutline.iso3 : null}
             onScatterLegendRegion={toggleScatterRegion}

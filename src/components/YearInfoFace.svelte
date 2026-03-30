@@ -1,6 +1,6 @@
 <script>
   /**
-   * Face infos — narration, KPIs UE, ratio agrégé, heatmap, scatter (année via timeline).
+   * Face infos — titre / KPIs / phrase ratio, heatmap, scatter (année via timeline).
    */
   import { onMount } from 'svelte';
   import { fly, fade } from 'svelte/transition';
@@ -18,6 +18,7 @@
     timelineYear = undefined,
     statsStore,
     embedded = false,
+    heatmapHighlightedIso3 = null,
     scatterLegendRegionKey = null,
     scatterSelectedCountryIso3 = null,
     onScatterLegendRegion = undefined,
@@ -136,14 +137,22 @@
 
   <p class="kpi-narrative">{kpiRatioPhrase}</p>
 
+  {#key staggerGen}
+    <div class="fresque-frame" in:fade={fadeStagger(280)}>
+      <RatioVariationHeatmap
+        {statsStore}
+        {year}
+        compact={embedded}
+        highlightedIso3={heatmapHighlightedIso3}
+        {countryNames}
+      />
+    </div>
+  {/key}
+
   <div class="insight-stack">
     {#key staggerGen}
-      <div class="heatmap-stagger" in:fade={fadeStagger(320)}>
-        <RatioVariationHeatmap {statsStore} {year} compact={embedded} {countryNames} />
-      </div>
-
       <div class="scatter-section">
-        <div class="scatter-section__plot" in:fade={fadeStagger(480)}>
+        <div class="scatter-section__plot" in:fade={fadeStagger(320)}>
           <MacroScatterChart
             {year}
             {statsStore}
@@ -155,7 +164,7 @@
             onDotClick={onScatterDotClick}
           />
         </div>
-        <div class="bars-stagger" in:fly={flyStaggerBars(620)}>
+        <div class="bars-stagger" in:fly={flyStaggerBars(480)}>
           <ScatterBottomInsights {year} {statsStore} {countryNames} />
         </div>
       </div>
@@ -234,10 +243,29 @@
     color: var(--color-text-muted);
   }
 
-  .heatmap-stagger {
+  .fresque-frame {
+    flex-shrink: 0;
     width: 100%;
     min-height: 0;
-    flex-shrink: 0;
+    padding: 0.42rem 0.48rem 0.48rem;
+    border-radius: 10px;
+    border: 1px solid rgba(232, 208, 160, 0.22);
+    background: linear-gradient(
+      165deg,
+      rgba(36, 32, 28, 0.55) 0%,
+      rgba(18, 16, 24, 0.72) 100%
+    );
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .info-face-card--embedded .fresque-frame {
+    padding: 0.32rem 0.38rem 0.4rem;
+    border-radius: 8px;
+  }
+
+  .fresque-frame :global(#heatmap-container) {
+    width: 100%;
+    min-height: 0;
   }
 
   .bars-stagger {
@@ -304,11 +332,6 @@
     min-height: 0;
     display: flex;
     flex-direction: column;
-  }
-
-  .insight-stack :global(#heatmap-container) {
-    width: 100%;
-    min-height: 0;
   }
 
   .info-face-card::-webkit-scrollbar {

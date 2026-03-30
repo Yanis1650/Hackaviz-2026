@@ -10,6 +10,8 @@
     statsStore,
     year,
     compact = false,
+    /** Ligne surlignée (ex. pays sélectionné sur la carte). */
+    highlightedIso3 = null,
     /** @type {Map<string, string>|null|undefined} */
     countryNames = null
   } = $props();
@@ -70,6 +72,7 @@
       matrix,
       compact,
       activeYear: year,
+      highlightedIso3,
       onHeatmapTooltip: {
         show: (ev, d) => {
           const loc = pointerInStack(ev.clientX, ev.clientY);

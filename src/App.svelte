@@ -7,11 +7,10 @@
   import { createRatioScale } from './lib/scales.js';
   import CardCarousel from './components/CardCarousel.svelte';
   import ChapterFlash from './components/ChapterFlash.svelte';
-  import MilestoneToast from './components/MilestoneToast.svelte';
   import Timeline from './components/Timeline.svelte';
   import { translateCountryNameEnToFr } from './lib/paysEnToFr.js';
   import { metricMode, basculerMetrique } from './lib/metricMode.js';
-  import { NARRATION, obtenirPeriode, obtenirReperesAnnee } from './lib/narration.js';
+  import { NARRATION, obtenirPeriode } from './lib/narration.js';
 
   let geoData = $state(null);
   let statsStore = $state(null);
@@ -29,34 +28,8 @@
   let flashData = $state(
     /** @type {null | { transition: { chapitreLigne: string, chapeau: string, corps: string, citations: { media: string, date: string, une: string }[] }}} */ (null)
   );
-  let toastNonce = $state(0);
-  let toastData = $state(
-    /** @type {null | { une: string, annee: number, media: string, dateLigne: string, rubrique: string }} */ (null)
-  );
-
-  /** Toast reporté après la fin du flash (un seul objet visible à la fois). */
-  let deferredToastPayload =
-    /** @type {null | { une: string, annee: number, media: string, dateLigne: string, rubrique: string }} */ (null);
-
-  /** @param {{ une: string, media: string, dateLigne: string, rubrique: string }} rep */
-  function payloadToast(rep, y) {
-    return {
-      une: rep.une,
-      annee: y,
-      media: rep.media,
-      dateLigne: rep.dateLigne,
-      rubrique: rep.rubrique
-    };
-  }
-
   function onFlashDone() {
     flashData = null;
-    if (deferredToastPayload != null) {
-      const p = deferredToastPayload;
-      deferredToastPayload = null;
-      toastNonce += 1;
-      toastData = p;
-    }
   }
 
   $effect(() => {
@@ -70,26 +43,14 @@
 
     const periodeNow = obtenirPeriode(y);
     const periodeWas = obtenirPeriode(prev);
-    const rep = obtenirReperesAnnee(y);
-    const milestone = rep != null && y !== prev;
     const chapterChanged = periodeNow.id !== periodeWas.id;
 
     if (chapterChanged) {
       const entry = NARRATION.find((p) => p.id === periodeNow.id);
       if (entry?.transitionFlash) {
-        deferredToastPayload = null;
         flashNonce += 1;
         flashData = { transition: entry.transitionFlash };
-        if (milestone) {
-          deferredToastPayload = payloadToast(rep, y);
-        }
-      } else if (milestone) {
-        toastNonce += 1;
-        toastData = payloadToast(rep, y);
       }
-    } else if (milestone) {
-      toastNonce += 1;
-      toastData = payloadToast(rep, y);
     }
   });
 
@@ -159,20 +120,6 @@
           {/if}
         {/key}
       </div>
-      {#key toastNonce}
-        {#if toastData && !flashData}
-          <MilestoneToast
-            une={toastData.une}
-            annee={toastData.annee}
-            media={toastData.media}
-            dateLigne={toastData.dateLigne}
-            rubrique={toastData.rubrique}
-            ondone={() => {
-              toastData = null;
-            }}
-          />
-        {/if}
-      {/key}
       <div class="timeline-zone" bind:clientHeight={timelineZoneH}>
         <div class="metric-toggle-row">
           <button

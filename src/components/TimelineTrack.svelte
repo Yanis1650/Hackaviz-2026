@@ -58,6 +58,39 @@
     {/each}
   </div>
 
+  <div class="timeline-hint-row">
+    <svg
+      class="timeline-hint-icon"
+      width="16"
+      height="10"
+      viewBox="0 0 16 10"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <polyline
+        points="1,2 5,5 1,8"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.35"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        opacity="0.9"
+      />
+      <polyline
+        points="6,2 10,5 6,8"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.35"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        opacity="0.9"
+      />
+    </svg>
+    <span id="timeline-slider-hint" class="timeline-hint-text">
+      Glisser vers la droite pour avancer dans le temps · Tab puis flèches ← → pour l’année
+    </span>
+  </div>
+
   <div class="timeline-track-wrap">
     {#each markerYears as my (my)}
       {#if my >= minY && my <= maxY}
@@ -78,6 +111,7 @@
       step={1}
       bind:value={year}
       aria-label="Année sélectionnée"
+      aria-describedby="timeline-slider-hint"
       aria-valuemin={minY}
       aria-valuemax={maxY}
       aria-valuenow={year}
@@ -91,6 +125,31 @@
     flex-direction: column;
     gap: 0.12rem;
     width: 100%;
+  }
+
+  .timeline-hint-row {
+    display: flex;
+    align-items: center;
+    gap: 0.32rem;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    padding: 0 0.05rem 0.02rem;
+    margin-top: -0.02rem;
+  }
+
+  .timeline-hint-icon {
+    flex-shrink: 0;
+    color: rgba(200, 206, 220, 0.55);
+  }
+
+  .timeline-hint-text {
+    font-size: 0.54rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    line-height: 1.25;
+    color: rgba(168, 178, 198, 0.78);
+    text-align: right;
+    max-width: 18rem;
   }
 
   .timeline-events {
