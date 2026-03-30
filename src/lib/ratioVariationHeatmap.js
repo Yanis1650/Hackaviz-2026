@@ -192,9 +192,9 @@ export function renderRatioVariationHeatmap(svgEl, p) {
         .attr('y', yi)
         .attr('width', innerW)
         .attr('height', bh)
-        .attr('fill', 'rgba(74, 158, 255, 0.1)')
-        .attr('stroke', 'rgba(74, 158, 255, 0.45)')
-        .attr('stroke-width', compact ? 0.85 : 1.1)
+        .attr('fill', 'rgba(255, 224, 102, 0.22)')
+        .attr('stroke', 'rgba(255, 236, 160, 0.92)')
+        .attr('stroke-width', compact ? 1.35 : 2.05)
         .attr('pointer-events', 'none')
         .attr('rx', 1)
         .attr('ry', 1);

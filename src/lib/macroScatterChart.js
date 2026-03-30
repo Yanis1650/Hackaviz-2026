@@ -139,10 +139,13 @@ export function renderMacroScatterChart(svgEl, p) {
   updateScatterAxisCaptions(svg, { m, innerW, innerH, H, axisFs, axisText: AXIS_TEXT });
 
   const fillFor = (d) => REGION_COLORS[d.region] ?? REGION_COLORS.autre;
+  /** Anneau visible sur toutes les teintes de région (aligné sur le surlignage carte). */
+  const SELECT_RING = '#ffe066';
   const strokeFor = (d) =>
-    selectedIso3 === d.iso3 ? fillFor(d) : DOT_STROKE;
-  const strokeWFor = (d) => (selectedIso3 === d.iso3 ? 2.4 : 1.1);
-  const opaFor = (d) => (selectedIso3 === d.iso3 ? 0.92 : 0.58);
+    selectedIso3 === d.iso3 ? SELECT_RING : DOT_STROKE;
+  const strokeWFor = (d) => (selectedIso3 === d.iso3 ? 3.35 : 1.05);
+  const rFor = (d) => (selectedIso3 === d.iso3 ? dotR * 1.22 : dotR);
+  const opaFor = (d) => (selectedIso3 === d.iso3 ? 1 : 0.5);
 
   const dotG = root.select('.scatter-dots');
   dotG
@@ -153,7 +156,7 @@ export function renderMacroScatterChart(svgEl, p) {
         enter
           .append('circle')
           .attr('class', 'sc-dot')
-          .attr('r', dotR)
+          .attr('r', (d) => rFor(d))
           .attr('cx', (d) => x(d.def_pib))
           .attr('cy', (d) => y(d.soc_pib))
           .attr('fill', fillFor)
@@ -165,7 +168,7 @@ export function renderMacroScatterChart(svgEl, p) {
       (update) =>
         update.call((sel) => {
           const u = t ? sel.transition(t) : sel;
-          u.attr('r', dotR)
+          u.attr('r', (d) => rFor(d))
             .attr('cx', (d) => x(d.def_pib))
             .attr('cy', (d) => y(d.soc_pib))
             .attr('fill', fillFor)

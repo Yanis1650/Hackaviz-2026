@@ -1,6 +1,6 @@
 <script>
   /**
-   * V2 compact : année + ère à gauche ; plages courtes + slider à droite (accroche retirée — doublon panel).
+   * Barre narrative : année + ère à gauche ; piste (événements + slider) à droite.
    */
   import TimelineTrack from './TimelineTrack.svelte';
   import { NARRATION, obtenirPeriode } from '../lib/narration.js';
@@ -12,26 +12,6 @@
   const markerYears = NARRATION.map((p) => p.annees[0]);
 
   const periode = $derived(obtenirPeriode(year));
-
-  /** @param {number} a @param {number} b */
-  function plageCompacte(a, b) {
-    const sa = String(a);
-    const sb = String(b);
-    if (sa.length === 4 && sb.length === 4 && sa.slice(0, 2) === sb.slice(0, 2)) {
-      return `${sa}–${sb.slice(2)}`;
-    }
-    return `${a}–${b}`;
-  }
-
-  /** @param {{ annees: [number, number] }} p */
-  function estChapitreActif(p) {
-    return year >= p.annees[0] && year <= p.annees[1];
-  }
-
-  /** @param {{ annees: [number, number] }} p */
-  function allerDebutChapitre(p) {
-    year = p.annees[0];
-  }
 </script>
 
 <div class="narrative-bar">
@@ -45,23 +25,6 @@
   </div>
 
   <div class="nav-col">
-    <div class="chapitres" role="tablist" aria-label="Périodes">
-      {#each NARRATION as p (p.id)}
-        {@const actif = estChapitreActif(p)}
-        <button
-          type="button"
-          role="tab"
-          aria-selected={actif}
-          aria-label="{p.titreCourt}, {p.annees[0]} à {p.annees[1]}"
-          class="chapitre"
-          class:chapitre--actif={actif}
-          title="Aller à {p.annees[0]} ({p.titreCourt})"
-          onclick={() => allerDebutChapitre(p)}
-        >
-          {plageCompacte(p.annees[0], p.annees[1])}
-        </button>
-      {/each}
-    </div>
     <div class="track-slot">
       <TimelineTrack bind:year minY={GLOBAL_MIN} maxY={GLOBAL_MAX} {markerYears} />
     </div>
@@ -128,44 +91,6 @@
     justify-content: center;
   }
 
-  .chapitres {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.22rem;
-    justify-content: flex-end;
-  }
-
-  .chapitre {
-    margin: 0;
-    padding: 0.2rem 0.32rem;
-    border-radius: 5px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    background: rgba(255, 255, 255, 0.03);
-    color: #f0f2f8;
-    font: inherit;
-    font-size: 0.58rem;
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: 0.02em;
-    cursor: pointer;
-    line-height: 1.1;
-    transition:
-      border-color 0.12s ease,
-      background 0.12s ease,
-      color 0.12s ease;
-  }
-
-  .chapitre:hover {
-    border-color: rgba(255, 255, 255, 0.22);
-    background: rgba(255, 255, 255, 0.06);
-  }
-
-  .chapitre--actif {
-    border-color: rgba(255, 255, 255, 0.34);
-    background: rgba(255, 255, 255, 0.07);
-    color: #fff;
-  }
-
   .track-slot {
     width: 100%;
     min-width: 0;
@@ -188,10 +113,6 @@
 
     .status-era {
       max-width: none;
-    }
-
-    .chapitres {
-      justify-content: center;
     }
   }
 </style>

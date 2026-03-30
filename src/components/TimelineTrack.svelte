@@ -58,6 +58,33 @@
     {/each}
   </div>
 
+  <div class="timeline-track-wrap">
+    {#each markerYears as my (my)}
+      {#if my >= minY && my <= maxY}
+        <span
+          class="track-marker"
+          style:left="{markerLeftPct(my)}%"
+          aria-hidden="true"
+        ></span>
+      {/if}
+    {/each}
+    <div class="timeline-track-fill" style="width: {fillPct}%" aria-hidden="true"></div>
+    <input
+      id="timeline"
+      type="range"
+      class="timeline-slider"
+      min={minY}
+      max={maxY}
+      step={1}
+      bind:value={year}
+      aria-label="Année sélectionnée"
+      aria-describedby="timeline-slider-hint"
+      aria-valuemin={minY}
+      aria-valuemax={maxY}
+      aria-valuenow={year}
+    />
+  </div>
+
   <div class="timeline-hint-row">
     <svg
       class="timeline-hint-icon"
@@ -90,66 +117,42 @@
       Glisser vers la droite pour avancer dans le temps · Tab puis flèches ← → pour l’année
     </span>
   </div>
-
-  <div class="timeline-track-wrap">
-    {#each markerYears as my (my)}
-      {#if my >= minY && my <= maxY}
-        <span
-          class="track-marker"
-          style:left="{markerLeftPct(my)}%"
-          aria-hidden="true"
-        ></span>
-      {/if}
-    {/each}
-    <div class="timeline-track-fill" style="width: {fillPct}%" aria-hidden="true"></div>
-    <input
-      id="timeline"
-      type="range"
-      class="timeline-slider"
-      min={minY}
-      max={maxY}
-      step={1}
-      bind:value={year}
-      aria-label="Année sélectionnée"
-      aria-describedby="timeline-slider-hint"
-      aria-valuemin={minY}
-      aria-valuemax={maxY}
-      aria-valuenow={year}
-    />
-  </div>
 </div>
 
 <style>
   .timeline-stack {
     display: flex;
     flex-direction: column;
-    gap: 0.12rem;
+    gap: 0.18rem;
     width: 100%;
   }
 
   .timeline-hint-row {
     display: flex;
-    align-items: center;
-    gap: 0.32rem;
-    justify-content: flex-end;
-    flex-wrap: wrap;
-    padding: 0 0.05rem 0.02rem;
-    margin-top: -0.02rem;
+    align-items: flex-start;
+    gap: 0.35rem;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 0.06rem 0.05rem 0;
+    box-sizing: border-box;
   }
 
   .timeline-hint-icon {
     flex-shrink: 0;
+    margin-top: 0.12em;
     color: rgba(200, 206, 220, 0.55);
   }
 
   .timeline-hint-text {
-    font-size: 0.54rem;
+    flex: 1;
+    min-width: 0;
+    font-size: 0.58rem;
     font-weight: 600;
-    letter-spacing: 0.04em;
-    line-height: 1.25;
-    color: rgba(168, 178, 198, 0.78);
-    text-align: right;
-    max-width: 18rem;
+    letter-spacing: 0.03em;
+    line-height: 1.35;
+    color: rgba(168, 178, 198, 0.82);
+    text-align: left;
+    text-wrap: balance;
   }
 
   .timeline-events {
