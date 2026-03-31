@@ -37,7 +37,7 @@ export function donutSlicesForFeature(
   const iso3 = feature.properties.ISO3;
   const s = statsData[String(y)]?.[iso3];
   if (!s) {
-    return { slices: [], outerR: outerRadius, ratioStroke: '#666', total: 0 };
+    return { slices: [], outerR: outerRadius, ratioStroke: '#8a8278', total: 0 };
   }
   const defPc = Math.max(0, Number(s.def_pc) || 0);
   const socPc = Math.max(0, Number(s.soc_pc) || 0);
@@ -51,7 +51,7 @@ export function donutSlicesForFeature(
     pie[i].color = colors[i];
   }
   const ratioStroke =
-    s.ratio != null && !isNaN(s.ratio) ? ratioColorScale(s.ratio ?? 0) : '#666';
+    s.ratio != null && !isNaN(s.ratio) ? ratioColorScale(s.ratio ?? 0) : '#8a8278';
   return { slices: pie, outerR: outerRadius, ratioStroke, total };
 }
 

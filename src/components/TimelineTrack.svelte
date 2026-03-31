@@ -25,6 +25,12 @@
     return ((y - minY) / (maxY - minY)) * 100;
   }
 
+  /** Une graduation par année (pas seulement les checkpoints narratifs). */
+  const allYears = $derived(
+    Array.from({ length: Math.max(0, maxY - minY + 1) }, (_, i) => minY + i)
+  );
+
+  const chapterYearSet = $derived(new Set(markerYears));
 </script>
 
 <div class="timeline-stack">
@@ -40,10 +46,10 @@
           class:timeline-event--active={year === ev.year}
           style:left="{markerLeftPct(ev.year)}%"
           style:--pyramid-fill={ev.kind === 'ue'
-            ? '#4a9eff'
+            ? '#3a6bc4'
             : ev.kind === 'eco'
-              ? '#f59e0b'
-              : '#c0392b'}
+              ? '#c08020'
+              : '#c45a38'}
           title="Aller à {ev.year} — {ev.label}"
           aria-label="Aller à {ev.year}, {ev.label}"
           aria-pressed={year === ev.year}
@@ -59,14 +65,13 @@
   </div>
 
   <div class="timeline-track-wrap">
-    {#each markerYears as my (my)}
-      {#if my >= minY && my <= maxY}
-        <span
-          class="track-marker"
-          style:left="{markerLeftPct(my)}%"
-          aria-hidden="true"
-        ></span>
-      {/if}
+    {#each allYears as y (y)}
+      <span
+        class="track-tick"
+        class:track-tick--chapter={chapterYearSet.has(y)}
+        style:left="{markerLeftPct(y)}%"
+        aria-hidden="true"
+      ></span>
     {/each}
     <div class="timeline-track-fill" style="width: {fillPct}%" aria-hidden="true"></div>
     <input
@@ -114,7 +119,7 @@
       />
     </svg>
     <span id="timeline-slider-hint" class="timeline-hint-text">
-      Glisser vers la droite pour avancer dans le temps · Tab puis flèches ← → pour l’année
+      Chaque cran = une année · glisser vers la droite pour avancer · Tab puis ← →
     </span>
   </div>
 </div>
@@ -140,7 +145,7 @@
   .timeline-hint-icon {
     flex-shrink: 0;
     margin-top: 0.12em;
-    color: rgba(200, 206, 220, 0.55);
+    color: rgba(90, 86, 72, 0.55);
   }
 
   .timeline-hint-text {
@@ -150,7 +155,7 @@
     font-weight: 600;
     letter-spacing: 0.03em;
     line-height: 1.35;
-    color: rgba(168, 178, 198, 0.82);
+    color: rgba(90, 86, 72, 0.82);
     text-align: left;
     text-wrap: balance;
   }
@@ -178,7 +183,7 @@
     cursor: pointer;
     pointer-events: auto;
     font: inherit;
-    color: rgba(240, 242, 248, 0.82);
+    color: rgba(26, 26, 20, 0.82);
     max-width: 4.2rem;
   }
 
@@ -206,18 +211,18 @@
   }
 
   .timeline-event--ue {
-    --pyramid-fill: #4a9eff;
-    color: rgba(154, 198, 255, 0.95);
+    --pyramid-fill: #3a6bc4;
+    color: rgba(58, 107, 196, 0.95);
   }
 
   .timeline-event--eco {
-    --pyramid-fill: #f59e0b;
-    color: rgba(253, 214, 150, 0.95);
+    --pyramid-fill: #c08020;
+    color: rgba(160, 100, 20, 0.95);
   }
 
   .timeline-event--war {
-    --pyramid-fill: #c0392b;
-    color: rgba(240, 160, 150, 0.95);
+    --pyramid-fill: #c45a38;
+    color: rgba(196, 90, 56, 0.95);
   }
 
   .timeline-event:hover .timeline-event__pyramid,
@@ -232,7 +237,7 @@
   }
 
   .timeline-event:focus-visible {
-    outline: 2px solid rgba(255, 255, 255, 0.35);
+    outline: 2px solid rgba(42, 96, 64, 0.45);
     outline-offset: 2px;
     border-radius: 4px;
   }
@@ -240,7 +245,7 @@
   .timeline-track-wrap {
     position: relative;
     width: 100%;
-    height: 12px;
+    height: 18px;
     display: flex;
     align-items: center;
     border-radius: 999px;
@@ -252,41 +257,55 @@
     left: 0;
     right: 0;
     top: 50%;
-    height: 2px;
-    margin-top: -1px;
+    height: 3px;
+    margin-top: -1.5px;
     border-radius: 999px;
-    background: rgba(0, 0, 0, 0.45);
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
+    background: var(--slider-track, #c4c0b4);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
     pointer-events: none;
     z-index: 0;
   }
 
-  .track-marker {
+  /* Graduation annuelle — bien visible (chaque pas = une année). */
+  .track-tick {
     position: absolute;
     top: 50%;
-    width: 1px;
-    height: 7px;
-    margin-top: -3.5px;
+    width: 2px;
+    height: 6px;
+    margin-top: -3px;
     transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.22);
+    background: rgba(26, 26, 20, 0.28);
     pointer-events: none;
     z-index: 1;
     border-radius: 1px;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Débuts de chapitre : même repères que la heatmap / pyramides. */
+  .track-tick--chapter {
+    width: 2px;
+    height: 11px;
+    margin-top: -5.5px;
+    background: rgba(42, 96, 64, 0.55);
+    box-shadow:
+      0 0 0 1px rgba(42, 96, 64, 0.12),
+      0 1px 2px rgba(0, 0, 0, 0.12);
   }
 
   .timeline-track-fill {
     position: absolute;
     left: 0;
     top: 50%;
-    height: 2px;
-    margin-top: -1px;
+    height: 3px;
+    margin-top: -1.5px;
     border-radius: 999px;
     z-index: 2;
     background: linear-gradient(
       90deg,
-      rgba(192, 57, 43, 0.35) 0%,
-      rgba(192, 57, 43, 0.78) 100%
+      rgba(42, 96, 64, 0.35) 0%,
+      rgba(196, 90, 56, 0.85) 100%
     );
+    box-shadow: 0 0 8px rgba(196, 90, 56, 0.2);
     pointer-events: none;
     transition: width 0.08s ease-out;
   }
@@ -297,50 +316,77 @@
     position: relative;
     z-index: 3;
     width: 100%;
-    height: 12px;
+    height: 18px;
     margin: 0;
     background: transparent;
     cursor: pointer;
     outline: none;
   }
 
+  .timeline-slider::-webkit-slider-runnable-track {
+    height: 3px;
+    border-radius: 999px;
+    background: transparent;
+  }
+
+  /* Firefox : piste explicite pour que le thumb ne soit pas écrasé / invisible. */
+  .timeline-slider::-moz-range-track {
+    height: 3px;
+    background: transparent;
+    border: none;
+  }
+
   .timeline-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 11px;
-    height: 11px;
+    width: 14px;
+    height: 14px;
+    margin-top: -5.5px;
     border-radius: 50%;
-    background: #c0392b;
+    background: radial-gradient(
+      circle at 32% 22%,
+      #e89878 0%,
+      var(--slider-cursor, #c45a38) 48%,
+      #9a4028 100%
+    );
     cursor: grab;
-    border: 1px solid #0a0a0f;
+    border: 2px solid rgba(255, 252, 248, 0.95);
     box-shadow:
-      0 0 0 1px rgba(192, 57, 43, 0.45),
-      0 1px 4px rgba(0, 0, 0, 0.4);
+      0 0 10px 3px rgba(196, 90, 56, 0.45),
+      0 0 18px 4px rgba(196, 90, 56, 0.22),
+      0 2px 6px rgba(0, 0, 0, 0.12);
     transition: transform 0.1s ease, box-shadow 0.1s ease;
   }
 
   .timeline-slider::-webkit-slider-thumb:active {
     cursor: grabbing;
-    transform: scale(1.04);
+    transform: scale(1.08);
   }
 
   .timeline-slider::-webkit-slider-thumb:hover {
-    transform: scale(1.06);
+    transform: scale(1.1);
     box-shadow:
-      0 0 0 2px rgba(192, 57, 43, 0.4),
-      0 2px 6px rgba(0, 0, 0, 0.3);
+      0 0 12px 4px rgba(196, 90, 56, 0.5),
+      0 0 22px 6px rgba(196, 90, 56, 0.25),
+      0 2px 7px rgba(0, 0, 0, 0.12);
   }
 
   .timeline-slider::-moz-range-thumb {
-    width: 11px;
-    height: 11px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
-    background: #c0392b;
+    border: 2px solid rgba(255, 252, 248, 0.95);
+    background: radial-gradient(
+      circle at 32% 22%,
+      #e89878 0%,
+      var(--slider-cursor, #c45a38) 48%,
+      #9a4028 100%
+    );
     cursor: grab;
-    border: 1px solid #0a0a0f;
     box-shadow:
-      0 0 0 1px rgba(192, 57, 43, 0.45),
-      0 1px 4px rgba(0, 0, 0, 0.4);
+      0 0 10px 3px rgba(196, 90, 56, 0.45),
+      0 0 18px 4px rgba(196, 90, 56, 0.22),
+      0 2px 6px rgba(0, 0, 0, 0.12);
   }
 
   @media (max-width: 380px) {

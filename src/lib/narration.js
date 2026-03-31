@@ -28,7 +28,7 @@ export const NARRATION = [
   {
     id: 'paix',
     annees: [2002, 2007],
-    accent: '#4a9eff',
+    accent: '#2a6040',
     titreCourt: 'Dividendes paix',
     accroche:
       "L'Europe investit massivement dans la protection sociale. " +
@@ -62,7 +62,7 @@ export const NARRATION = [
   {
     id: 'crise',
     annees: [2008, 2013],
-    accent: '#f59e0b',
+    accent: '#2a6040',
     titreCourt: 'Crise dettes',
     accroche:
       'La protection sociale absorbe le choc de la crise ; la défense reste variable d’ajustement sous austérité.',
@@ -100,7 +100,7 @@ export const NARRATION = [
   {
     id: 'reveil',
     annees: [2014, 2021],
-    accent: '#f97316',
+    accent: '#2a6040',
     titreCourt: 'Réveil Balte',
     accroche:
       'Premier bascule à l’Est : les Baltes voient la part défense augmenter face à la nouvelle donne sécuritaire.',
@@ -138,7 +138,7 @@ export const NARRATION = [
   {
     id: 'rearmement',
     annees: [2022, 2024],
-    accent: '#e41a1c',
+    accent: '#2a6040',
     titreCourt: 'Réarmement',
     accroche:
       'La guerre en Europe impose une rupture : les budgets de défense explosent face aux dépenses sociales.',
@@ -212,4 +212,17 @@ export function obtenirReperesAnnee(annee) {
 export function obtenirPeriode(annee) {
   const a = typeof annee === 'number' ? annee : parseInt(annee, 10);
   return NARRATION.find(p => a >= p.annees[0] && a <= p.annees[1]) ?? NARRATION[0];
+}
+
+/** Suffixe « · 2008–2013 » dans les titres de chapitre (données NARRATION). */
+const TITRE_SUFFIX_PLAGE = / · \d{4}–\d{4}$/u;
+
+/**
+ * Titre affiché pour une année : thème du chapitre + année courante (les graphiques sont annuels).
+ * @param {number} annee
+ */
+export function titreNarrationPourAnnee(annee) {
+  const p = obtenirPeriode(annee);
+  const theme = p.titre.replace(TITRE_SUFFIX_PLAGE, '').trim();
+  return `${theme} · ${annee}`;
 }

@@ -237,7 +237,7 @@ export function createStatsStore(statsData) {
 
   /**
    * Matrice heatmap : variation (ratio_annee / ratio_2002) - 1, ratio courant def_pc/soc_pc.
-   * @returns {{ years: number[], countries: string[], cells: Array<{ iso3: string, year: number, variation: number|null, ratio: number|null }>, maxAbs: number }}
+   * @returns {{ years: number[], countries: string[], cells: Array<{ iso3: string, year: number, variation: number|null, ratio: number|null, def_pib: number|null, soc_pib: number|null, code2: string }>, maxAbs: number }}
    */
   function getRatioVariationMatrix() {
     const years = Object.keys(statsData)
@@ -251,7 +251,7 @@ export function createStatsStore(statsData) {
     const ratio2002 = new Map(
       countries.map((iso) => [iso, ratioDefenseSurSocial(base[iso])])
     );
-    /** @type {Array<{ iso3: string, year: number, variation: number|null, ratio: number|null }>} */
+    /** @type {Array<{ iso3: string, year: number, variation: number|null, ratio: number|null, def_pib: number|null, soc_pib: number|null, code2: string }>} */
     const cells = [];
     let maxAbs = 0;
     for (const yr of years) {
@@ -265,7 +265,17 @@ export function createStatsStore(statsData) {
           variation = ry / r0 - 1;
           if (isFinite(variation)) maxAbs = Math.max(maxAbs, Math.abs(variation));
         }
-        cells.push({ iso3: iso, year: yr, variation, ratio: ry });
+        const defP = row?.def_pib;
+        const socP = row?.soc_pib;
+        cells.push({
+          iso3: iso,
+          year: yr,
+          variation,
+          ratio: ry,
+          def_pib: nombreValide(defP) ? defP : null,
+          soc_pib: nombreValide(socP) ? socP : null,
+          code2: iso2FromIso3(iso)
+        });
       }
     }
     return { years, countries, cells, maxAbs };
@@ -293,9 +303,12 @@ export function createStatsStore(statsData) {
     if (minS === Infinity) minS = 0;
     const padS = 1.09;
     const padLo = 0.94;
+    /* Plafond en entier (ex. 5 %) : graduations D3 vont jusqu’au bord, points extrêmes (LVA, GRC) non rognés. */
+    const defPadded = Math.max(maxD * 1.15, 2.35);
+    const maxDef = Math.max(Math.ceil(defPadded), 4);
     return {
       minDef: 0,
-      maxDef: Math.max(maxD * 1.08, 2.35, 4.25),
+      maxDef,
       minSoc: Math.max(0, minS * padLo),
       maxSoc: Math.max(maxS * padS, minS + 1)
     };

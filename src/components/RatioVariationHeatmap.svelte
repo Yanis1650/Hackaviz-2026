@@ -3,7 +3,7 @@
    * Heatmap : variation du ratio Défense/Social vs 2002 — survol (tooltip), pas de navigation au clic.
    */
   import { onMount } from 'svelte';
-  import { renderRatioVariationHeatmap, HEATMAP_EVENT_MARKERS } from '../lib/ratioVariationHeatmap.js';
+  import { renderRatioVariationHeatmap } from '../lib/ratioVariationHeatmap.js';
   import { TIMELINE_EVENTS } from '../lib/narration.js';
 
   let {
@@ -24,7 +24,7 @@
   let svgEl;
   let containerW = $state(260);
 
-  /** @type {{ show: boolean, x: number, y: number, d: { iso3: string, year: number, variation: number|null, ratio: number|null } | null }} */
+  /** @type {{ show: boolean, x: number, y: number, d: { iso3: string, year: number, variation: number|null, ratio: number|null, def_pib: number|null, soc_pib: number|null, code2: string } | null }} */
   let hmTip = $state({ show: false, x: 0, y: 0, d: null });
 
   const matrix = $derived(statsStore ? statsStore.getRatioVariationMatrix() : null);
@@ -37,6 +37,10 @@
     signDisplay: 'exceptZero',
     maximumFractionDigits: 1,
     minimumFractionDigits: 1
+  });
+  const pibFmt = new Intl.NumberFormat('fr-FR', {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1
   });
 
   /** @param {number} y */
@@ -114,11 +118,10 @@
   </p>
   {#if !compact}
     <p class="heatmap-events" aria-hidden="true">
-      Repères :
-      {#each HEATMAP_EVENT_MARKERS as ev, i}
-        {ev.year}{i < HEATMAP_EVENT_MARKERS.length - 1 ? ' · ' : ''}
+      Même repères que la timeline :
+      {#each TIMELINE_EVENTS as ev, i}
+        <span class="heatmap-events__chip">{ev.label} ({ev.year})</span>{i < TIMELINE_EVENTS.length - 1 ? ' · ' : ''}
       {/each}
-      (UE, crise, Crimée, Ukraine)
     </p>
   {/if}
   <div class="heatmap-plot-stack" bind:this={plotStackEl}>
@@ -128,6 +131,7 @@
     {#if hmTip.show && hmTip.d}
       {@const d = hmTip.d}
       {@const nom = countryNames?.get?.(d.iso3) ?? d.iso3}
+      {@const code2 = d.code2?.trim() ? d.code2 : d.iso3}
       {@const evLab = eventLabelForYear(d.year)}
       <div
         class="hm-tooltip"
@@ -135,21 +139,32 @@
         style:top="{hmTip.y}px"
         role="tooltip"
       >
-        <div class="hm-tooltip__title">{nom} · {d.year}</div>
-        {#if d.ratio != null}
-          <div class="hm-tooltip__line">
+        <div class="hm-tooltip__title">{nom} · {code2}</div>
+        <div class="hm-tooltip__meta">{d.year}</div>
+        {#if d.def_pib != null && Number.isFinite(d.def_pib)}
+          <div class="hm-tooltip__metric hm-tooltip__metric--defense">
+            Défense {pibFmt.format(d.def_pib)} % PIB
+          </div>
+        {/if}
+        {#if d.soc_pib != null && Number.isFinite(d.soc_pib)}
+          <div class="hm-tooltip__metric hm-tooltip__metric--social">
+            Social {pibFmt.format(d.soc_pib)} % PIB
+          </div>
+        {/if}
+        {#if d.ratio != null && Number.isFinite(d.ratio)}
+          <div class="hm-tooltip__secondary">
             Ratio défense / social (€/hab.) : {ratioFmt.format(d.ratio)}
           </div>
           {#if d.variation != null && Number.isFinite(d.variation)}
-            <div class="hm-tooltip__line">
+            <div class="hm-tooltip__secondary">
               Variation vs 2002 : {pctVs2002Fmt.format(d.variation * 100)} %
             </div>
           {/if}
-        {:else}
+        {:else if d.def_pib == null && d.soc_pib == null}
           <div class="hm-tooltip__line hm-tooltip__line--muted">Donnée indisponible</div>
         {/if}
         {#if evLab}
-          <div class="hm-tooltip__event">Repère : {evLab}</div>
+          <div class="hm-tooltip__event">Contexte : {evLab}</div>
         {/if}
       </div>
     {/if}
@@ -172,7 +187,7 @@
     align-items: baseline;
     justify-content: space-between;
     gap: 0.35rem 0.75rem;
-    margin-bottom: 0.02rem;
+    margin-bottom: 0.5rem;
   }
 
   .heatmap-action-hint {
@@ -215,16 +230,16 @@
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--color-text-muted);
+    color: var(--color-text-label, var(--color-text-muted));
   }
 
   .heatmap-legend-line {
-    margin: 0 0 0.2rem;
+    margin: 0 0 0.5rem;
     display: flex;
     flex-wrap: wrap;
     gap: 0.35rem 0.6rem;
     font-size: 0.69rem;
-    color: var(--color-text-dim);
+    color: var(--color-text-muted);
   }
 
   .leg::before {
@@ -238,36 +253,45 @@
   }
 
   .leg--down::before {
-    background: #2d6a4f;
+    background: var(--hm-low-4, #84a870);
   }
 
   .leg--mid::before {
-    background: #e8dcc8;
+    background: var(--hm-mid, #1e2218);
   }
 
   .leg--up::before {
-    background: #6a1b0f;
+    background: var(--hm-high-4, #be7648);
   }
 
   .heatmap-events {
-    margin: 0 0 0.25rem;
-    font-size: 0.65rem;
-    line-height: 1.35;
-    color: var(--color-text-dim);
-    opacity: 0.9;
+    margin: 0 0 0.5rem;
+    font-size: 9px;
+    line-height: 1.45;
+    color: var(--hm-marker-label, #3a3028);
+    opacity: 0.95;
+  }
+
+  .heatmap-events__chip {
+    font-weight: 700;
+    color: var(--hm-marker-label, #3a3028);
+    letter-spacing: 0.02em;
   }
 
   .heatmap-plot-stack {
     position: relative;
     width: 100%;
     min-height: 0;
+    overflow: hidden;
+    border-radius: 6px;
+    background: var(--bg-elevated, #e0ddd4);
   }
 
   .heatmap-container {
     width: 100%;
     min-height: 0;
     overflow-x: auto;
-    overflow-y: visible;
+    overflow-y: hidden;
   }
 
   .heatmap-svg {
@@ -288,26 +312,54 @@
     position: absolute;
     z-index: 8;
     max-width: min(17rem, 92vw);
-    padding: 0.45rem 0.58rem;
+    padding: 0.62rem 0.75rem;
     font-size: 0.76rem;
     line-height: 1.45;
     font-weight: 500;
     letter-spacing: 0.01em;
-    color: #eef1f8;
-    background: rgba(10, 12, 22, 0.94);
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: var(--color-text-data, #1a1a14);
+    background: rgba(253, 251, 247, 0.97);
+    border: 1px solid var(--color-border);
     border-radius: 8px;
     pointer-events: none;
     box-shadow:
-      0 4px 6px rgba(0, 0, 0, 0.25),
-      0 12px 28px rgba(0, 0, 0, 0.5);
+      0 2px 8px rgba(0, 0, 0, 0.08),
+      0 8px 24px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(6px);
+    transition: opacity 0.15s ease;
   }
 
   .hm-tooltip__title {
     font-weight: 700;
-    margin-bottom: 0.28rem;
-    color: #f0f3fa;
+    margin-bottom: 0.12rem;
+    color: var(--color-text-data, #1a1a14);
+  }
+
+  .hm-tooltip__meta {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    margin-bottom: 0.35rem;
+  }
+
+  .hm-tooltip__metric {
+    margin: 0.12rem 0;
+    font-weight: 600;
+  }
+
+  .hm-tooltip__metric--defense {
+    color: var(--color-defense);
+  }
+
+  .hm-tooltip__metric--social {
+    color: var(--color-social);
+  }
+
+  .hm-tooltip__secondary {
+    margin: 0.18rem 0 0;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
   }
 
   .hm-tooltip__line {
@@ -322,8 +374,8 @@
   .hm-tooltip__event {
     margin-top: 0.38rem;
     padding-top: 0.32rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--color-border);
     font-size: 0.72rem;
-    color: #b8c4dc;
+    color: var(--color-text-muted);
   }
 </style>

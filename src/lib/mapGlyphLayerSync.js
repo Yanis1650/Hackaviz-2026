@@ -81,7 +81,7 @@ export function syncGlyphLayerFull(opts) {
     .attr('class', 'halo')
     .attr('r', HALO_BASE_R)
     .attr('fill', 'none')
-    .attr('stroke', 'rgba(200, 210, 235, 0.75)')
+    .attr('stroke', 'rgba(26, 26, 20, 0.28)')
     .each(function (d) {
       const iso3 = d.properties.ISO3;
       const s = statsData[y]?.[iso3];
@@ -136,15 +136,18 @@ export function syncGlyphLayerFull(opts) {
             .attr('cx', 0)
             .attr('cy', 0)
             .attr('r', 0)
-            .attr('fill', 'rgba(12, 14, 24, 0.62)')
-            .attr('stroke', ratioStroke)
-            .attr('stroke-width', 0.85)
-            .attr('opacity', 0.92),
+            .attr('fill', 'rgba(224, 221, 212, 0.96)')
+            .attr('stroke', 'rgba(30, 25, 15, 0.35)')
+            .attr('stroke-width', 1)
+            .attr('opacity', 1),
         (upd) => upd,
         (exit) => exit.remove()
       )
       .call((sel) =>
-        sel.transition(t).attr('r', outerR + 2.2).attr('stroke', ratioStroke)
+        sel
+          .transition(t)
+          .attr('r', outerR + 2.2)
+          .attr('stroke', 'rgba(30, 25, 15, 0.35)')
       );
 
     if (tot <= 1e-9) {
@@ -161,8 +164,8 @@ export function syncGlyphLayerFull(opts) {
             .append('path')
             .attr('class', 'donut-slice')
             .attr('fill', (sl) => sl.color)
-            .attr('stroke', 'rgba(0,0,0,0.4)')
-            .attr('stroke-width', 0.22)
+            .attr('stroke', 'rgba(30, 25, 15, 0.35)')
+            .attr('stroke-width', 0.45)
             .transition(t)
             .attrTween('d', function (sl) {
               const from = {

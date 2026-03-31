@@ -15,7 +15,7 @@ export function updateNatoReferenceLine(root, xScale, innerH) {
   const xi = xScale(NATO_PCT);
   if (!isFinite(xi)) return;
 
-  const stroke = 'rgba(228, 80, 80, 0.9)';
+  const stroke = 'rgba(196, 90, 56, 0.92)';
   const fs = '11px';
 
   let g = root.select('g.scatter-nato');

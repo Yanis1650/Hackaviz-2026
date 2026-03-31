@@ -24,15 +24,15 @@ export function createShareXScale(innerW) {
  */
 export function shareNodeColor(ratio, meanEu) {
   return ratio > meanEu
-    ? 'var(--color-defense, #e41a1c)'
-    : 'var(--color-social, #377eb8)';
+    ? 'var(--color-defense, #c45a38)'
+    : 'var(--color-social, #3a6bc4)';
 }
 
 /** Style discret pour l’axe X (pourcentages). */
 function styleAxisGroup(g) {
   g.select('.domain').attr('stroke', 'rgba(255,255,255,0.12)');
   g.selectAll('line').attr('stroke', 'rgba(255,255,255,0.08)');
-  g.selectAll('text').attr('fill', '#a1a9bb').attr('font-size', '11px');
+  g.selectAll('text').attr('fill', '#5a5648').attr('font-size', '11px');
 }
 
 /**

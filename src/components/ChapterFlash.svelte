@@ -109,12 +109,12 @@
     overflow-y: auto;
     padding: 1rem 1.05rem 0.95rem;
     border-radius: 12px 0 0 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border, rgba(0, 0, 0, 0.1));
     border-right: none;
-    background: rgba(14, 16, 26, 0.96);
+    background: rgba(253, 251, 247, 0.98);
     box-shadow:
-      -12px 0 40px rgba(0, 0, 0, 0.45),
-      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      -8px 0 32px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
     pointer-events: auto;
     -webkit-overflow-scrolling: touch;
   }
@@ -134,7 +134,7 @@
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.42);
+    color: var(--text-muted, #8a8278);
   }
 
   .chapter-flash__chapeau {
@@ -143,7 +143,7 @@
     font-size: clamp(1.05rem, 3vw, 1.35rem);
     font-weight: 700;
     line-height: 1.28;
-    color: #f5f0e8;
+    color: var(--color-title, #2a6040);
   }
 
   .chapter-flash__corps {
@@ -151,20 +151,20 @@
     font-family: var(--font-main, system-ui, sans-serif);
     font-size: 0.82rem;
     line-height: 1.55;
-    color: rgba(226, 228, 235, 0.88);
+    color: rgba(26, 26, 20, 0.88);
   }
 
   .chapter-flash__citations {
     margin: 0 0 1rem;
     padding: 0;
     list-style: none;
-    border-top: 0.5px solid #1a1d24;
+    border-top: 0.5px solid rgba(0, 0, 0, 0.08);
   }
 
   .chapter-flash__cite {
     margin: 0;
     padding: 7px 0;
-    border-bottom: 0.5px solid #1a1d24;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
   }
 
   .chapter-flash__cite:last-child {
@@ -185,14 +185,14 @@
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.42);
+    color: var(--text-muted, #8a8278);
   }
 
   .chapter-flash__cite-pipe {
     flex: 0 0 auto;
     font-size: 0.65rem;
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.22);
+    color: rgba(90, 86, 72, 0.35);
   }
 
   .chapter-flash__cite-une {
@@ -202,7 +202,7 @@
     font-size: 0.78rem;
     font-weight: 600;
     line-height: 1.45;
-    color: #f5f0e8;
+    color: #1a1a14;
   }
 
   .chapter-flash__actions {
@@ -212,7 +212,7 @@
     justify-content: space-between;
     gap: 0.65rem;
     padding-top: 0.5rem;
-    border-top: 0.5px solid #1a1d24;
+    border-top: 0.5px solid rgba(0, 0, 0, 0.08);
   }
 
   .chapter-flash__footnote {
@@ -223,7 +223,7 @@
     font-size: 0.58rem;
     font-style: italic;
     line-height: 1.35;
-    color: rgba(255, 255, 255, 0.38);
+    color: var(--text-muted, #8a8278);
   }
 
   .chapter-flash__actions-btns {
@@ -248,25 +248,25 @@
   }
 
   .chapter-flash__btn--ghost {
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(0, 0, 0, 0.12);
     background: transparent;
-    color: rgba(255, 255, 255, 0.75);
+    color: var(--text-secondary, #5a5648);
   }
 
   .chapter-flash__btn--ghost:hover {
-    border-color: rgba(255, 255, 255, 0.35);
-    color: #fff;
+    border-color: rgba(0, 0, 0, 0.2);
+    color: #1a1a14;
   }
 
   .chapter-flash__btn--primary {
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    background: rgba(255, 255, 255, 0.08);
-    color: #e8eaf0;
+    border: 1px solid rgba(42, 96, 64, 0.35);
+    background: rgba(42, 96, 64, 0.1);
+    color: var(--btn-text, #2a6040);
   }
 
   .chapter-flash__btn--primary:hover {
-    background: rgba(255, 255, 255, 0.14);
-    border-color: rgba(255, 255, 255, 0.22);
+    background: rgba(42, 96, 64, 0.16);
+    border-color: rgba(42, 96, 64, 0.45);
   }
 
 </style>

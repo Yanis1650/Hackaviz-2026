@@ -1,6 +1,6 @@
 <script>
   /**
-   * Une slide pleine hauteur : rendu D3 paresseux si |année - active| > 2 (transition comprise).
+   * Une slide (fenêtre carte + graphiques) : rendu lourd si |année - active| ≤ 2.
    */
   import YearDeckCard from './YearDeckCard.svelte';
 
@@ -8,6 +8,7 @@
     cardYear,
     activeYear,
     slideHeightPx,
+    slideWidthPx,
     geoData,
     statsStore,
     countryNames,
@@ -24,6 +25,7 @@
 <section
   class="year-card"
   class:year-card--active={cardYear === activeYear}
+  style:width={slideWidthPx > 0 ? `${slideWidthPx}px` : '100%'}
   style:height={slideHeightPx > 0 ? `${slideHeightPx}px` : '100%'}
   aria-hidden={cardYear !== activeYear}
   aria-label="Année {cardYear}"
@@ -52,14 +54,14 @@
   .year-card {
     flex-shrink: 0;
     box-sizing: border-box;
-    width: 100%;
+    min-width: 0;
     min-height: 0;
     overflow: hidden;
     position: relative;
   }
 
   /*
-   * Les slides hors année active restent dans le DOM (piste verticale) mais ne
+   * Les slides hors année active restent dans le DOM (piste horizontale) mais ne
    * reçoivent pas les interactions : MapLibre / SVG ont pointer-events: auto.
    */
   .year-card:not(.year-card--active) {
@@ -112,10 +114,10 @@
     gap: 0.5rem;
     background: linear-gradient(
       175deg,
-      rgba(14, 16, 28, 0.45) 0%,
-      rgba(6, 8, 16, 0.65) 100%
+      rgba(234, 232, 224, 0.9) 0%,
+      rgba(216, 212, 200, 0.95) 100%
     );
-    border: 1px dashed rgba(255, 255, 255, 0.12);
+    border: 1px dashed rgba(0, 0, 0, 0.12);
     color: var(--color-text-muted);
   }
 

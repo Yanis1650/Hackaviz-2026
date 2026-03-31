@@ -35,8 +35,8 @@
     onMapCountryOutlineClick = undefined
   } = $props();
 
-  const COLOR_DEF = '#e41a1c';
-  const COLOR_SOC = '#377eb8';
+  const COLOR_DEF = '#c45a38';
+  const COLOR_SOC = '#3a6bc4';
   const TRANSITION_MS = 450;
 
   /** Mode d'affichage courant (nominal €/hab. ou % PIB) — réactif aux changements du store. */

@@ -1,6 +1,6 @@
 <script>
   /**
-   * Racine — données, année, fenêtre de vue verticale + timeline.
+   * Racine — données, année, carrousel horizontal (aligné sur le slider) + timeline.
    */
   import { onMount } from 'svelte';
   import { createStatsStore } from './lib/statsStore.js';
@@ -9,7 +9,6 @@
   import ChapterFlash from './components/ChapterFlash.svelte';
   import Timeline from './components/Timeline.svelte';
   import { translateCountryNameEnToFr } from './lib/paysEnToFr.js';
-  import { metricMode, basculerMetrique } from './lib/metricMode.js';
   import { NARRATION, obtenirPeriode } from './lib/narration.js';
 
   let geoData = $state(null);
@@ -18,8 +17,9 @@
   let year = $state(2002);
   let loading = $state(true);
   let error = $state(null);
-  /** Hauteur mesurée de #view-window (une slide = cette hauteur). */
+  /** Mesures #view-window : une slide = même taille que la fenêtre (carrousel horizontal). */
   let viewWindowH = $state(0);
+  let viewWindowW = $state(0);
   let timelineZoneH = $state(0);
 
   /** Année précédente (hors réactivité) pour détecter les transitions sans relancer l’effet. */
@@ -54,13 +54,21 @@
     }
   });
 
-  /** Tant que bind:clientHeight n’a pas réagi, estimer pour éviter des slides à hauteur nulle. */
+  /** Tant que les binds n’ont pas réagi, estimer pour éviter des slides à taille nulle. */
   const slideHeightPx = $derived(
     viewWindowH > 0
       ? viewWindowH
       : typeof window !== 'undefined'
         ? Math.max(320, window.innerHeight - 96)
         : 640
+  );
+
+  const slideWidthPx = $derived(
+    viewWindowW > 0
+      ? viewWindowW
+      : typeof window !== 'undefined'
+        ? Math.max(280, window.innerWidth)
+        : 960
   );
 
   const ratioColorScale = createRatioScale();
@@ -105,10 +113,16 @@
     <div class="loader error">Erreur : {error}</div>
   {:else}
     <div class="story-stack">
-      <div id="view-window" class="view-window" bind:clientHeight={viewWindowH}>
+      <div
+        id="view-window"
+        class="view-window"
+        bind:clientHeight={viewWindowH}
+        bind:clientWidth={viewWindowW}
+      >
         <CardCarousel
           {year}
           slideHeightPx={slideHeightPx}
+          slideWidthPx={slideWidthPx}
           {geoData}
           {statsStore}
           {countryNames}
@@ -121,20 +135,6 @@
         {/key}
       </div>
       <div class="timeline-zone" bind:clientHeight={timelineZoneH}>
-        <div class="metric-toggle-row">
-          <button
-            class="metric-toggle"
-            class:metric-toggle--active={$metricMode === 'pib_pct'}
-            onclick={basculerMetrique}
-            title="Basculer entre dépenses nominales et % du PIB"
-          >
-            {#if $metricMode === 'per_capita'}
-              €/hab. <span class="metric-toggle__badge">→ % PIB</span>
-            {:else}
-              % du PIB <span class="metric-toggle__badge">→ €/hab.</span>
-            {/if}
-          </button>
-        </div>
         <Timeline bind:year />
       </div>
     </div>
@@ -145,9 +145,14 @@
   .app-layout {
     display: flex;
     flex-direction: column;
+    /* Marge basse pour ne pas coller à la barre Windows / filigrane « Afficher le Bureau » en capture. */
     height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
     width: 100%;
     overflow: hidden;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    box-sizing: border-box;
   }
 
   .story-stack {
@@ -168,59 +173,19 @@
 
   .timeline-zone {
     flex-shrink: 0;
+    width: 100%;
+    box-sizing: border-box;
     display: flex;
-    justify-content: center;
-    padding: 0 0.5rem 0.65rem;
-    background: transparent;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 0.65rem max(0.85rem, calc(0.45rem + env(safe-area-inset-bottom, 0px)));
+    background: var(--slider-zone-bg, #e8e4dc);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
     pointer-events: none;
   }
 
   .timeline-zone :global(.narrative-bar) {
     pointer-events: auto;
-  }
-
-  .metric-toggle-row {
-    display: flex;
-    justify-content: center;
-    pointer-events: auto;
-    margin-bottom: 0.25rem;
-  }
-
-  .metric-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    height: 28px;
-    min-height: 28px;
-    padding: 0.32rem 0.8rem;
-    box-sizing: border-box;
-    background: rgba(255, 255, 255, 0.06);
-    border: 0.5px solid #444;
-    border-radius: 20px;
-    color: var(--color-text-muted);
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    cursor: pointer;
-    transition: border-color 0.18s, color 0.18s, background 0.18s;
-  }
-
-  .metric-toggle:hover {
-    border-color: rgba(255, 255, 255, 0.28);
-    color: var(--color-text);
-    background: rgba(255, 255, 255, 0.1);
-  }
-
-  .metric-toggle--active {
-    border-color: rgba(100, 160, 255, 0.55);
-    color: #7ab4ff;
-    background: rgba(255, 255, 255, 0.08);
-  }
-
-  .metric-toggle__badge {
-    font-size: 0.62rem;
-    opacity: 0.55;
-    font-weight: 400;
   }
 
   .loader {

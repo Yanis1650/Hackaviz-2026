@@ -12,9 +12,9 @@ export const SCATTER_MARGIN_EMBED = { top: 16, right: 4, bottom: 34, left: 56 };
 export const SCATTER_SVG_H = 200;
 export const SCATTER_SVG_H_EMBED = 228;
 
-const GRID_STROKE = 'rgba(255,255,255,0.08)';
-const AXIS_TEXT = '#a1a9bb';
-const DOT_STROKE = 'rgba(255,255,255,0.35)';
+const GRID_STROKE = 'rgba(26, 26, 20, 0.08)';
+const AXIS_TEXT = '#5a5648';
+const DOT_STROKE = 'rgba(26, 26, 20, 0.28)';
 
 /**
  * Ligne d’info pays pour title SVG ou tooltip HTML.
@@ -120,7 +120,7 @@ export function renderMacroScatterChart(svgEl, p) {
   axX
     .call(d3.axisBottom(x).ticks(5).tickFormat((v) => formatPctAxisX(v)))
     .call((g) => {
-      g.select('.domain').attr('stroke', 'rgba(255,255,255,0.14)');
+      g.select('.domain').attr('stroke', 'rgba(26,26,20,0.14)');
       g.selectAll('line').remove();
       g.selectAll('text').attr('fill', AXIS_TEXT).attr('font-size', axisFs).attr('dy', '10px');
     });
@@ -138,14 +138,30 @@ export function renderMacroScatterChart(svgEl, p) {
 
   updateScatterAxisCaptions(svg, { m, innerW, innerH, H, axisFs, axisText: AXIS_TEXT });
 
+  let yrBadge = svg.select('text.scatter-year-badge');
+  if (yrBadge.empty()) {
+    yrBadge = svg.append('text').attr('class', 'scatter-year-badge');
+  }
+  yrBadge
+    .attr('x', m.left + innerW - 2)
+    .attr('y', m.top + (embedded ? 11 : 12))
+    .attr('text-anchor', 'end')
+    .attr('dominant-baseline', 'alphabetic')
+    .attr('fill', AXIS_TEXT)
+    .attr('font-size', embedded ? '10px' : '11px')
+    .attr('font-weight', '700')
+    .attr('letter-spacing', '0.06em')
+    .attr('pointer-events', 'none')
+    .text(String(year));
+
   const fillFor = (d) => REGION_COLORS[d.region] ?? REGION_COLORS.autre;
   /** Anneau visible sur toutes les teintes de région (aligné sur le surlignage carte). */
-  const SELECT_RING = '#ffe066';
+  const SELECT_RING = '#2a6040';
   const strokeFor = (d) =>
     selectedIso3 === d.iso3 ? SELECT_RING : DOT_STROKE;
   const strokeWFor = (d) => (selectedIso3 === d.iso3 ? 3.35 : 1.05);
   const rFor = (d) => (selectedIso3 === d.iso3 ? dotR * 1.22 : dotR);
-  const opaFor = (d) => (selectedIso3 === d.iso3 ? 1 : 0.5);
+  const opaFor = (d) => (selectedIso3 === d.iso3 ? 1 : 0.78);
 
   const dotG = root.select('.scatter-dots');
   dotG
@@ -221,11 +237,11 @@ export function renderMacroScatterChart(svgEl, p) {
         enter
           .append('text')
           .attr('class', 'sc-ann')
-          .attr('fill', 'rgba(236, 240, 250, 0.95)')
+          .attr('fill', '#1a1a14')
           .attr('font-size', annFs)
           .attr('font-weight', '700')
-          .attr('stroke', 'rgba(6, 8, 16, 0.65)')
-          .attr('stroke-width', 0.45)
+          .attr('stroke', 'rgba(245, 243, 238, 0.9)')
+          .attr('stroke-width', 0.5)
           .attr('paint-order', 'stroke fill')
           .attr('pointer-events', 'none'),
       (update) => update,

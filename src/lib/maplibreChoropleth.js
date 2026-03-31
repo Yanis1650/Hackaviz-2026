@@ -1,5 +1,5 @@
 /**
- * Carte Europe MapLibre — fond sombre local, choroplèthe via feature-state (pas de tuiles externes).
+ * Carte Europe MapLibre — fond océan neutre, choroplèthe via feature-state (pas de tuiles externes).
  */
 import * as d3 from 'd3';
 
@@ -11,7 +11,7 @@ export const EUROPE_HIGHLIGHT_LINE_LAYER_ID = 'europe-highlight-line';
 /** Filtre initial : aucun pays n’a cet ISO3 (syntaxe héritée : 2e arg = nom de propriété string). */
 const HIGHLIGHT_FILTER_NONE = ['==', 'ISO3', '__HACKAVIZ_NONE__'];
 
-/** Style minimal : seulement fond, le GeoJSON est ajouté au chargement. */
+/** Style minimal : fond océan / hors zone (neutre vs page #f5f3ee). */
 export function createEmptyDarkStyle() {
   return {
     version: 8,
@@ -20,7 +20,7 @@ export function createEmptyDarkStyle() {
       {
         id: 'background',
         type: 'background',
-        paint: { 'background-color': '#0a0a0f' }
+        paint: { 'background-color': '#d8d4c8' }
       }
     ]
   };
@@ -54,8 +54,8 @@ export function addEuropeChoroplethSourceAndLayers(map, geoData) {
     type: 'fill',
     source: EUROPE_SOURCE_ID,
     paint: {
-      'fill-color': ['coalesce', ['feature-state', 'c'], '#2a2e3e'],
-      'fill-opacity': 0.85
+      'fill-color': ['coalesce', ['feature-state', 'c'], '#e0ddd4'],
+      'fill-opacity': 0.94
     }
   });
 
@@ -64,8 +64,8 @@ export function addEuropeChoroplethSourceAndLayers(map, geoData) {
     type: 'line',
     source: EUROPE_SOURCE_ID,
     paint: {
-      'line-color': '#4a5570',
-      'line-width': 0.85
+      'line-color': 'rgba(26, 26, 20, 0.22)',
+      'line-width': 0.9
     }
   });
 
@@ -75,7 +75,7 @@ export function addEuropeChoroplethSourceAndLayers(map, geoData) {
     source: EUROPE_SOURCE_ID,
     filter: HIGHLIGHT_FILTER_NONE,
     paint: {
-      'line-color': '#ffffff',
+      'line-color': '#2a6040',
       'line-width': 2.8,
       'line-opacity': 1
     }
@@ -123,7 +123,7 @@ export function applyFillFeatureStates(
     const c =
       s?.ratio != null && !isNaN(Number(s.ratio))
         ? ratioColorScale(Number(s.ratio))
-        : '#2a2e3e';
+        : '#e0ddd4';
     try {
       map.setFeatureState({ source: EUROPE_SOURCE_ID, id: iso }, { c });
     } catch {

@@ -5,9 +5,8 @@
   import { onMount } from 'svelte';
   import { fly, fade } from 'svelte/transition';
   import { cubicOut } from 'svelte/easing';
-  import { obtenirPeriode } from '../lib/narration.js';
+  import { obtenirPeriode, titreNarrationPourAnnee } from '../lib/narration.js';
   import MacroScatterChart from './MacroScatterChart.svelte';
-  import ScatterBottomInsights from './ScatterBottomInsights.svelte';
   import RatioVariationHeatmap from './RatioVariationHeatmap.svelte';
   import KpiTweenedValue from './KpiTweenedValue.svelte';
   import { metricMode } from '../lib/metricMode.js';
@@ -61,6 +60,7 @@
   });
 
   const periode = $derived(obtenirPeriode(year));
+  const titreVue = $derived(titreNarrationPourAnnee(year));
   const kpi = $derived(statsStore.getUeTotalsForMode(year, mode));
 
   /** Phrase ratio agrégé UE (social / défense). */
@@ -90,10 +90,6 @@
       ? { duration: 0 }
       : { y: 6, duration: 420, delay: 180, easing: cubicOut };
   }
-
-  function flyStaggerBars(/** @type {number} */ delay) {
-    return reduceMotion ? { duration: 0 } : { y: 5, duration: 400, delay, easing: cubicOut };
-  }
 </script>
 
 <article
@@ -102,7 +98,7 @@
   class:info-face-card--embedded={embedded}
 >
   <div class="narration" style:--narration-accent={periode.accent}>
-    <h3 class="narration-title">{periode.titre}</h3>
+    <h3 class="narration-title">{titreVue}</h3>
     <p class="narration-text">{periode.texte}</p>
   </div>
 
@@ -164,9 +160,6 @@
             onDotClick={onScatterDotClick}
           />
         </div>
-        <div class="bars-stagger" in:fly={flyStaggerBars(480)}>
-          <ScatterBottomInsights {year} {statsStore} {countryNames} />
-        </div>
       </div>
     {/key}
   </div>
@@ -178,21 +171,21 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    padding: 0.85rem 1rem;
+    gap: 1rem;
+    padding: 0.75rem 0.85rem;
     overflow: hidden;
     min-height: 0;
     background: var(--color-bg-card);
     border: 1px solid var(--color-border);
     border-radius: 12px;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
   }
 
   .narration {
-    border: none;
-    background: var(--color-bg-insight);
+    background: transparent;
+    border: 1px solid var(--color-border);
     border-radius: 8px;
-    padding: 0.65rem 0.9rem;
+    padding: 0.62rem 0.75rem;
     flex-shrink: 0;
   }
 
@@ -203,14 +196,14 @@
     letter-spacing: 0.06em;
     line-height: 1.25;
     text-transform: uppercase;
-    color: var(--narration-accent, #e8eaf0);
+    color: var(--narration-accent, var(--color-text-data, #1a1a14));
   }
 
   .narration-text {
     margin: 0;
     font-size: 0.8rem;
     line-height: 1.55;
-    color: #a8b4cc;
+    color: var(--color-text);
   }
 
   .kpi-container {
@@ -226,10 +219,10 @@
   .kpi {
     flex: 1 1 120px;
     min-width: 0;
-    padding: 0.5rem 0.65rem;
+    padding: 0.62rem 0.75rem;
     border-radius: 8px;
-    background: var(--color-bg-insight);
-    border: 0.5px solid var(--color-kpi-border);
+    background: transparent;
+    border: 1px solid var(--color-border);
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
@@ -240,26 +233,23 @@
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--color-text-muted);
+    color: var(--color-text-label, var(--color-text-muted));
   }
 
   .fresque-frame {
     flex-shrink: 0;
     width: 100%;
     min-height: 0;
-    padding: 0.42rem 0.48rem 0.48rem;
+    padding: 0.62rem 0.75rem 0.85rem;
+    margin-bottom: 0.35rem;
     border-radius: 10px;
-    border: 1px solid rgba(232, 208, 160, 0.22);
-    background: linear-gradient(
-      165deg,
-      rgba(36, 32, 28, 0.55) 0%,
-      rgba(18, 16, 24, 0.72) 100%
-    );
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--color-border);
+    background: transparent;
+    box-shadow: none;
   }
 
   .info-face-card--embedded .fresque-frame {
-    padding: 0.32rem 0.38rem 0.4rem;
+    padding: 0.5rem 0.62rem 0.72rem;
     border-radius: 8px;
   }
 
@@ -268,16 +258,12 @@
     min-height: 0;
   }
 
-  .bars-stagger {
-    width: 100%;
-    flex-shrink: 0;
-  }
-
   :global(.kpi-value) {
     font-size: clamp(1.05rem, 2.9vw, 1.38rem);
     font-weight: 600;
     line-height: 1.15;
     font-variant-numeric: tabular-nums;
+    color: var(--color-text-data, inherit);
   }
 
   .kpi--defense :global(.kpi-value) {
@@ -302,11 +288,14 @@
     min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
-    padding: 0.4rem 0.45rem 0.42rem;
-    border: none;
+    gap: 0.5rem;
+    margin-top: 0.35rem;
+    padding: 0.85rem 0.75rem 0.72rem;
+    border: 1px solid var(--color-border);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 8px;
-    background: var(--color-bg-insight);
+    background: transparent;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
   }
 
   .scatter-section {
@@ -316,7 +305,7 @@
     min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: 0.35rem;
   }
 
   .scatter-section__plot {
@@ -343,7 +332,7 @@
   }
 
   .info-face-card::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(0, 0, 0, 0.12);
     border-radius: 2px;
   }
 
@@ -352,8 +341,8 @@
     border-radius: 0;
     box-shadow: none;
     background: transparent;
-    padding: 0.28rem 0.32rem;
-    gap: 0.28rem;
+    padding: 0.5rem 0.62rem;
+    gap: 0.75rem;
     flex: 1;
     min-height: 0;
     width: 100%;
@@ -362,7 +351,7 @@
   }
 
   .info-face-card--embedded .narration {
-    padding: 0.5rem 0.65rem;
+    padding: 0.55rem 0.7rem;
   }
 
   .info-face-card--embedded .narration-text {
@@ -375,7 +364,7 @@
   }
 
   .info-face-card--embedded .kpi {
-    padding: 0.38rem 0.5rem;
+    padding: 0.5rem 0.62rem;
   }
 
   .info-face-card--embedded .kpi-narrative {

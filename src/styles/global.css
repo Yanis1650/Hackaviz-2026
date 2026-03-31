@@ -1,21 +1,70 @@
-/* Variables CSS */
+/* Palette D — Clair cartographique (tokens + alias --color-*). */
 :root {
-  --color-bg: #0a0a0f;
-  /* Blocs intérieurs (sans bordure) : léger relief sur #0d1117 */
-  --color-bg-chrome: #0d1117;
-  --color-bg-insight: #131720;
-  --color-kpi-border: #1e2230;
-  --color-bg-card: rgba(10, 10, 20, 0.92);
-  --color-bg-panel: rgba(8, 10, 22, 0.65);
-  --color-text: #e0e0e0;
-  --color-text-muted: #9ca3af;
-  --color-text-dim: #6b7280;
-  --color-border: rgba(255, 255, 255, 0.07);
-  --color-defense: #e41a1c;
-  --color-social: #377eb8;
-  --color-accent: #4a9eff;
-  --color-country-fill: #1e2235;
-  --color-country-stroke: #4a5570;
+  --bg-base: #f5f3ee;
+  --bg-surface: #eae8e0;
+  --bg-elevated: #e0ddd4;
+  --border: rgba(0, 0, 0, 0.1);
+
+  --color-social: #3a6bc4;
+  --color-defense: #c45a38;
+  --color-slider: #2a6040;
+  --color-title: #2a6040;
+
+  --hm-low-1: #ccdec0;
+  --hm-low-2: #b4cca0;
+  --hm-low-3: #9cba88;
+  --hm-low-4: #84a870;
+  --hm-mid: #d4d0be;
+  --hm-high-1: #e4c4a8;
+  --hm-high-2: #d8aa88;
+  --hm-high-3: #cc9068;
+  --hm-high-4: #be7648;
+
+  --map-social-strong: #7aa8d8;
+  --map-social-mid: #a0c0e0;
+  --map-social-light: #c8d8ee;
+  --map-defense-strong: #c87858;
+  --map-defense-mid: #d89878;
+  --map-defense-light: #e8b898;
+
+  /* Océan / hors Europe (MapLibre) — neutre vs page #f5f3ee */
+  --map-ocean: #d8d4c8;
+
+  --slider-track: #c4c0b4;
+  --slider-cursor: #c45a38;
+  /* Barre timeline (zone sous les slides) */
+  --slider-zone-bg: #e8e4dc;
+  --slider-year-color: #2a6040;
+  --slider-phase-color: #8a8278;
+  /* Marqueurs narratifs sous heatmap (lisibles sur fond clair) */
+  --hm-marker-color: #5a5040;
+  --hm-marker-label: #3a3028;
+  --btn-bg: rgba(42, 96, 64, 0.1);
+  --btn-border: rgba(42, 96, 64, 0.3);
+  --btn-text: #2a6040;
+
+  --text-primary: #1a1a14;
+  --text-secondary: #5a5648;
+  --text-muted: #8a8278;
+
+  --map-glyph-social: #3a6bc4;
+
+  /* Compatibilité */
+  --color-bg: var(--bg-base);
+  --color-bg-chrome: var(--bg-base);
+  --color-bg-insight: var(--bg-base);
+  --color-bg-card: var(--bg-surface);
+  --color-bg-panel: var(--bg-surface);
+  --color-kpi-border: var(--border);
+  --color-border: var(--border);
+  --color-text: var(--text-primary);
+  --color-text-data: var(--text-primary);
+  --color-text-label: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-dim: var(--text-secondary);
+  --color-accent: var(--color-social);
+  --color-country-fill: var(--bg-elevated);
+  --color-country-stroke: rgba(26, 26, 20, 0.18);
   --font-main: 'Segoe UI', system-ui, sans-serif;
 }
 
@@ -34,6 +83,7 @@ html, body {
   padding: 0;
   width: 100%;
   height: 100%;
+  height: 100dvh;
   overflow: hidden;
   background: var(--color-bg);
   font-family: var(--font-main);
@@ -44,6 +94,7 @@ html, body {
 
 #app {
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  height: 100dvh;
   overflow: hidden;
 }

@@ -7,7 +7,7 @@
   import { getIso3sForScatterRegion } from '../lib/countryRegions.js';
 
   /** Contour carte (sélection scatter / légende) : jaune chaud sur fond sombre. */
-  const MAP_OUTLINE_HIGHLIGHT = '#ffe066';
+  const MAP_OUTLINE_HIGHLIGHT = '#2a6040';
 
   let {
     year,
@@ -146,28 +146,25 @@
     border-radius: 12px;
     box-sizing: border-box;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid var(--border, rgba(0, 0, 0, 0.1));
     box-shadow: none;
   }
 
   .surface-card--map {
     background: linear-gradient(
       165deg,
-      rgba(12, 34, 56, 0.92) 0%,
-      rgba(6, 14, 30, 0.96) 100%
+      rgba(232, 228, 218, 0.98) 0%,
+      rgba(216, 212, 200, 0.99) 100%
     );
-    border-color: rgba(74, 158, 255, 0.22);
+    border-color: rgba(58, 107, 196, 0.22);
     /* Tooltip carte en absolute peut dépasser le body de la carte. */
     overflow: visible;
   }
 
   .surface-card--charts {
-    background: linear-gradient(
-      165deg,
-      rgba(38, 20, 32, 0.9) 0%,
-      rgba(12, 10, 22, 0.96) 100%
-    );
-    border-color: rgba(228, 26, 28, 0.18);
+    background: #ede9e0;
+    border-color: rgba(0, 0, 0, 0.1);
+    border-left: 1px solid rgba(0, 0, 0, 0.08);
   }
 
   .card-body {

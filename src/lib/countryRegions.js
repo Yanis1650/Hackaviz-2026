@@ -4,15 +4,15 @@
 
 /** @typedef {'baltes'|'nordiques'|'sud'|'coeur'|'atlantique'|'centre'|'autre'} RegionKey */
 
-/** Couleurs lisibles sur fond sombre — distinguables en deutéranopie / protanopie (nuage + légende). */
+/** Nuage scatter — palette D (clair). */
 export const REGION_COLORS = {
-  coeur: '#4A90D9',
-  nordiques: '#2ECC8A',
-  atlantique: '#9B6FD4',
-  baltes: '#E8622A',
-  sud: '#F0B429',
-  centre: '#7CB342',
-  autre: '#95A5B8'
+  coeur: '#3a6bc4',
+  nordiques: '#2a9060',
+  atlantique: '#5850a0',
+  baltes: '#c08020',
+  sud: '#c45a38',
+  centre: '#805030',
+  autre: '#909090'
 };
 
 /** Libellés courts pour la légende UI. */

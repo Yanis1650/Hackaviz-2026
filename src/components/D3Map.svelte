@@ -23,8 +23,8 @@
   const MAP_W = 680;
   const MAP_H = 620;
 
-  const COLOR_DEF = '#e41a1c';
-  const COLOR_SOC = '#377eb8';
+  const COLOR_DEF = '#c45a38';
+  const COLOR_SOC = '#3a6bc4';
   const TRANSITION_MS = 450;
 
   let svgEl;
@@ -74,7 +74,7 @@
       .attr('fill', (d) => {
         const s = statsData[y]?.[d.properties.ISO3];
         if (s?.ratio != null && !isNaN(s.ratio)) return ratioColorScale(s.ratio);
-        return '#2a2e3e';
+        return '#e0ddd4';
       })
       .attr('fill-opacity', 0.85)
       .style('cursor', 'pointer');

@@ -1,9 +1,10 @@
 <script>
   /**
-   * Barre narrative : année + ère à gauche ; piste (événements + slider) à droite.
+   * Barre narrative pleine largeur : année + ère ; piste temps ; bascule unité globale à droite (option A).
    */
   import TimelineTrack from './TimelineTrack.svelte';
   import { NARRATION, obtenirPeriode } from '../lib/narration.js';
+  import { metricMode, basculerMetrique } from '../lib/metricMode.js';
 
   let { year = $bindable(2002) } = $props();
 
@@ -15,11 +16,7 @@
 </script>
 
 <div class="narrative-bar">
-  <div
-    class="status-col"
-    style:--status-accent={periode.accent}
-    aria-live="polite"
-  >
+  <div class="status-col" aria-live="polite">
     <span class="status-year">{year}</span>
     <span class="status-era">{periode.titreCourt}</span>
   </div>
@@ -29,6 +26,22 @@
       <TimelineTrack bind:year minY={GLOBAL_MIN} maxY={GLOBAL_MAX} {markerYears} />
     </div>
   </div>
+
+  <div class="metric-slot">
+    <button
+      type="button"
+      class="metric-toggle"
+      class:metric-toggle--active={$metricMode === 'pib_pct'}
+      onclick={basculerMetrique}
+      title="Unité affichée sur toute la vue : €/habitant ou % du PIB"
+    >
+      {#if $metricMode === 'per_capita'}
+        €/hab. <span class="metric-toggle__badge">→ % PIB</span>
+      {:else}
+        % du PIB <span class="metric-toggle__badge">→ €/hab.</span>
+      {/if}
+    </button>
+  </div>
 </div>
 
 <style>
@@ -36,17 +49,17 @@
     display: flex;
     flex-direction: row;
     align-items: stretch;
-    gap: 0.55rem 0.65rem;
+    gap: 0.55rem 0.75rem;
     width: 100%;
-    max-width: min(720px, 94vw);
-    margin: 0 auto;
-    padding: 0.35rem 0.5rem 0.38rem;
+    max-width: 100%;
+    margin: 0;
+    padding: 0.42rem 0.62rem 0.45rem;
     border-radius: 10px;
-    background: rgba(12, 14, 24, 0.92);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--bg-surface, #eae8e0);
+    border: 1px solid var(--border, rgba(0, 0, 0, 0.1));
     box-shadow:
-      0 4px 16px rgba(0, 0, 0, 0.32),
-      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      0 2px 12px rgba(0, 0, 0, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.65);
     box-sizing: border-box;
   }
 
@@ -67,7 +80,7 @@
     font-weight: 800;
     font-variant-numeric: tabular-nums;
     line-height: 1;
-    color: var(--status-accent, #e68a4f);
+    color: var(--slider-year-color, #2a6040);
     letter-spacing: 0.02em;
   }
 
@@ -76,7 +89,7 @@
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--status-accent, #e68a4f);
+    color: var(--slider-phase-color, #8a8278);
     line-height: 1.15;
     max-width: 6.5rem;
     opacity: 0.95;
@@ -97,7 +110,59 @@
     padding-top: 0.02rem;
   }
 
-  @media (max-width: 480px) {
+  .metric-slot {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    align-self: center;
+    margin-left: auto;
+    min-width: 0;
+  }
+
+  .metric-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    height: 30px;
+    min-height: 30px;
+    padding: 0.35rem 0.75rem;
+    box-sizing: border-box;
+    background: transparent;
+    border: 1px solid var(--btn-border, rgba(232, 197, 71, 0.3));
+    border-radius: 999px;
+    color: var(--color-text-muted);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    white-space: nowrap;
+    transition:
+      border-color 0.15s ease,
+      color 0.15s ease,
+      background 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+
+  .metric-toggle:hover {
+    border-color: rgba(232, 197, 71, 0.5);
+    color: var(--color-text-data, #1a1a14);
+    background: var(--btn-bg, rgba(232, 197, 71, 0.12));
+  }
+
+  .metric-toggle--active {
+    border-color: rgba(232, 197, 71, 0.55);
+    color: var(--btn-text, #e8c547);
+    background: var(--btn-bg, rgba(232, 197, 71, 0.12));
+    box-shadow: 0 0 0 1px rgba(232, 197, 71, 0.22);
+  }
+
+  .metric-toggle__badge {
+    font-size: 0.6rem;
+    opacity: 0.72;
+    font-weight: 500;
+  }
+
+  @media (max-width: 520px) {
     .narrative-bar {
       flex-wrap: wrap;
     }
@@ -106,13 +171,25 @@
       flex-direction: row;
       align-items: baseline;
       gap: 0.35rem;
-      width: 100%;
+      width: auto;
       justify-content: flex-start;
       min-width: 0;
     }
 
     .status-era {
       max-width: none;
+    }
+
+    .nav-col {
+      order: 3;
+      flex: 1 1 100%;
+      min-width: 0;
+    }
+
+    .metric-slot {
+      order: 2;
+      margin-left: auto;
+      align-self: center;
     }
   }
 </style>

@@ -116,14 +116,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.12rem;
+    padding: 0.62rem 0.75rem;
     min-width: 0;
     min-height: 0;
     /* visible : le tooltip (absolute dans la pile) n’est pas coupé sous le transform du carrousel. */
     overflow: visible;
     border-radius: 12px;
-    background: var(--color-bg-insight, #131720);
-    border: none;
+    background: var(--bg-elevated, var(--color-bg));
+    border: 1px solid var(--color-border);
     box-shadow: none;
   }
 
@@ -147,17 +147,20 @@
     align-self: stretch;
   }
 
+  /* Légende carte — thème clair (priorité lisibilité jury). */
   .map-legend {
     position: absolute;
-    left: 0.35rem;
-    bottom: 0.25rem;
+    left: 0.5rem;
+    bottom: 0.45rem;
     max-width: min(14rem, 92%);
-    padding: 0.35rem 0.45rem;
+    padding: 0.62rem 0.75rem;
     border-radius: 6px;
-    background: var(--color-bg-insight, #131720);
-    border: none;
+    background: rgba(245, 243, 238, 0.94);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    color: #2a2620;
     pointer-events: none;
     z-index: 2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 
   .map-legend__title {
@@ -166,14 +169,14 @@
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--color-text-dim);
+    color: #2a2620;
   }
 
   .map-legend__line {
     margin: 0 0 0.15rem;
     font-size: 0.7rem;
     line-height: 1.35;
-    color: var(--color-text-muted);
+    color: #2a2620;
   }
 
   .map-legend__line:last-child {
@@ -181,7 +184,7 @@
   }
 
   .map-legend__label {
-    color: var(--color-text-dim);
+    color: #2a2620;
     font-weight: 600;
   }
 
@@ -189,15 +192,15 @@
     position: absolute;
     z-index: 40;
     max-width: 16rem;
-    padding: 0.4rem 0.55rem;
+    padding: 0.62rem 0.75rem;
     font-size: 0.72rem;
     line-height: 1.45;
-    color: var(--color-text);
-    background: rgba(12, 14, 24, 0.94);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 6px;
+    color: #1a1a14;
+    background: rgba(245, 243, 238, 0.96);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
     pointer-events: none;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   }
 
   .map-face-inner--embedded {
@@ -205,7 +208,7 @@
     border-radius: 0;
     box-shadow: none;
     background: transparent;
-    padding: 0.12rem;
+    padding: 0.35rem 0.5rem;
     flex: 1 1 auto;
     align-self: stretch;
     width: 100%;

@@ -3,8 +3,9 @@
    * Nuage défense / protection sociale (% PIB), repère 2 % OTAN — légende par zone.
    * En embedded : légende à droite du tracé pour gagner en hauteur.
    */
-  import { renderMacroScatterChart, ligneLabelScatter } from '../lib/macroScatterChart.js';
+  import { renderMacroScatterChart } from '../lib/macroScatterChart.js';
   import { REGION_COLORS, REGION_LABELS_FR } from '../lib/countryRegions.js';
+  import { TIMELINE_EVENTS } from '../lib/narration.js';
 
   let {
     year,
@@ -25,9 +26,20 @@
   let plotStackEl = $state(/** @type {HTMLDivElement | null} */ (null));
   let svgEl = $state(/** @type {SVGSVGElement | null} */ (null));
   let containerW = $state(260);
-  let scatterTip = $state({ show: false, text: '', x: 0, y: 0 });
+  /** @type {{ show: boolean, x: number, y: number, d: ({ iso3: string, code2: string, def_pib: number, soc_pib: number } & { year: number }) | null }} */
+  let scatterTip = $state({ show: false, x: 0, y: 0, d: null });
   /** @type {number|undefined} */
   let scatterPrevYear = undefined;
+
+  const pibFmt = new Intl.NumberFormat('fr-FR', {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1
+  });
+
+  /** @param {number} y */
+  function eventLabelForYear(y) {
+    return TIMELINE_EVENTS.find((e) => e.year === y)?.label ?? null;
+  }
 
   const legendKeys = [
     'coeur',
@@ -84,22 +96,22 @@
           const loc = pointerInPlotStack(ev.clientX, ev.clientY);
           scatterTip = {
             show: true,
-            text: ligneLabelScatter(d, names),
             x: loc.x + 12,
-            y: loc.y + 12
+            y: loc.y + 12,
+            d: { ...d, year }
           };
         },
         move: (ev, d) => {
           const loc = pointerInPlotStack(ev.clientX, ev.clientY);
           scatterTip = {
             show: true,
-            text: ligneLabelScatter(d, names),
             x: loc.x + 12,
-            y: loc.y + 12
+            y: loc.y + 12,
+            d: { ...d, year }
           };
         },
         hide: () => {
-          scatterTip = { ...scatterTip, show: false };
+          scatterTip = { show: false, x: 0, y: 0, d: null };
         }
       }
     });
@@ -113,23 +125,40 @@
   class:scatter-wrap--overlay={fixedOverlay && !embedded}
   bind:this={rootEl}
 >
-  <span class="scatter-title">Scatter défense × social (% PIB)</span>
+  <span class="scatter-title">Scatter défense × social (% PIB) · {year}</span>
 
   {#if embedded}
     <div class="scatter-embed-body">
       <div class="scatter-plot-col" bind:this={plotColEl}>
         <div class="scatter-plot-stack" bind:this={plotStackEl}>
           <div class="scatter-plot-container">
-            <svg bind:this={svgEl} class="scatter-svg" aria-label="Nuage de points par pays"></svg>
+            <svg
+              bind:this={svgEl}
+              class="scatter-svg"
+              aria-label="Nuage défense et social en % du PIB, année {year}"
+            ></svg>
           </div>
-          {#if scatterTip.show}
+          {#if scatterTip.show && scatterTip.d}
+            {@const d = scatterTip.d}
+            {@const nom = countryNames?.get?.(d.iso3) ?? d.iso3}
+            {@const evLab = eventLabelForYear(d.year)}
             <div
               class="scatter-tooltip"
               style:left="{scatterTip.x}px"
               style:top="{scatterTip.y}px"
               role="tooltip"
             >
-              {scatterTip.text}
+              <div class="scatter-tooltip__title">{nom} · {d.code2}</div>
+              <div class="scatter-tooltip__meta">{d.year}</div>
+              <div class="scatter-tooltip__metric scatter-tooltip__metric--defense">
+                Défense {pibFmt.format(d.def_pib)} % PIB
+              </div>
+              <div class="scatter-tooltip__metric scatter-tooltip__metric--social">
+                Social {pibFmt.format(d.soc_pib)} % PIB
+              </div>
+              {#if evLab}
+                <div class="scatter-tooltip__event">Contexte : {evLab}</div>
+              {/if}
             </div>
           {/if}
         </div>
@@ -162,16 +191,33 @@
   {:else}
     <div class="scatter-plot-stack" bind:this={plotStackEl}>
       <div class="scatter-plot-container">
-        <svg bind:this={svgEl} class="scatter-svg" aria-label="Nuage de points par pays"></svg>
+        <svg
+          bind:this={svgEl}
+          class="scatter-svg"
+          aria-label="Nuage défense et social en % du PIB, année {year}"
+        ></svg>
       </div>
-      {#if scatterTip.show}
+      {#if scatterTip.show && scatterTip.d}
+        {@const d = scatterTip.d}
+        {@const nom = countryNames?.get?.(d.iso3) ?? d.iso3}
+        {@const evLab = eventLabelForYear(d.year)}
         <div
           class="scatter-tooltip"
           style:left="{scatterTip.x}px"
           style:top="{scatterTip.y}px"
           role="tooltip"
         >
-          {scatterTip.text}
+          <div class="scatter-tooltip__title">{nom} · {d.code2}</div>
+          <div class="scatter-tooltip__meta">{d.year}</div>
+          <div class="scatter-tooltip__metric scatter-tooltip__metric--defense">
+            Défense {pibFmt.format(d.def_pib)} % PIB
+          </div>
+          <div class="scatter-tooltip__metric scatter-tooltip__metric--social">
+            Social {pibFmt.format(d.soc_pib)} % PIB
+          </div>
+          {#if evLab}
+            <div class="scatter-tooltip__event">Contexte : {evLab}</div>
+          {/if}
         </div>
       {/if}
     </div>
@@ -227,7 +273,7 @@
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    gap: 0.4rem;
+    gap: 0.62rem;
     flex: 1 1 0;
     min-height: 0;
     min-width: 0;
@@ -253,10 +299,10 @@
     background: linear-gradient(
       180deg,
       transparent 0%,
-      rgba(8, 10, 18, 0.88) 35%,
-      rgba(8, 10, 18, 0.92) 100%
+      rgba(245, 243, 238, 0.92) 35%,
+      rgba(234, 232, 224, 0.96) 100%
     );
-    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.06);
   }
 
   .scatter-wrap--overlay .scatter-plot-stack {
@@ -271,7 +317,7 @@
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--color-text-muted);
+    color: var(--color-text-label, var(--color-text-muted));
   }
 
   .scatter-plot-stack {
@@ -290,20 +336,55 @@
     position: absolute;
     z-index: 5;
     max-width: min(17rem, 92vw);
-    padding: 0.42rem 0.55rem;
-    font-size: 0.78rem;
-    line-height: 1.42;
+    padding: 0.62rem 0.75rem;
+    font-size: 0.76rem;
+    line-height: 1.45;
     font-weight: 500;
     letter-spacing: 0.01em;
-    color: #eef1f8;
-    background: rgba(10, 12, 22, 0.94);
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: var(--color-text-data, #1a1a14);
+    background: rgba(253, 251, 247, 0.97);
+    border: 1px solid var(--color-border);
     border-radius: 8px;
     pointer-events: none;
     box-shadow:
-      0 4px 6px rgba(0, 0, 0, 0.25),
-      0 12px 28px rgba(0, 0, 0, 0.5);
+      0 2px 8px rgba(0, 0, 0, 0.08),
+      0 8px 24px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(6px);
+    transition: opacity 0.15s ease;
+  }
+
+  .scatter-tooltip__title {
+    font-weight: 700;
+    margin-bottom: 0.12rem;
+    color: var(--color-text-data, #1a1a14);
+  }
+
+  .scatter-tooltip__meta {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    margin-bottom: 0.35rem;
+  }
+
+  .scatter-tooltip__metric {
+    margin: 0.12rem 0;
+    font-weight: 600;
+  }
+
+  .scatter-tooltip__metric--defense {
+    color: var(--color-defense);
+  }
+
+  .scatter-tooltip__metric--social {
+    color: var(--color-social);
+  }
+
+  .scatter-tooltip__event {
+    margin-top: 0.38rem;
+    padding-top: 0.32rem;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.72rem;
+    color: var(--color-text-muted);
   }
 
   .scatter-svg {
@@ -348,7 +429,7 @@
   .scatter-legend--aside .scatter-legend__btn {
     width: 100%;
     justify-content: flex-start;
-    padding: 0.1rem 0.22rem 0.1rem 0.14rem;
+    padding: 0.35rem 0.5rem 0.35rem 0.4rem;
   }
 
   .scatter-legend__item {
@@ -375,7 +456,7 @@
     padding: 0.12rem 0.28rem 0.12rem 0.18rem;
     border-radius: 6px;
     border: none;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.04);
     color: inherit;
     font: inherit;
     font-size: inherit;
@@ -385,12 +466,12 @@
   }
 
   .scatter-legend__btn:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.07);
   }
 
   .scatter-legend__btn--active {
-    background: rgba(255, 255, 255, 0.14);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+    background: rgba(42, 96, 64, 0.12);
+    box-shadow: inset 0 0 0 1px rgba(42, 96, 64, 0.28);
   }
 
   .scatter-legend__swatch {
@@ -398,6 +479,6 @@
     height: 0.5rem;
     border-radius: 50%;
     flex-shrink: 0;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(26, 26, 20, 0.2);
   }
 </style>
