@@ -24,7 +24,7 @@
   const MAP_H = 620;
 
   const COLOR_DEF = '#c45a38';
-  const COLOR_SOC = '#3a6bc4';
+  const COLOR_SOC = '#5878b0';
   const TRANSITION_MS = 450;
 
   let svgEl;

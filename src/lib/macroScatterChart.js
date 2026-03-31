@@ -15,6 +15,8 @@ export const SCATTER_SVG_H_EMBED = 228;
 const GRID_STROKE = 'rgba(26, 26, 20, 0.08)';
 const AXIS_TEXT = '#5a5648';
 const DOT_STROKE = 'rgba(26, 26, 20, 0.28)';
+/** Sélection : même famille que le contour standard (plus de vert #2a6040 résiduel). */
+const DOT_STROKE_SELECTED = 'rgba(30, 25, 15, 0.35)';
 
 /**
  * Ligne d’info pays pour title SVG ou tooltip HTML.
@@ -155,11 +157,9 @@ export function renderMacroScatterChart(svgEl, p) {
     .text(String(year));
 
   const fillFor = (d) => REGION_COLORS[d.region] ?? REGION_COLORS.autre;
-  /** Anneau visible sur toutes les teintes de région (aligné sur le surlignage carte). */
-  const SELECT_RING = '#2a6040';
   const strokeFor = (d) =>
-    selectedIso3 === d.iso3 ? SELECT_RING : DOT_STROKE;
-  const strokeWFor = (d) => (selectedIso3 === d.iso3 ? 3.35 : 1.05);
+    selectedIso3 === d.iso3 ? DOT_STROKE_SELECTED : DOT_STROKE;
+  const strokeWFor = (d) => (selectedIso3 === d.iso3 ? 1.5 : 1.05);
   const rFor = (d) => (selectedIso3 === d.iso3 ? dotR * 1.22 : dotR);
   const opaFor = (d) => (selectedIso3 === d.iso3 ? 1 : 0.78);
 

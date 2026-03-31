@@ -156,7 +156,7 @@
       rgba(232, 228, 218, 0.98) 0%,
       rgba(216, 212, 200, 0.99) 100%
     );
-    border-color: rgba(58, 107, 196, 0.22);
+    border-color: rgba(88, 120, 176, 0.28);
     /* Tooltip carte en absolute peut dépasser le body de la carte. */
     overflow: visible;
   }

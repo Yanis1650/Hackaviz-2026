@@ -155,12 +155,14 @@
     max-width: min(14rem, 92%);
     padding: 0.62rem 0.75rem;
     border-radius: 6px;
-    background: rgba(245, 243, 238, 0.94);
+    background: rgba(245, 243, 238, 0.78);
     border: 1px solid rgba(0, 0, 0, 0.12);
     color: #2a2620;
     pointer-events: none;
     z-index: 2;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 
   .map-legend__title {

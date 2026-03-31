@@ -164,6 +164,7 @@ export function syncGlyphLayerFull(opts) {
             .append('path')
             .attr('class', 'donut-slice')
             .attr('fill', (sl) => sl.color)
+            .attr('fill-opacity', 0.85)
             .attr('stroke', 'rgba(30, 25, 15, 0.35)')
             .attr('stroke-width', 0.45)
             .transition(t)
@@ -183,6 +184,7 @@ export function syncGlyphLayerFull(opts) {
         (update) =>
           update
             .attr('fill', (sl) => sl.color)
+            .attr('fill-opacity', 0.85)
             .transition(t)
             .attrTween('d', function (sl) {
               return tweenDonutSlice(sl).call(this);

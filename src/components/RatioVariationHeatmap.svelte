@@ -253,7 +253,7 @@
   }
 
   .leg--down::before {
-    background: var(--hm-low-4, #84a870);
+    background: var(--hm-low-4, #7ea06a);
   }
 
   .leg--mid::before {

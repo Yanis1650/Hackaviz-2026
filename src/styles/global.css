@@ -5,15 +5,15 @@
   --bg-elevated: #e0ddd4;
   --border: rgba(0, 0, 0, 0.1);
 
-  --color-social: #3a6bc4;
+  --color-social: #5878b0;
   --color-defense: #c45a38;
   --color-slider: #2a6040;
   --color-title: #2a6040;
 
-  --hm-low-1: #ccdec0;
-  --hm-low-2: #b4cca0;
-  --hm-low-3: #9cba88;
-  --hm-low-4: #84a870;
+  --hm-low-1: #cad4bc;
+  --hm-low-2: #aec49a;
+  --hm-low-3: #96b282;
+  --hm-low-4: #7ea06a;
   --hm-mid: #d4d0be;
   --hm-high-1: #e4c4a8;
   --hm-high-2: #d8aa88;
@@ -33,7 +33,7 @@
   --slider-track: #c4c0b4;
   --slider-cursor: #c45a38;
   /* Barre timeline (zone sous les slides) */
-  --slider-zone-bg: #e8e4dc;
+  --slider-zone-bg: #e0dbd0;
   --slider-year-color: #2a6040;
   --slider-phase-color: #8a8278;
   /* Marqueurs narratifs sous heatmap (lisibles sur fond clair) */
@@ -47,7 +47,7 @@
   --text-secondary: #5a5648;
   --text-muted: #8a8278;
 
-  --map-glyph-social: #3a6bc4;
+  --map-glyph-social: #5878b0;
 
   /* Compatibilité */
   --color-bg: var(--bg-base);

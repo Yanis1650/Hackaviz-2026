@@ -179,8 +179,8 @@
     flex-direction: column;
     align-items: stretch;
     padding: 0 0.65rem max(0.85rem, calc(0.45rem + env(safe-area-inset-bottom, 0px)));
-    background: var(--slider-zone-bg, #e8e4dc);
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    background: var(--slider-zone-bg, #e0dbd0);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
     pointer-events: none;
   }
 

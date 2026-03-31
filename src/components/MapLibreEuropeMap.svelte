@@ -36,7 +36,7 @@
   } = $props();
 
   const COLOR_DEF = '#c45a38';
-  const COLOR_SOC = '#3a6bc4';
+  const COLOR_SOC = '#5878b0';
   const TRANSITION_MS = 450;
 
   /** Mode d'affichage courant (nominal €/hab. ou % PIB) — réactif aux changements du store. */

@@ -25,7 +25,7 @@ export function createShareXScale(innerW) {
 export function shareNodeColor(ratio, meanEu) {
   return ratio > meanEu
     ? 'var(--color-defense, #c45a38)'
-    : 'var(--color-social, #3a6bc4)';
+    : 'var(--color-social, #5878b0)';
 }
 
 /** Style discret pour l’axe X (pourcentages). */

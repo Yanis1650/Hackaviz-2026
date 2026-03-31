@@ -6,7 +6,7 @@
 
 /** Nuage scatter — palette D (clair). */
 export const REGION_COLORS = {
-  coeur: '#3a6bc4',
+  coeur: '#5878b0',
   nordiques: '#2a9060',
   atlantique: '#5850a0',
   baltes: '#c08020',

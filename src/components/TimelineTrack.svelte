@@ -46,7 +46,7 @@
           class:timeline-event--active={year === ev.year}
           style:left="{markerLeftPct(ev.year)}%"
           style:--pyramid-fill={ev.kind === 'ue'
-            ? '#3a6bc4'
+            ? '#5878b0'
             : ev.kind === 'eco'
               ? '#c08020'
               : '#c45a38'}
@@ -211,8 +211,8 @@
   }
 
   .timeline-event--ue {
-    --pyramid-fill: #3a6bc4;
-    color: rgba(58, 107, 196, 0.95);
+    --pyramid-fill: #5878b0;
+    color: rgba(72, 96, 150, 0.95);
   }
 
   .timeline-event--eco {

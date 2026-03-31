@@ -48,10 +48,10 @@ export function renderRatioVariationHeatmap(svgEl, p) {
   const color = d3
     .scaleDiverging(
       d3.interpolateRgbBasis([
-        '#ccdec0',
-        '#b4cca0',
-        '#9cba88',
-        '#84a870',
+        '#cad4bc',
+        '#aec49a',
+        '#96b282',
+        '#7ea06a',
         '#d4d0be',
         '#e4c4a8',
         '#d8aa88',
