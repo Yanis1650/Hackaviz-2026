@@ -75,7 +75,7 @@ export function addEuropeChoroplethSourceAndLayers(map, geoData) {
     source: EUROPE_SOURCE_ID,
     filter: HIGHLIGHT_FILTER_NONE,
     paint: {
-      'line-color': '#2a6040',
+      'line-color': '#2a2620',
       'line-width': 2.8,
       'line-opacity': 1
     }

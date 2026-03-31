@@ -392,6 +392,15 @@
     width: 100%;
   }
 
+  /* Pas d’anneau de focus navigateur sur les points (évite un halo teinté sur certains thèmes). */
+  .scatter-svg :global(circle.sc-dot) {
+    outline: none;
+  }
+  .scatter-svg :global(circle.sc-dot:focus),
+  .scatter-svg :global(circle.sc-dot:focus-visible) {
+    outline: none;
+  }
+
   /* Libellé axe Y : texte horizontal puis rotation (évite l’empilement vertical des glyphes). */
   .scatter-svg :global(text.scatter-cap-y) {
     writing-mode: horizontal-tb;

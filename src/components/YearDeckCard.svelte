@@ -6,8 +6,8 @@
   import YearInfoFace from './YearInfoFace.svelte';
   import { getIso3sForScatterRegion } from '../lib/countryRegions.js';
 
-  /** Contour carte (sélection scatter / légende) : jaune chaud sur fond sombre. */
-  const MAP_OUTLINE_HIGHLIGHT = '#2a6040';
+  /** Contour pays (sélection scatter / légende) — neutre, aligné sur le trait des points du scatter. */
+  const MAP_OUTLINE_HIGHLIGHT = '#2a2620';
 
   let {
     year,
