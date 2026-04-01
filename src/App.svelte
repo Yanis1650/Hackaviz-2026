@@ -3,6 +3,8 @@
    * Racine — données, année, carrousel horizontal (aligné sur le slider) + timeline.
    */
   import { onMount } from 'svelte';
+  import { fly } from 'svelte/transition';
+  import { cubicOut } from 'svelte/easing';
   import { createStatsStore } from './lib/statsStore.js';
   import { createRatioScale } from './lib/scales.js';
   import CardCarousel from './components/CardCarousel.svelte';
@@ -143,9 +145,23 @@
             <ChapterFlash transition={flashData.transition} ondone={onFlashDone} />
           {/if}
         {/key}
+        <div class="actualites-side-anchor" aria-hidden={flashData != null}>
+          {#if !flashData}
+            <button
+              type="button"
+              class="actualites-side-tab"
+              in:fly={{ x: 52, duration: 300, easing: cubicOut }}
+              out:fly={{ x: 52, duration: 220, easing: cubicOut }}
+              onclick={ouvrirActualitesChapitre}
+              title="Voir les actualités et citations presse du chapitre"
+            >
+              Actualités
+            </button>
+          {/if}
+        </div>
       </div>
       <div class="timeline-zone" bind:clientHeight={timelineZoneH}>
-        <Timeline bind:year onOpenActualites={ouvrirActualitesChapitre} />
+        <Timeline bind:year />
       </div>
     </div>
   {/if}
@@ -179,6 +195,63 @@
     overflow: hidden;
     position: relative;
     width: 100%;
+  }
+
+  /* Conteneur : centrage vertical sans casser le transform du fly sur le bouton. */
+  .actualites-side-anchor {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    z-index: 25;
+    pointer-events: none;
+  }
+
+  /* Onglet vertical sur le bord droit : libellé de haut en bas, panneau chapitre fermé. */
+  .actualites-side-tab {
+    position: relative;
+    margin: 0;
+    pointer-events: auto;
+    padding: 0.75rem 0.42rem;
+    border: 1px solid rgba(42, 96, 64, 0.32);
+    border-right: none;
+    border-radius: 10px 0 0 10px;
+    background: rgba(253, 251, 247, 0.94);
+    color: var(--slider-year-color, #2a6040);
+    font: inherit;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: -4px 2px 14px rgba(0, 0, 0, 0.08);
+    transition:
+      background 0.15s ease,
+      border-color 0.15s ease,
+      color 0.15s ease;
+  }
+
+  .actualites-side-tab:hover {
+    background: rgba(42, 96, 64, 0.1);
+    border-color: rgba(42, 96, 64, 0.45);
+    color: #1f4a32;
+  }
+
+  .actualites-side-tab:focus-visible {
+    outline: 2px solid var(--slider-year-color, #2a6040);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 520px) {
+    .actualites-side-tab {
+      font-size: 0.58rem;
+      padding: 0.62rem 0.35rem;
+      letter-spacing: 0.16em;
+    }
   }
 
   .timeline-zone {

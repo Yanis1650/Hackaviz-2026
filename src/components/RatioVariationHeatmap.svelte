@@ -22,26 +22,21 @@
   const TIP_OFF_BELOW = 14;
   /** Largeur estimée du tooltip pour rester dans la zone (évite le clip aux bords). */
   const TIP_EST_W = 200;
-  const TIP_EST_H = 200;
+  const TIP_EST_H = 248;
 
   let rootEl = $state(/** @type {HTMLDivElement | null} */ (null));
   let plotStackEl = $state(/** @type {HTMLDivElement | null} */ (null));
   let svgEl;
   let containerW = $state(260);
 
-  /** @type {{ show: boolean, x: number, y: number, d: { iso3: string, year: number, variation: number|null, ratio: number|null, def_pib: number|null, soc_pib: number|null, code2: string } | null }} */
+  /** @type {{ show: boolean, x: number, y: number, d: { iso3: string, year: number, variation: number|null, ratio: number|null, def_pib: number|null, soc_pib: number|null, def_pc: number|null, soc_pc: number|null, code2: string } | null }} */
   let hmTip = $state({ show: false, x: 0, y: 0, d: null });
 
   const matrix = $derived(statsStore ? statsStore.getRatioVariationMatrix() : null);
 
-  const ratioFmt = new Intl.NumberFormat('fr-FR', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 4
-  });
-  const pctVs2002Fmt = new Intl.NumberFormat('fr-FR', {
-    signDisplay: 'exceptZero',
-    maximumFractionDigits: 1,
-    minimumFractionDigits: 1
+  const eurPcFmt = new Intl.NumberFormat('fr-FR', {
+    maximumFractionDigits: 0,
+    minimumFractionDigits: 0
   });
   const pibFmt = new Intl.NumberFormat('fr-FR', {
     minimumFractionDigits: 1,
@@ -180,26 +175,27 @@
       >
         <div class="hm-tooltip__title">{nom} · {code2}</div>
         <div class="hm-tooltip__meta">{d.year}</div>
-        {#if d.def_pib != null && Number.isFinite(d.def_pib)}
+        {#if d.def_pc != null && Number.isFinite(d.def_pc)}
           <div class="hm-tooltip__metric hm-tooltip__metric--defense">
-            Défense {pibFmt.format(d.def_pib)} % PIB
+            Dépense défense : {eurPcFmt.format(d.def_pc)} €/hab.
+          </div>
+        {/if}
+        {#if d.soc_pc != null && Number.isFinite(d.soc_pc)}
+          <div class="hm-tooltip__metric hm-tooltip__metric--social">
+            Dépense sociale : {eurPcFmt.format(d.soc_pc)} €/hab.
+          </div>
+        {/if}
+        {#if d.def_pib != null && Number.isFinite(d.def_pib)}
+          <div class="hm-tooltip__secondary hm-tooltip__secondary--pib">
+            Part défense : {pibFmt.format(d.def_pib)} % du PIB
           </div>
         {/if}
         {#if d.soc_pib != null && Number.isFinite(d.soc_pib)}
-          <div class="hm-tooltip__metric hm-tooltip__metric--social">
-            Social {pibFmt.format(d.soc_pib)} % PIB
+          <div class="hm-tooltip__secondary hm-tooltip__secondary--pib">
+            Part sociale : {pibFmt.format(d.soc_pib)} % du PIB
           </div>
         {/if}
-        {#if d.ratio != null && Number.isFinite(d.ratio)}
-          <div class="hm-tooltip__secondary">
-            Ratio défense / social (€/hab.) : {ratioFmt.format(d.ratio)}
-          </div>
-          {#if d.variation != null && Number.isFinite(d.variation)}
-            <div class="hm-tooltip__secondary">
-              Variation vs 2002 : {pctVs2002Fmt.format(d.variation * 100)} %
-            </div>
-          {/if}
-        {:else if d.def_pib == null && d.soc_pib == null}
+        {#if (d.def_pib == null || !Number.isFinite(d.def_pib)) && (d.soc_pib == null || !Number.isFinite(d.soc_pib)) && (d.def_pc == null || !Number.isFinite(d.def_pc)) && (d.soc_pc == null || !Number.isFinite(d.soc_pc))}
           <div class="hm-tooltip__line hm-tooltip__line--muted">Donnée indisponible</div>
         {/if}
         {#if evLab}

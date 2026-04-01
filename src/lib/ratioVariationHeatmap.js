@@ -12,14 +12,14 @@ const MISSING_FILL = 'rgba(138, 130, 120, 0.45)';
 const HM_EV_LINE = '#5a5040';
 
 /**
- * @typedef {{ iso3: string, year: number, variation: number|null, ratio: number|null, def_pib: number|null, soc_pib: number|null, code2: string }} HeatmapCellDatum
+ * @typedef {{ iso3: string, year: number, variation: number|null, ratio: number|null, def_pib: number|null, soc_pib: number|null, def_pc: number|null, soc_pc: number|null, code2: string }} HeatmapCellDatum
  */
 
 /**
  * @param {SVGSVGElement} svgEl
  * @param {object} p
  * @param {number} p.width
- * @param {{ years: number[], countries: string[], cells: Array<{ iso3: string, year: number, variation: number|null, ratio: number|null, def_pib?: number|null, soc_pib?: number|null, code2?: string }>, maxAbs: number }} p.matrix
+ * @param {{ years: number[], countries: string[], cells: Array<{ iso3: string, year: number, variation: number|null, ratio: number|null, def_pib?: number|null, soc_pib?: number|null, def_pc?: number|null, soc_pc?: number|null, code2?: string }>, maxAbs: number }} p.matrix
  * @param {boolean} [p.compact]
  * @param {number} [p.activeYear] — colonne surlignée (année timeline / slide).
  * @param {string|null|undefined} [p.highlightedIso3] — ligne pays (ex. clic carte).

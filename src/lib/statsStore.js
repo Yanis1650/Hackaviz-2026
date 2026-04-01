@@ -236,8 +236,9 @@ export function createStatsStore(statsData) {
   }
 
   /**
-   * Matrice heatmap : variation (ratio_annee / ratio_2002) - 1, ratio courant def_pc/soc_pc.
-   * @returns {{ years: number[], countries: string[], cells: Array<{ iso3: string, year: number, variation: number|null, ratio: number|null, def_pib: number|null, soc_pib: number|null, code2: string }>, maxAbs: number }}
+   * Matrice heatmap : variation (ratio_annee / ratio_2002) - 1, ratio courant def_pc/soc_pc,
+   * + déf_pib/soc_pib et def_pc/soc_pc pour tooltips (valeurs de l’année affichée).
+   * @returns {{ years: number[], countries: string[], cells: Array<{ iso3: string, year: number, variation: number|null, ratio: number|null, def_pib: number|null, soc_pib: number|null, def_pc: number|null, soc_pc: number|null, code2: string }>, maxAbs: number }}
    */
   function getRatioVariationMatrix() {
     const years = Object.keys(statsData)
@@ -251,7 +252,7 @@ export function createStatsStore(statsData) {
     const ratio2002 = new Map(
       countries.map((iso) => [iso, ratioDefenseSurSocial(base[iso])])
     );
-    /** @type {Array<{ iso3: string, year: number, variation: number|null, ratio: number|null, def_pib: number|null, soc_pib: number|null, code2: string }>} */
+    /** @type {Array<{ iso3: string, year: number, variation: number|null, ratio: number|null, def_pib: number|null, soc_pib: number|null, def_pc: number|null, soc_pc: number|null, code2: string }>} */
     const cells = [];
     let maxAbs = 0;
     for (const yr of years) {
@@ -267,6 +268,8 @@ export function createStatsStore(statsData) {
         }
         const defP = row?.def_pib;
         const socP = row?.soc_pib;
+        const defPc = row?.def_pc;
+        const socPc = row?.soc_pc;
         cells.push({
           iso3: iso,
           year: yr,
@@ -274,6 +277,8 @@ export function createStatsStore(statsData) {
           ratio: ry,
           def_pib: nombreValide(defP) ? defP : null,
           soc_pib: nombreValide(socP) ? socP : null,
+          def_pc: nombreValide(defPc) ? defPc : null,
+          soc_pc: nombreValide(socPc) ? socPc : null,
           code2: iso2FromIso3(iso)
         });
       }
