@@ -22,8 +22,26 @@
     ondone?.();
   }
 
+  function planifierFermeture(/** @type {number} */ delaiMs = DURATION_MS) {
+    if (timer != null) clearTimeout(timer);
+    timer = setTimeout(fermer, delaiMs);
+  }
+
+  /** Survol du panneau : on annule l’auto-fermeture pour laisser lire tranquillement. */
+  function surPanneauEntrer() {
+    if (timer != null) {
+      clearTimeout(timer);
+      timer = null;
+    }
+  }
+
+  /** Sortie du panneau : on relance le délai avant fermeture. */
+  function surPanneauSortir() {
+    planifierFermeture(DURATION_MS);
+  }
+
   onMount(() => {
-    timer = setTimeout(fermer, DURATION_MS);
+    planifierFermeture(DURATION_MS);
     /** @param {KeyboardEvent} e */
     function onKey(e) {
       if (e.key === 'Escape') fermer();
@@ -44,7 +62,14 @@
   aria-describedby="chapter-flash-desc"
 >
   <div class="chapter-flash__spacer" aria-hidden="true"></div>
-  <div class="chapter-flash__modal" aria-live="polite">
+  <div
+    class="chapter-flash__modal"
+    role="region"
+    aria-label="Actualités et citations du chapitre"
+    aria-live="polite"
+    onpointerenter={surPanneauEntrer}
+    onpointerleave={surPanneauSortir}
+  >
     <p id="chapter-flash-title" class="chapter-flash__chapitre">{transition.chapitreLigne}</p>
     <h2 class="chapter-flash__chapeau">{transition.chapeau}</h2>
     <p id="chapter-flash-desc" class="chapter-flash__corps">{transition.corps}</p>
