@@ -7,10 +7,11 @@ import { updateScatterAxisCaptions } from './macroScatterCaptions.js';
 import { updateNatoReferenceLine } from './macroScatterNato.js';
 import { formatPctAxisX, formatPctAxisY } from './scatterPibFormat.js';
 
-export const SCATTER_MARGIN = { top: 10, right: 6, bottom: 36, left: 54 };
-export const SCATTER_MARGIN_EMBED = { top: 16, right: 4, bottom: 34, left: 56 };
-export const SCATTER_SVG_H = 200;
-export const SCATTER_SVG_H_EMBED = 228;
+export const SCATTER_MARGIN = { top: 18, right: 6, bottom: 36, left: 54 };
+export const SCATTER_MARGIN_EMBED = { top: 22, right: 4, bottom: 34, left: 56 };
+export const SCATTER_SVG_H = 208;
+/** Hauteur embarquée : marge haute suffisante pour le libellé « 2 % OTAN » au-dessus du tracé. */
+export const SCATTER_SVG_H_EMBED = 252;
 
 const GRID_STROKE = 'rgba(26, 26, 20, 0.08)';
 const AXIS_TEXT = '#5a5648';

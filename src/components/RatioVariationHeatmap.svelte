@@ -16,8 +16,13 @@
     countryNames = null
   } = $props();
 
-  /** Décalage tooltip : au-dessus du curseur pour ne pas masquer les cellules du bas ni les données du haut. */
-  const TIP_OFFSET = { x: 16, y: -60 };
+  const TIP_PAD = 6;
+  const TIP_OFF_X = 16;
+  const TIP_OFF_ABOVE = -58;
+  const TIP_OFF_BELOW = 14;
+  /** Largeur estimée du tooltip pour rester dans la zone (évite le clip aux bords). */
+  const TIP_EST_W = 200;
+  const TIP_EST_H = 200;
 
   let rootEl = $state(/** @type {HTMLDivElement | null} */ (null));
   let plotStackEl = $state(/** @type {HTMLDivElement | null} */ (null));
@@ -58,6 +63,26 @@
     };
   }
 
+  /**
+   * Position du tooltip en coords locales à `.heatmap-plot-stack` : au-dessus du pointeur par défaut,
+   * bascule sous le curseur si pas assez de place en haut ; clamp horizontal.
+   */
+  function tooltipPosInStack(/** @type {number} */ lx, /** @type {number} */ ly) {
+    const el = plotStackEl;
+    const w = el ? el.clientWidth : 320;
+    const h = el ? el.clientHeight : 240;
+    let x = lx + TIP_OFF_X;
+    let y = ly + TIP_OFF_ABOVE;
+    if (y < TIP_PAD) y = ly + TIP_OFF_BELOW;
+    const maxX = Math.max(TIP_PAD, w - TIP_EST_W - TIP_PAD);
+    if (x > maxX) x = maxX;
+    if (x < TIP_PAD) x = TIP_PAD;
+    const maxY = Math.max(TIP_PAD, h - TIP_EST_H - TIP_PAD);
+    if (y > maxY) y = maxY;
+    if (y < TIP_PAD) y = TIP_PAD;
+    return { x, y };
+  }
+
   onMount(() => {
     if (!rootEl) return () => {};
     const ro = new ResizeObserver((entries) => {
@@ -80,19 +105,21 @@
       onHeatmapTooltip: {
         show: (ev, d) => {
           const loc = pointerInStack(ev.clientX, ev.clientY);
+          const p = tooltipPosInStack(loc.x, loc.y);
           hmTip = {
             show: true,
-            x: loc.x + TIP_OFFSET.x,
-            y: loc.y + TIP_OFFSET.y,
+            x: p.x,
+            y: p.y,
             d
           };
         },
         move: (ev, d) => {
           const loc = pointerInStack(ev.clientX, ev.clientY);
+          const p = tooltipPosInStack(loc.x, loc.y);
           hmTip = {
             show: true,
-            x: loc.x + TIP_OFFSET.x,
-            y: loc.y + TIP_OFFSET.y,
+            x: p.x,
+            y: p.y,
             d
           };
         },
@@ -111,11 +138,6 @@
       <p class="heatmap-action-hint">Survolez une cellule pour les détails</p>
     {/if}
   </div>
-  <p class="heatmap-legend-line">
-    <span class="leg leg--down">Baisse du ratio</span>
-    <span class="leg leg--mid">Stable</span>
-    <span class="leg leg--up">Hausse</span>
-  </p>
   {#if !compact}
     <p class="heatmap-events" aria-hidden="true">
       Même repères que la timeline :
@@ -124,6 +146,23 @@
       {/each}
     </p>
   {/if}
+  <div class="heatmap-legend">
+    <span class="hl-title">Comment lire</span>
+    <div class="hl-items">
+      <div class="hl-item">
+        <div class="hl-swatch" style="background: #9cba88"></div>
+        <span>Part sociale augmente vs 2002</span>
+      </div>
+      <div class="hl-item">
+        <div class="hl-swatch" style="background: #d4d0be"></div>
+        <span>Stable</span>
+      </div>
+      <div class="hl-item">
+        <div class="hl-swatch" style="background: #cc9068"></div>
+        <span>Part défense augmente</span>
+      </div>
+    </div>
+  </div>
   <div class="heatmap-plot-stack" bind:this={plotStackEl}>
     <div id="heatmap-container" class="heatmap-container" bind:this={rootEl}>
       <svg bind:this={svgEl} class="heatmap-svg" aria-label="Heatmap variation ratio par pays et année"></svg>
@@ -169,6 +208,10 @@
       </div>
     {/if}
   </div>
+  <div class="heatmap-callout">
+    La majorité des pays réduit leur ratio défense/social jusqu'en 2014. Après la Crimée, le basculement est
+    visible pour les Baltes et l'Europe de l'Est.
+  </div>
   <p class="heatmap-hint-footer">
     {compact ? 'Survol pour détails' : 'Survolez pour explorer les pays et les années'}
   </p>
@@ -179,6 +222,8 @@
     flex: 0 1 auto;
     width: 100%;
     min-height: 0;
+    position: relative;
+    z-index: 0;
   }
 
   .heatmap-heading-row {
@@ -206,13 +251,27 @@
   }
 
   .heatmap-wrap--compact .section-heading {
-    font-size: 0.65rem;
-    margin-bottom: 0.08rem;
+    font-size: 0.78rem;
+    margin-bottom: 0.1rem;
   }
 
-  .heatmap-wrap--compact .heatmap-legend-line {
-    margin-bottom: 0.12rem;
-    font-size: 0.62rem;
+  .heatmap-wrap--compact .heatmap-legend {
+    padding: 7px 10px;
+    margin-bottom: 7px;
+    gap: 10px;
+  }
+
+  .heatmap-wrap--compact .hl-title {
+    font-size: 11px;
+  }
+
+  .heatmap-wrap--compact .hl-item {
+    font-size: 11px;
+  }
+
+  .heatmap-wrap--compact .hl-swatch {
+    width: 16px;
+    height: 11px;
   }
 
   .heatmap-wrap--compact .heatmap-container {
@@ -224,49 +283,72 @@
     margin-top: 0.12rem;
   }
 
+  .heatmap-wrap--compact .heatmap-callout {
+    font-size: 12px;
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  .heatmap-wrap--compact .heatmap-events {
+    font-size: 10px;
+    margin-bottom: 0.42rem;
+  }
+
   .section-heading {
     margin: 0 0 0.15rem;
-    font-size: 0.72rem;
+    font-size: 0.82rem;
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-text-label, var(--color-text-muted));
   }
 
-  .heatmap-legend-line {
-    margin: 0 0 0.5rem;
+  .heatmap-legend {
+    position: relative;
+    z-index: 0;
+    background: #e8e4da;
+    border-radius: 5px;
+    padding: 6px 10px;
+    margin-bottom: 8px;
     display: flex;
+    align-items: center;
+    gap: 12px;
     flex-wrap: wrap;
-    gap: 0.35rem 0.6rem;
-    font-size: 0.69rem;
-    color: var(--color-text-muted);
   }
 
-  .leg::before {
-    content: '';
-    display: inline-block;
-    width: 0.65rem;
-    height: 0.45rem;
-    margin-right: 0.2rem;
-    vertical-align: middle;
+  .hl-title {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #3a3028;
+    white-space: nowrap;
+  }
+
+  .hl-items {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hl-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: #5a5040;
+  }
+
+  .hl-swatch {
+    width: 16px;
+    height: 11px;
     border-radius: 2px;
-  }
-
-  .leg--down::before {
-    background: var(--hm-low-4, #7ea06a);
-  }
-
-  .leg--mid::before {
-    background: var(--hm-mid, #1e2218);
-  }
-
-  .leg--up::before {
-    background: var(--hm-high-4, #be7648);
+    flex-shrink: 0;
   }
 
   .heatmap-events {
     margin: 0 0 0.5rem;
-    font-size: 9px;
+    font-size: 10px;
     line-height: 1.45;
     color: var(--hm-marker-label, #3a3028);
     opacity: 0.95;
@@ -280,9 +362,11 @@
 
   .heatmap-plot-stack {
     position: relative;
+    z-index: 2;
     width: 100%;
     min-height: 0;
-    overflow: hidden;
+    /* Visible : le tooltip au-dessus de la 1re ligne ne doit pas être rogné. */
+    overflow: visible;
     border-radius: 6px;
     background: var(--bg-elevated, #e0ddd4);
   }
@@ -292,6 +376,7 @@
     min-height: 0;
     overflow-x: auto;
     overflow-y: hidden;
+    border-radius: 6px;
   }
 
   .heatmap-svg {
@@ -308,9 +393,20 @@
     opacity: 0.88;
   }
 
+  .heatmap-callout {
+    font-size: 12px;
+    font-style: italic;
+    color: #5a5040;
+    border-left: 2px solid #c45a38;
+    padding-left: 8px;
+    margin-top: 6px;
+    border-radius: 0;
+    line-height: 1.5;
+  }
+
   .hm-tooltip {
     position: absolute;
-    z-index: 8;
+    z-index: 30;
     max-width: min(17rem, 92vw);
     padding: 0.62rem 0.75rem;
     font-size: 0.76rem;

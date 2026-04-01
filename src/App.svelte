@@ -32,6 +32,16 @@
     flashData = null;
   }
 
+  /** Rouvre le panneau « actualités » (presse) du chapitre pour l’année affichée. */
+  function ouvrirActualitesChapitre() {
+    const p = obtenirPeriode(year);
+    const entry = NARRATION.find((x) => x.id === p.id);
+    if (entry?.transitionFlash) {
+      flashNonce += 1;
+      flashData = { transition: entry.transitionFlash };
+    }
+  }
+
   $effect(() => {
     const y = year;
     if (prevYearPress === null) {
@@ -135,7 +145,7 @@
         {/key}
       </div>
       <div class="timeline-zone" bind:clientHeight={timelineZoneH}>
-        <Timeline bind:year />
+        <Timeline bind:year onOpenActualites={ouvrirActualitesChapitre} />
       </div>
     </div>
   {/if}

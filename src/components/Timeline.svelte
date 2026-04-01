@@ -6,7 +6,8 @@
   import { NARRATION, obtenirPeriode } from '../lib/narration.js';
   import { metricMode, basculerMetrique } from '../lib/metricMode.js';
 
-  let { year = $bindable(2002) } = $props();
+  /** Ouvre le panneau latéral citations presse du chapitre courant. */
+  let { year = $bindable(2002), onOpenActualites = undefined } = $props();
 
   const GLOBAL_MIN = 2002;
   const GLOBAL_MAX = 2024;
@@ -19,6 +20,16 @@
   <div class="status-col" aria-live="polite">
     <span class="status-year">{year}</span>
     <span class="status-era">{periode.titreCourt}</span>
+    {#if onOpenActualites}
+      <button
+        type="button"
+        class="actualites-btn"
+        onclick={() => onOpenActualites?.()}
+        title="Voir les actualités et citations presse du chapitre"
+      >
+        Actualités
+      </button>
+    {/if}
   </div>
 
   <div class="nav-col">
@@ -93,6 +104,39 @@
     line-height: 1.15;
     max-width: 6.5rem;
     opacity: 0.95;
+  }
+
+  .actualites-btn {
+    margin: 0.18rem 0 0;
+    padding: 0.22rem 0.5rem;
+    min-height: 26px;
+    box-sizing: border-box;
+    border: 1px solid rgba(42, 96, 64, 0.28);
+    border-radius: 999px;
+    background: rgba(42, 96, 64, 0.06);
+    color: var(--slider-year-color, #2a6040);
+    font: inherit;
+    font-size: 0.52rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    line-height: 1.1;
+    transition:
+      background 0.15s ease,
+      border-color 0.15s ease,
+      color 0.15s ease;
+  }
+
+  .actualites-btn:hover {
+    background: rgba(42, 96, 64, 0.11);
+    border-color: rgba(42, 96, 64, 0.4);
+    color: #1f4a32;
+  }
+
+  .actualites-btn:focus-visible {
+    outline: 2px solid var(--slider-year-color, #2a6040);
+    outline-offset: 2px;
   }
 
   .nav-col {
@@ -170,10 +214,15 @@
     .status-col {
       flex-direction: row;
       align-items: baseline;
+      flex-wrap: wrap;
       gap: 0.35rem;
       width: auto;
       justify-content: flex-start;
       min-width: 0;
+    }
+
+    .actualites-btn {
+      margin: 0;
     }
 
     .status-era {

@@ -1,9 +1,10 @@
 <script>
   /**
-   * Face carte — SVG D3, légende bas-gauche, tooltip pays.
+   * Face carte — titre narratif, carte, légende bas-gauche, tooltip pays.
    */
   import MapLibreEuropeMap from './MapLibreEuropeMap.svelte';
   import { logMapHover } from '../lib/mapHoverDebug.js';
+  import { obtenirPeriode, titreNarrationPourAnnee } from '../lib/narration.js';
 
   let {
     year,
@@ -72,9 +73,26 @@
       tooltip.show = false;
     }
   });
+
+  const periode = $derived(obtenirPeriode(year));
+  const titreVue = $derived(titreNarrationPourAnnee(year));
+
+  /** Titre éditorial : thème en serif noir, « · année » en terracotta (comme la une maquette). */
+  const titreEditorial = $derived.by(() => {
+    const t = titreVue;
+    const idx = t.lastIndexOf(' · ');
+    if (idx === -1) return { theme: t, accent: null };
+    return { theme: t.slice(0, idx), accent: t.slice(idx) };
+  });
 </script>
 
 <div class="map-face-inner" class:map-face-inner--embedded={embedded}>
+  <div class="map-narration">
+    <h3 class="map-narration__title">
+      {titreEditorial.theme}{#if titreEditorial.accent}<span class="map-narration__title-accent">{titreEditorial.accent}</span>{/if}
+    </h3>
+    <p class="map-narration__text">{periode.texte}</p>
+  </div>
   <div class="map-face-stack" bind:this={mapFaceStackEl}>
     <MapLibreEuropeMap
       {year}
@@ -89,6 +107,10 @@
     />
     <aside class="map-legend" aria-label="Légende de la carte">
       <h3 class="map-legend__title">Légende</h3>
+      <p class="map-legend__hint">
+        Faites glisser le <strong>curseur</strong> sous la vue pour changer d’année. <strong>Cliquez un pays</strong> pour le
+        surligner sur la carte et dans les graphiques à droite.
+      </p>
       <p class="map-legend__line">
         <span class="map-legend__label">Couleur de fond</span> — priorité budgétaire : bleu = social, rouge = défense.
       </p>
@@ -114,8 +136,10 @@
     width: 100%;
     height: 100%;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0.5rem;
     padding: 0.62rem 0.75rem;
     min-width: 0;
     min-height: 0;
@@ -127,10 +151,44 @@
     box-shadow: none;
   }
 
+  .map-narration {
+    flex-shrink: 0;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 0.62rem 0.78rem;
+  }
+
+  .map-narration__title {
+    margin: 0 0 0.42rem;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: clamp(1.05rem, 2.75vw, 1.42rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.18;
+    text-transform: none;
+    color: var(--text-primary, #1a1a14);
+    max-width: 42rem;
+  }
+
+  .map-narration__title-accent {
+    color: var(--color-defense, #c45a38);
+    font-weight: 700;
+  }
+
+  .map-narration__text {
+    margin: 0;
+    font-family: var(--font-main, system-ui, sans-serif);
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: var(--text-secondary, #5a5648);
+    max-width: 40rem;
+  }
+
   .map-face-stack {
     position: relative;
+    flex: 1 1 0;
     width: 100%;
-    height: 100%;
     min-height: 0;
     min-width: 0;
     display: flex;
@@ -147,22 +205,36 @@
     align-self: stretch;
   }
 
-  /* Légende carte — thème clair (priorité lisibilité jury). */
+  /* Légende carte — fond plus transparent pour laisser voir la carte. */
   .map-legend {
     position: absolute;
     left: 0.5rem;
     bottom: 0.45rem;
-    max-width: min(14rem, 92%);
-    padding: 0.62rem 0.75rem;
+    max-width: min(15rem, 92%);
+    padding: 0.52rem 0.65rem;
     border-radius: 6px;
-    background: rgba(245, 243, 238, 0.78);
-    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: rgba(245, 243, 238, 0.48);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     color: #2a2620;
     pointer-events: none;
     z-index: 2;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .map-legend__hint {
+    margin: 0 0 0.38rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+    font-size: 0.65rem;
+    line-height: 1.4;
+    color: rgba(42, 38, 32, 0.88);
+  }
+
+  .map-legend__hint strong {
+    font-weight: 700;
+    color: #2a2620;
   }
 
   .map-legend__title {
@@ -211,11 +283,27 @@
     box-shadow: none;
     background: transparent;
     padding: 0.35rem 0.5rem;
+    gap: 0.4rem;
     flex: 1 1 auto;
     align-self: stretch;
     width: 100%;
     min-width: 0;
     min-height: 0;
     overflow: visible;
+  }
+
+  .map-face-inner--embedded .map-narration {
+    padding: 0.52rem 0.62rem;
+  }
+
+  .map-face-inner--embedded .map-narration__title {
+    font-size: clamp(1.08rem, 2.95vw, 1.52rem);
+    line-height: 1.16;
+    margin-bottom: 0.38rem;
+  }
+
+  .map-face-inner--embedded .map-narration__text {
+    font-size: 0.74rem;
+    line-height: 1.48;
   }
 </style>

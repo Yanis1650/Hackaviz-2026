@@ -40,8 +40,9 @@ export function updateNatoReferenceLine(root, xScale, innerH) {
   }
   txt
     .attr('x', xi)
-    .attr('y', -3)
+    .attr('y', 2)
     .attr('text-anchor', 'middle')
+    .attr('dominant-baseline', 'hanging')
     .attr('fill', stroke)
     .attr('font-size', fs)
     .attr('font-weight', '600')

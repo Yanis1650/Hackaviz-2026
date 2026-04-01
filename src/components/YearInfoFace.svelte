@@ -1,11 +1,10 @@
 <script>
   /**
-   * Face infos — titre / KPIs / phrase ratio, heatmap, scatter (année via timeline).
+   * Face infos — KPIs, heatmap, scatter (année via timeline).
    */
   import { onMount } from 'svelte';
   import { fly, fade } from 'svelte/transition';
   import { cubicOut } from 'svelte/easing';
-  import { obtenirPeriode, titreNarrationPourAnnee } from '../lib/narration.js';
   import MacroScatterChart from './MacroScatterChart.svelte';
   import RatioVariationHeatmap from './RatioVariationHeatmap.svelte';
   import KpiTweenedValue from './KpiTweenedValue.svelte';
@@ -59,21 +58,7 @@
     });
   });
 
-  const periode = $derived(obtenirPeriode(year));
-  const titreVue = $derived(titreNarrationPourAnnee(year));
   const kpi = $derived(statsStore.getUeTotalsForMode(year, mode));
-
-  /** Phrase ratio agrégé UE (social / défense). */
-  const kpiRatioPhrase = $derived.by(() => {
-    const def = kpi.mode === 'pib_pct' ? kpi.defensePct : kpi.defenseMd;
-    const soc = kpi.mode === 'pib_pct' ? kpi.socialPct : kpi.socialMd;
-    if (def == null || def < 1e-4) {
-      return 'Ratio agrégé indisponible (défense UE quasi nulle).';
-    }
-    const mult = soc / def;
-    const nStr = mult < 10 ? mult.toFixed(1) : String(Math.round(mult));
-    return `À l’échelle UE, la protection sociale totalise environ ${nStr}× la défense cette année.`;
-  });
 
   const defNumeric = $derived(kpi.mode === 'pib_pct' ? kpi.defensePct : kpi.defenseMd);
   const socNumeric = $derived(kpi.mode === 'pib_pct' ? kpi.socialPct : kpi.socialMd);
@@ -97,11 +82,6 @@
   class="info-face-card"
   class:info-face-card--embedded={embedded}
 >
-  <div class="narration" style:--narration-accent={periode.accent}>
-    <h3 class="narration-title">{titreVue}</h3>
-    <p class="narration-text">{periode.texte}</p>
-  </div>
-
   {#key staggerGen}
     <div
       id="kpi-container"
@@ -130,8 +110,6 @@
       </div>
     </div>
   {/key}
-
-  <p class="kpi-narrative">{kpiRatioPhrase}</p>
 
   {#key staggerGen}
     <div class="fresque-frame" in:fade={fadeStagger(280)}>
@@ -181,31 +159,6 @@
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
   }
 
-  .narration {
-    background: transparent;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    padding: 0.62rem 0.75rem;
-    flex-shrink: 0;
-  }
-
-  .narration-title {
-    margin: 0 0 0.38rem;
-    font-size: clamp(0.88rem, 2.4vw, 0.95rem);
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    line-height: 1.25;
-    text-transform: uppercase;
-    color: var(--narration-accent, var(--color-text-data, #1a1a14));
-  }
-
-  .narration-text {
-    margin: 0;
-    font-size: 0.8rem;
-    line-height: 1.55;
-    color: var(--color-text);
-  }
-
   .kpi-container {
     display: flex;
     flex-direction: row;
@@ -246,6 +199,8 @@
     border: 1px solid var(--color-border);
     background: transparent;
     box-shadow: none;
+    /* Laisser dépasser le tooltip heatmap (évite le clip sous la légende / bords). */
+    overflow: visible;
   }
 
   .info-face-card--embedded .fresque-frame {
@@ -272,14 +227,6 @@
 
   .kpi--social :global(.kpi-value) {
     color: var(--color-social);
-  }
-
-  .kpi-narrative {
-    margin: 0;
-    font-size: 0.72rem;
-    line-height: 1.45;
-    color: var(--color-text-muted);
-    flex-shrink: 0;
   }
 
   .insight-stack {
@@ -350,15 +297,6 @@
     overflow: hidden;
   }
 
-  .info-face-card--embedded .narration {
-    padding: 0.55rem 0.7rem;
-  }
-
-  .info-face-card--embedded .narration-text {
-    font-size: 0.76rem;
-    line-height: 1.45;
-  }
-
   .info-face-card--embedded .kpi-container {
     gap: 0.35rem 0.5rem;
   }
@@ -367,8 +305,4 @@
     padding: 0.5rem 0.62rem;
   }
 
-  .info-face-card--embedded .kpi-narrative {
-    font-size: 0.68rem;
-    line-height: 1.35;
-  }
 </style>

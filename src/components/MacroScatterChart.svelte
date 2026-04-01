@@ -272,7 +272,7 @@
   .scatter-embed-body {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 0.62rem;
     flex: 1 1 0;
     min-height: 0;
@@ -284,6 +284,8 @@
     flex: 1 1 0;
     min-width: 0;
     min-height: 0;
+    display: flex;
+    flex-direction: column;
   }
 
   .scatter-wrap--overlay {
@@ -311,7 +313,7 @@
 
   .scatter-title {
     display: block;
-    margin-bottom: 0.12rem;
+    margin-bottom: 0.28rem;
     padding-left: 1px;
     font-size: 0.68rem;
     font-weight: 600;
