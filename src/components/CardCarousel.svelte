@@ -1,7 +1,7 @@
 <script>
   /**
-   * Piste horizontale : années 2024→2002 dans le DOM pour que, en avançant le slider (temps +),
-   * la piste se décale vers la droite (la vue « arrive » par la gauche).
+   * Piste horizontale : années 2002→2024 dans le DOM — en avançant le slider (temps +),
+   * la piste se décale vers la gauche (la vue « arrive » par la droite).
    */
   import { onMount } from 'svelte';
   import YearSlideCard from './YearSlideCard.svelte';
@@ -33,11 +33,11 @@
     { length: MAX_YEAR - MIN_YEAR + 1 },
     (_, i) => MIN_YEAR + i
   );
-  /** Ordre gauche→droite : années récentes d’abord (inverse du slider temporel visuel). */
-  const YEARS_TRACK = [...YEARS_ASC].reverse();
+  /** Ordre gauche→droite : du passé au présent (même sens que le slider). */
+  const YEARS_TRACK = YEARS_ASC;
 
   const slideIndex = $derived(
-    Math.max(0, Math.min(YEARS_TRACK.length - 1, MAX_YEAR - year))
+    Math.max(0, Math.min(YEARS_TRACK.length - 1, year - MIN_YEAR))
   );
 
   const offsetX = $derived(slideWidthPx > 0 ? slideIndex * slideWidthPx : 0);
