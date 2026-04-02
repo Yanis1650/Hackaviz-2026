@@ -1,109 +1,86 @@
-# Hackaviz-2026
-# Introduction
-L'Hackackiz 2026 parle des **budgets des états européens**. Afin de pouvoir comparer les budgets de ces différents états, ces derniers sont organisés selon une classification comptable, la [COFOG](https://en.wikipedia.org/wiki/Classification_of_the_Functions_of_Government) (Classification Of the Fonctions Of Government) qui ventile les dépenses des administrations publiques selon les objectifs des fonds. Cette classification créée en 1993, révisée en 1999 est issue de l'[OCDE](https://fr.wikipedia.org/wiki/Organisation_de_coop%C3%A9ration_et_de_d%C3%A9veloppement_%C3%A9conomiques) (Organisation de coopération et de développement économique).
+# Hackaviz 2026 — Bascule géopolitique européenne
 
-L'objectif de ces dépenses étant en premier lieu le **bien-être des populations**, nous avons aussi regroupé une liste de critères par pays qui, ensemble, visent à quantifier le bien-être subjectif des individus. 
+Application web de **dataviz** sur les dépenses publiques européennes (COFOG) : part **défense** vs **protection sociale**, dans le temps et par pays. Le parcours combine carte (MapLibre), graphiques (D3), carrousel d’années, timeline d’événements et flashes narratifs entre chapitres.
 
-Ces deux jeux de données sont disponibles pour les pays de l'OCDE également membres de la zone euro de 2002 à 2025. Pour ceux qui souhaiteraient aller plus loin, ont été ajouté d'autres variables optionnelles à utiliser ou pas comme : les impôts, la dette ou le produit intérieur brut.
+## Prérequis
 
-# La classification des dépenses
-| Thème | Exemples |
-|:--|:--|
-|  1-Services publiques|  Exécutif, législatif, impôts, recherche, gestion de la dette, ...|
-|  2-Défense|  Défense civile et militaire, aide internationale, ... |
-| 3-Ordre public et sécurité | Police, pompiers, justice, prisons, ... |
-| 4-Affaires économiques |  Agriculture, énergie, constructions, industries, transport, communication, ...|
-|  5-Protection de l'environnement|  Gestion des ordures, épuration de l'eau, pollutions, protection des espèces, ...|
-| 6-Habitat|  Développement, voiries, eau, éclairages, ...|
-| 7-Santé|  Matériels, médicaments, hôpitaux, recherche, ...|
-| 8-Sports, culture et religions| Sports, services public de diffusion, culture, ...  |
-| 9-Education | Ecoles, collèges, lycées, universités, services, ...|
-| 10-Protection sociale | Maladie, vieillesse, famille, chômage, exclusion, ... |
+- **Node.js** 20+ (recommandé 22 pour coller au Dockerfile)
+- **npm** (lockfile présent : `npm ci` en CI / Docker)
 
-[Sources](https://www.oecd.org/fr/publications/panorama-des-administrations-publiques-2025_758a7905-fr/full-report/classification-of-the-functions-of-government-cofog_16aa2337.html)
+Pour régénérer les données côté Python :
 
-Sauf indication contraire, les montants monétaires sont les milliard d'euros.
+- **Python** 3.10+
+- **pandas** et un moteur **Parquet** (ex. `pyarrow`)
 
-Cette classification a le mérite de permettre la comparaison mais présente certains défauts qui peuvent entacher les interprétations : 
- - Ambiguïté de finalité : certaines dépenses contribuent à plusieurs finalités mais ne sont comptabilisées que dans une
- - Ne fait pas de distinction entre le fonctionnement et l'investissement
- - Soumise à l'arbitraire de l'interprétation de chaque pays
+## Démarrage rapide
 
-# Les facettes du bien être
-Bien qu'il soit impossible de chiffrer le bonheur, il est néanmoins possible d'approcher la réalité par un ensemble de critères subjectifs (note entre 0 et 10) et des moyennes nationales (revenu médian, pourcentage de foyer équipé d'internet, ...). Une liste de 60 critères quantitatifs organisés en domaines :  [Source](https://www.oecd.org/fr/data/tools/well-being-data-monitor.html)
+```bash
+npm install
+npm run dev
+```
 
+Ouvre l’URL affichée par Vite (souvent `http://localhost:5173`).
 
-| Domaine | Exemples |
-|:--|:--|
-| Logement | - Ménages vivant dans des logements surpeuplés <br> - Accessibilité financière du logement |
-| Savoirs et compétences | - Adultes ayant de faibles compétences en calcul <br> - Compétences des élèves en compréhension de l’écrit|
-| Revenu et patrimoine | - Patrimoine net médian <br> - Salaire brut annuel moyen |
-| Bien-être subjectif | - Sentiment de solitude <br>  - Satisfaction à l’égard de la vie |
-| Liens sociaux | - Satisfaction à l’égard des relations personnelles inférieure à 5 <br>  - Manque de soutien social |
-| Qualité environnementale | - Accès à des espaces verts <br> - Exposition à la pollution de l’air |
-| Engagement civique | - Participation électorale <br> - Ne pas avoir son mot à dire concernant l’action des pouvoirs publics |
-| Equilibre travail-vie | - Quintile supérieur de la satisfaction à l’égard de l’emploi du temps <br> - Satisfaction au travail |
-| Santé | - Espérance de vie à la naissance <br> - Etat de santé perçu comme bon |
-| Sécurité | - Sentiment d’insécurité la nuit <br> - Homicides |
+| Script        | Rôle                          |
+|---------------|-------------------------------|
+| `npm run dev` | Serveur de dev avec rechargement |
+| `npm run build` | Build de production dans `dist/` |
+| `npm run preview` | Prévisualise le build localement |
 
- Disponibles par pays et par années entre 2004 et 2025
+## Structure du dépôt
 
-# La population (nombre et répartition)
-Afin d'analyser ces données il est nécessaire de disposer de contexte. C'est le rôle de deux fichiers :
- - population 
- - pyramide_age
-   
-par pays x année de 2002 à 2024
+```
+src/
+  App.svelte          # Orchestration année, carrousel, timeline
+  components/         # Cartes, graphiques, chapitres, timeline…
+  lib/                # Logique D3, MapLibre, narration, stores
+  styles/global.css
+public/
+  data/
+    processed_data.json   # Données agrégées consommées par l’app
+    carte.geojson         # Fond géographique
+pipeline/
+  config.py             # Chemins d’entrée / sortie COFOG
+  load.py, transform.py, export.py
+data_prep.py            # Point d’entrée du pipeline
+```
 
-# Contexte supplémentaire
-Pour ne pas limiter les appétits 3 autres variables ont été ajoutées
- - pib (Produit Intérieur Brut)
- - impots 
- - dette
-   
-par pays x années de 2002 à 2024
-   
-# Fichiers additionnels pour cartographie
-Pour aider à la présentation des résultats sous forme de cartes, est mis à disposition une carte au format geojson:
- - carte.geojson
-   
-Rappel du règlement : il est interdit de rajouter des données hormis des fonds de carte.
+## Pipeline de données
 
-# Fichiers et formats
-Les données sont fournies sous deux formats logiques :
- - long : chaque observation est sur plusieurs lignes, une par variable (identifiant, valeur) 
- - large : une observation est sur une ligne, avec autant de variables/valeurs que de colonnes
+Le script assemble les Parquet **dépenses** et **population**, joint le **PIB** (CSV), calcule les métriques et écrit `public/data/processed_data.json`.
 
-Et sous deux formats physique :
- - xls/csv : le désavantage de csv est l'absence de typage des champs
- - parquet
+**Entrées attendues** (voir `pipeline/config.py`) :
 
-Vous avez le choix de la combinaison de formats. **Les 4 répertoires suivants contiennent les mêmes données** mais aux formats indiqués :
- - csv_large
- - xls_large
- - csv_long
- - parquet_long
+- `data/parquet_long/depenses_euro.parquet`
+- `data/parquet_long/population.parquet`
+- `data/csv_long/pib.csv` (séparateur `;`, décimales `,`)
 
-Chacun de ces répertoires contient les fichiers suivants, avec le suffixe correspondant à son format (csv, xls ou parquet)
- - depenses_euro
- - depenses_france
- - bien_etre
----   
- - population
- - pyramide_age
----
- - pib
- - dette
- - impots
+**Sortie :** `public/data/processed_data.json`
 
-# Conseils aux participants de l'édition 2026
+```bash
+python -m pip install pandas pyarrow
+python data_prep.py
+```
 
-Cette édition de l'Hackaviz propose une grande richesse de données dans lesquelles il ne faut pas se perdre. 
-* Il n'est pas obligatoire d'utiliser toutes les données
-* La plupart des fichiers ont 2 dimensions : pays x année voire 3 pour les dépenses : pays x thème x année
-* Il y a beaucoup de fichiers (8) mais cela permet de manière souple d'intégrer ou non une variable
-* ATTENTION : Le fichier **principal** de cet Hackaviz est le fichier **depenses**, le jury jugera de manière défavorable le fait de ne pas du tout l'utiliser
-* Ne perdez pas de temps à examiner toutes les possibilités. Prenez plutôt un angle et creusez-le, quitte à revenir en prendre un autre si besoin.
-* Comme d'habitude relisez le [règlement](https://toulouse-dataviz.fr/hackaviz/reglement/) avant de vous précipiter sur les données
+Ensuite, relancer `npm run dev` ou `npm run build` pour prendre en compte le JSON mis à jour.
 
+## Docker
 
+Image multi-étapes : build Vite + Svelte, puis Nginx pour servir les fichiers statiques.
+
+```bash
+docker compose up --build
+```
+
+L’app est exposée sur **http://127.0.0.1:8080** (voir `docker-compose.yml`).
+
+## Stack technique
+
+- **Svelte 5** + **Vite 6**
+- **D3** (graphiques)
+- **MapLibre GL** (carte choroplèthe / interactions)
+- **Python / pandas** (préparation des données, hors runtime navigateur)
+
+## Licence et crédits
+
+Projet **privé** (`private: true` dans `package.json`). Adapter cette section si vous publiez le dépôt ou une démo (sources des données COFOG, Hackaviz, etc.).
